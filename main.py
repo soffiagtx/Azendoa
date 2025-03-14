@@ -15,9 +15,14 @@ bot = commands.Bot(command_prefix=prefixos, intents=permissoes)
 
 
 async def carregar_cogs():
-    for arquivo in os.listdir('cogs'):
-        if arquivo.endswith('.py'):
-            await bot.load_extension(f"cogs.{arquivo[:-3]}")
+    for arquivo in os.listdir('cogs'):  # Verifica todos os arquivos na pasta 'cogs'
+        if arquivo.endswith('.py'):  # Carrega apenas arquivos .py
+            try:
+                # Tenta carregar a extensão
+                bot.load_extension(f"cogs.{arquivo[:-3]}")  # Remove a extensão '.py' do nome do arquivo
+                print(f"Cog {arquivo} carregado com sucesso!")
+            except Exception as e:
+                print(f"Erro ao carregar {arquivo}: {e}")
 
 
 @bot.event
