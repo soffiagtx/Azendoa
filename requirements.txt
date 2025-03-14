@@ -8,4 +8,4 @@ scipy
 pandas
 torch
 torchvision
-colour
+python-dotenv
