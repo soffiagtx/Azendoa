@@ -1,0 +1,119 @@
+{
+    "animal_emojis": {
+        "\u00c1gua-viva": "<:AguaViva:1335429771986866227>",
+        "Aranha": "<:Aranha:1335429743624978503>",
+        "Caracol": "<:Caracol:1335429804400574464>",
+        "Cobra": "<:Cobra:1335429932591091766>",
+        "Coelho": "<:Coelho:1335429959161876602>",
+        "Drag\u00e3o": "<:Dragao:1335429993064431729>",
+        "Escorpi\u00e3o": "<:Escorpiao:1335430039185133666>",
+        "Estegossauro": "<:Estegossauro:1335430097028517899>",
+        "Galinha": "<:Galinha:1335430124832555089>",
+        "Girafa": "<:Girafa:1335430156289839185>",
+        "Grifo": "<:Grifo:1335430193841438752>",
+        "Ieti": "<:Ieti:1335430223096971315>",
+        "Jacar\u00e9": "<:Jacare:1335430246039687269>",
+        "Morcego": "<:Morcego:1335430277215813696>",
+        "Pav\u00e3o": "<:Pavao:1335430301983178823>",
+        "Piranha": "<:Piranha:1335430330227757126>",
+        "Raposa": "<:Raposa:1335430361248694344>",
+        "Tigre-branco": "<:TigreBranco:1335430382799294484>"
+    },
+    "daily_animals": [
+        "Girafa",
+        "Coelho",
+        "Jacar\u00e9",
+        "Caracol",
+        "Ieti",
+        "Estegossauro",
+        "Raposa",
+        "Grifo",
+        "\u00c1gua-viva",
+        "Cobra",
+        "Morcego",
+        "Drag\u00e3o",
+        "Galinha",
+        "Piranha",
+        "Tigre-branco",
+        "Aranha"
+    ],
+    "last_update": "2025-03-14T09:57:22.519638",
+    "user_animals": {
+        "400318261306195988": {
+            "animals": [
+                "Drag\u00e3o",
+                "Caracol",
+                "Raposa",
+                "Tigre-branco",
+                "Piranha",
+                "Girafa",
+                "Galinha",
+                "Morcego",
+                "Cobra",
+                "Aranha",
+                "Coelho",
+                "Escorpi\u00e3o",
+                "Estegossauro",
+                "Grifo",
+                "Pav\u00e3o",
+                "Jacar\u00e9"
+            ],
+            "time": "2025-03-14T10:02:14.171556"
+        },
+        "1146463263668834304": {
+            "animals": [
+                "Jacar\u00e9",
+                "Tigre-branco",
+                "\u00c1gua-viva",
+                "Ieti",
+                "Caracol",
+                "Piranha",
+                "Pav\u00e3o",
+                "Girafa",
+                "Cobra",
+                "Raposa",
+                "Estegossauro",
+                "Drag\u00e3o",
+                "Coelho",
+                "Escorpi\u00e3o",
+                "Aranha",
+                "Grifo"
+            ],
+            "time": "2025-03-14T10:04:14.343949"
+        }
+    },
+    "daily_result": null,
+    "stats": {
+        "total_palpites": 0,
+        "acertos_principais": 0,
+        "acertos_secundarios": 0,
+        "erros": 0
+    },
+    "historical_results": {
+        "2024-12-20": {
+            "result": "Lobo",
+            "position": "principal",
+            "message": "Acertou! O animal estava entre os principais."
+        },
+        "2024-12-21": {
+            "result": "Ornitorrinco",
+            "position": "principal",
+            "message": "Acertou! O animal estava entre os principais."
+        },
+        "2024-12-22": {
+            "result": "Beija-flor",
+            "position": "principal",
+            "message": "Acertou! O animal estava entre os principais."
+        },
+        "2024-12-23": {
+            "result": "Elefante",
+            "position": "secundario",
+            "message": "Quase! O animal estava entre os secund\u00c3\u00a1rios."
+        },
+        "2024-12-24": {
+            "result": "Elefante",
+            "position": "secundario",
+            "message": "Quase! O animal estava entre os secund\u00e1rios."
+        }
+    }
+}

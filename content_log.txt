@@ -1,0 +1,1634 @@
+Count: 10
+Message ID: 1337113914814500910
+Title: Nenhum embed encontrado.
+Channel: futverse (1304213765100802101)
+Message Content: Conteúdo será salvo. Defina um título:
+Embed data: Nenhum embed encontrado.
+
+Count: 11
+Message ID: 1337113892500934698
+Title: Embed #1
+Channel: futverse (1304213765100802101)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "FutVerse 2024©️"
+    },
+    "image": {
+        "url": "https://media.discordapp.net/attachments/1204489361404461076/1254228741782245416/image.png?ex=67a5f9ca&is=67a4a84a&hm=69b04d42c88feff29dd635cc621716dfe6e95e7dc0b2b6f3b2ed72a8df050a88&format=webp&",
+        "proxy_url": "https://media.discordapp.net/attachments/1204489361404461076/1254228741782245416/image.png?ex=67a5f9ca&is=67a4a84a&hm=69b04d42c88feff29dd635cc621716dfe6e95e7dc0b2b6f3b2ed72a8df050a88&",
+        "width": 800,
+        "height": 100,
+        "flags": 0
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/stsTQxQbCI3sRpjMbQqAfGdhR2Wouv3WKPXFatvcAKc/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png",
+        "width": 1024,
+        " ...
+
+Count: 12
+Message ID: 1337113892500934698
+Title: Embed #1 teste
+Channel: futverse (1304213765100802101)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "FutVerse 2024©️"
+    },
+    "image": {
+        "url": "https://media.discordapp.net/attachments/1204489361404461076/1254228741782245416/image.png?ex=67a5f9ca&is=67a4a84a&hm=69b04d42c88feff29dd635cc621716dfe6e95e7dc0b2b6f3b2ed72a8df050a88&format=webp&",
+        "proxy_url": "https://media.discordapp.net/attachments/1204489361404461076/1254228741782245416/image.png?ex=67a5f9ca&is=67a4a84a&hm=69b04d42c88feff29dd635cc621716dfe6e95e7dc0b2b6f3b2ed72a8df050a88&",
+        "width": 800,
+        "height": 100,
+        "flags": 0
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/stsTQxQbCI3sRpjMbQqAfGdhR2Wouv3WKPXFatvcAKc/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png",
+        "width": 1024,
+        " ...
+
+Count: 13
+Message ID: 1337104559071297578
+Title: Início de jogo
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Primeira imagem em 10 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/10ojik7.gif",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/Bt2OhF1D_aLJW3LcVF0R85H9cBaYvpOJ5iQ_3lzZ8P8/http/ve7s.top/images/tema48/10ojik7.gif",
+        "width": 640,
+        "height": 360,
+        "flags": 0
+    },
+    "author": {
+        "name": "Solicitado por finnbxy",
+        "icon_url": "https://cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/stsTQxQbCI3sRpjMbQqAfGdhR2Wouv3WKPXFatvcAKc/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/ ...
+
+Count: 14
+Message ID: 1337104602331615375
+Title: Imagem de jogo (4 vidas)
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /vida para regenerar uma vida!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/rj7kung.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/rLJKpTZoTPbE8wQ-dtd7ADaldP4yJQxpBkN8ipZ0598/http/ve7s.top/images/tema48/rj7kung.png",
+        "width": 601,
+        "height": 401,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Telescope:643286750441242624> **1**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:64 ...
+
+Count: 15
+Message ID: 1337104673907413113
+Title: Intervalo sem itens e sem nitro
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 10 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/stsTQxQbCI3sRpjMbQqAfGdhR2Wouv3WKPXFatvcAKc/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1238489513483960340/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png",
+        "width": 1024,
+        "height": 1024,
+        "flags": 0
+    },
+    "author": {
+        "name": "finnbxy acertou: princesa tartaruga",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https:/ ...
+
+Count: 16
+Message ID: 1337104761735876670
+Title: Mensagem de usuário ativando nitro, com nível em que o nitro vai acabar
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Nitro:685674412896419840> Intervalo reduzido para **5**s até o nível **77**."
+}
+
+Count: 17
+Message ID: 1337105044658585624
+Title: Intervalo depois de perder uma vida
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 10 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "http://ve7s.top/images/mix/perdeu_vida.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/lwtGzNDvqfpJMjql4-0TQPx7ObkDXTEJ4ZzX4TbXqQI/http/ve7s.top/images/mix/perdeu_vida.png",
+        "width": 512,
+        "height": 512,
+        "flags": 0
+    },
+    "author": {
+        "name": "A resposta era: aquandrius",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+     ...
+
+Count: 18
+Message ID: 1337105088560369695
+Title: Imagem de Jogo (3 vidas)
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /imagem para rever a imagem do nível atual!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/9qlq22w.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/AA_0xq-nghD_ASlK1JuKx5nj-tKDw6fTRuasYBpCNns/http/ve7s.top/images/tema48/9qlq22w.jpg",
+        "width": 800,
+        "height": 533,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Telescope:643286750441242624> **3**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+             ...
+
+Count: 19
+Message ID: 1337105480002310164
+Title: Imagem de Jogo (2 vidas)
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /vida para regenerar uma vida!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/l90f8bw.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/V-wFZpnnMXNT1_r3TY28SAvVSx4JLlZz3iE85lbVL0E/http/ve7s.top/images/tema48/l90f8bw.png",
+        "width": 800,
+        "height": 533,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Telescope:643286750441242624> **4**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value ...
+
+Count: 20
+Message ID: 1337105780620394549
+Title: Imagem de jogo (1 vida)
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /fim para finalizar a partida!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/zt7mcy6.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/QFVu9wK6hTKCx9E0RtgMGg0D5bcF8GpvHyROZVpSZY8/http/ve7s.top/images/tema48/zt7mcy6.png",
+        "width": 800,
+        "height": 533,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Telescope:643286750441242624> **4**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            ...
+
+Count: 21
+Message ID: 1337106087148519465
+Title: Mensagem de Fim de Jogo
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "2025 © Ve7s - Todos os direitos reservados",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema48/x20mzxn.gif",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/4rX2mg0WjzhQWXn5r7nJCLn5K77dRF1dJk1FLV2v5K4/http/ve7s.top/images/tema48/x20mzxn.gif",
+        "width": 540,
+        "height": 301,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Tema",
+            "value": "<:Insig_HoraDeAventura:703799372185600072> HoraDeAventura",
+            "inline": true
+        },
+        {
+            "name": "Nível obtido",
+            "value": "<:Telescope:643286750441242624> **4**",
+        ...
+
+Count: 22
+Message ID: 1337106098519281705
+Title: Mensagem de Canal sem Partida em andamento
+Channel: 🎮│play-2 (1309908336971612210)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Play:655628331961679872> Use </jogar:1057503803546554403> para jogar novamente!"
+}
+
+Count: 23
+Message ID: 1340163316823097345
+Title: Mensagem de Inicio de Jogo
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Primeira imagem em 10 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/joccf98.gif",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/0_25HAsojhFkjPbxI1Ka8w5ogNGArrN0IXL8n2pD3Ds/http/ve7s.top/images/tema62/joccf98.gif",
+        "width": 500,
+        "height": 300,
+        "flags": 0
+    },
+    "author": {
+        "name": "Solicitado por finnbxy",
+        "icon_url": "https://cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/6_PNuR4lCXb2MS_IYPLUMHIcfisS1az7mBNHF6sgPKA/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/ ...
+
+Count: 24
+Message ID: 1340163320774398074
+Title: Mensagem de Ativação de Nitro (com nível máximo)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Nitro:685674412896419840> Intervalo reduzido para **5**s até o nível **75**."
+}
+
+Count: 25
+Message ID: 1340163474843500656
+Title: Mensagem de Jogo (4 vidas) (60 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /pausa para pausar o jogo no intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/bcjb0h6.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/nTFh_YhVBjNmQzzyWvnUQCQVjxscaLPoJK99caKrEq8/http/ve7s.top/images/tema62/bcjb0h6.jpg",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Telescope:643286750441242624> **2**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "< ...
+
+Count: 26
+Message ID: 1340163899265253489
+Title: Mensagem de Intervalo com Nitro Máximo
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: rachel",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixI ...
+
+Count: 27
+Message ID: 1340164156267040879
+Title: Mensagem de Jogo (54 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /tempo para dobrar o tempo de acerto!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/v8pa7ab.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/0q0fhaRtQOgD2fPWq3AnmTlzO3V6mjeRyxz38jnekJ8/http/ve7s.top/images/tema62/v8pa7ab.png",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Radar:643288862713708554> **11**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Temp ...
+
+Count: 28
+Message ID: 1340164545049788528
+Title: Mensagem de Jogo (49 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /nitro para reduzir o intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/or6j7wi.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/wgoHA6NU0PMLrSl0FUPPoig_EDswfDZqXlcCZzY45ow/http/ve7s.top/images/tema62/or6j7wi.jpg",
+        "width": 800,
+        "height": 459,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Astronauta:643327424544899082> **20**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Temp ...
+
+Count: 29
+Message ID: 1340165046034108489
+Title: Mensagem de Pausa
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "thumbnail": {
+        "url": "http://ve7s.top/images/mix/pausa.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/IRiRD0stbtlrI-bYcVAs8VA2gU5tSq0rdUGfsV9uNME/http/ve7s.top/images/mix/pausa.png",
+        "width": 512,
+        "height": 512,
+        "flags": 0
+    },
+    "color": 3755430,
+    "type": "rich",
+    "description": "<@400318261306195988>, a partida foi pausada por 200s (acaba <t:1739590845:R>). Use o botão abaixo para despausar imediatamente.",
+    "title": "<:Pause:701500138215964723> JOGO PAUSADO <:Pause:701500138215964723>"
+}
+
+Count: 30
+Message ID: 1340165034487058563
+Title: Intervalo com Nitro em 90%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: mike wazowski",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiG ...
+
+Count: 31
+Message ID: 1340165343796269076
+Title: Mensagem de Jogo (44 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /combo para upar o seu combo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/c1rcc74.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/j1Ky_i20HY0JnMwOg2ezNppcMOCW7Bug9feY7RYeYqw/http/ve7s.top/images/tema62/c1rcc74.jpg",
+        "width": 800,
+        "height": 533,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Rocket:643328233869279242> **31**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:64293 ...
+
+Count: 32
+Message ID: 1340165785372594208
+Title: Mensagem de Jogo (40 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /dica para solicitar uma dica!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/7bo70go.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/mglDsrlACYqBO8xzTyY7xg6ja2PhO1kTj0NnM4aJvBI/http/ve7s.top/images/tema62/7bo70go.png",
+        "width": 592,
+        "height": 350,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Space_Ship:643297102163869696> **40**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo: ...
+
+Count: 33
+Message ID: 1340166106978975748
+Title: Intervalo com nitro em 50%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/6_PNuR4lCXb2MS_IYPLUMHIcfisS1az7mBNHF6sgPKA/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png",
+        "width": 1024,
+        "height": 1024,
+        "flags": 0
+    },
+    "author": {
+        "name": "finnbxy acertou: helsinki",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext ...
+
+Count: 34
+Message ID: 1340166350865170473
+Title: Mensagem de Jogo (36 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /resposta para revelar a resposta!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/y6dkc6c.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/_qCF8ovc3IATxZGszoqINbhRmRxkVTLjT2tqpcG1EQ8/http/ve7s.top/images/tema62/y6dkc6c.jpg",
+        "width": 800,
+        "height": 396,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Sol:655846435262169089> **51**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:642 ...
+
+Count: 35
+Message ID: 1340166845361295370
+Title: Intervalo com Nitro em 20%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: stiles stilinski",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFww ...
+
+Count: 36
+Message ID: 1340166920821018624
+Title: Mensagem de Jogo (32 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /pausa para pausar o jogo no intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/yl6yy25.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/xd4HcBoN6tBV_P6bZvurX0OarOHRj1LI-TVUYbVZ8cw/http/ve7s.top/images/tema62/yl6yy25.png",
+        "width": 563,
+        "height": 304,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Mercurio:655857756112289813> **63**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "< ...
+
+Count: 37
+Message ID: 1340167306260517016
+Title: Mensagem de Jogo (29 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /dica para solicitar uma dica!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/dp6ihr6.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/rSuNHki-5WxVvv5i-7ifFu1ZmMPRY38b1rfcrliLcgI/http/ve7s.top/images/tema62/dp6ihr6.png",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Venus:655847047534084128> **70**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:64293 ...
+
+Count: 38
+Message ID: 1340167548813054065
+Title: Intervalo com Nitro no final (último nível com nitro)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/6_PNuR4lCXb2MS_IYPLUMHIcfisS1az7mBNHF6sgPKA/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/1300879275972366388/users/400318261306195988/avatars/a3e969f2a5884372ea832c2d16670645.png",
+        "width": 1024,
+        "height": 1024,
+        "flags": 0
+    },
+    "author": {
+        "name": "finnbxy acertou: phoebe",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1 ...
+
+Count: 39
+Message ID: 1340167806825660547
+Title: Mensagem de Usuário solicitado Despause
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "color": 3755430,
+    "type": "rich",
+    "description": "<:Continue:701499959064789003> Continuando jogo."
+}
+
+Count: 40
+Message ID: 1340167845199220808
+Title: Mensagem de Pause solicitado
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "thumbnail": {
+        "url": "http://ve7s.top/images/mix/pausa.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/IRiRD0stbtlrI-bYcVAs8VA2gU5tSq0rdUGfsV9uNME/http/ve7s.top/images/mix/pausa.png",
+        "width": 512,
+        "height": 512,
+        "flags": 0
+    },
+    "color": 3755430,
+    "type": "rich",
+    "description": "<@400318261306195988>, a partida foi pausada por 200s (acaba <t:1739591513:R>). Use o botão abaixo para despausar imediatamente.",
+    "title": "<:Pause:701500138215964723> JOGO PAUSADO <:Pause:701500138215964723>"
+}
+
+Count: 41
+Message ID: 1340168685280690186
+Title: Mensagem de Despause Automático
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: <@400318261306195988>
+Embed data: 
+{
+    "color": 3755430,
+    "type": "rich",
+    "description": "<:Pare:701501355625414817> Tempo esgotado. Continuando jogo em **10**s."
+}
+
+Count: 42
+Message ID: 1340168854961389598
+Title: Mensagem de Jogo (26 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /combo para upar o seu combo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/d87zqgq.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/LREie4p9OOTqmL5Gm6cHe0FybwgqnmcmQhfft-emOSg/http/ve7s.top/images/tema62/d87zqgq.png",
+        "width": 800,
+        "height": 432,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Terra:655839430921158686> **80**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:642937 ...
+
+Count: 43
+Message ID: 1340169705607921664
+Title: Mensagem de Jogo (24 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /dica para solicitar uma dica!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "https://cdn.discordapp.com/attachments/1300879276416958546/1340169706010705941/h.png?ex=67b161cd&is=67b0104d&hm=c2fa1bef7d13c95ea785686fed648205b4c22ddcee0c41df83d52999f2fb137f&",
+        "proxy_url": "https://media.discordapp.net/attachments/1300879276416958546/1340169706010705941/h.png?ex=67b161cd&is=67b0104d&hm=c2fa1bef7d13c95ea785686fed648205b4c22ddcee0c41df83d52999f2fb137f&",
+        "width": 796,
+        "height": 515
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+     ...
+
+Count: 44
+Message ID: 1340169793222869034
+Title: Mensagem de Jogo (22 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /tempo para dobrar o tempo de acerto!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/klxk6qc.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/3vJZL57O2xPfQgAFQ4dHV4pZ4_cZIqM1geYXqpYsMzs/http/ve7s.top/images/tema62/klxk6qc.png",
+        "width": 800,
+        "height": 459,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Moon_Rover:643290406540279822> **101**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": " ...
+
+Count: 45
+Message ID: 1340170382388367362
+Title: Mensagem de Jogo (20 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /imagem para rever a imagem do nível atual!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/q94c0sk.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/WR95WG2kN03lqcifUT6YvfMxcP-ptE-yK1E0EomkYJc/http/ve7s.top/images/tema62/q94c0sk.png",
+        "width": 800,
+        "height": 509,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Marte:655840897258225674> **114**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value":  ...
+
+Count: 46
+Message ID: 1340170737318887604
+Title: Mensagem de Jogo (18 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /resposta para revelar a resposta!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/omytgqx.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/XMrrD0rfNHM2xnZ7HEV9bv2FGZzQJdKQKTAmwzFAgT0/http/ve7s.top/images/tema62/omytgqx.png",
+        "width": 800,
+        "height": 600,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Asteroid:643309103095218191> **122**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tem ...
+
+Count: 47
+Message ID: 1340171091246714941
+Title: Mensagem de Jogo (16 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /combo para upar o seu combo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/sq7rszz.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/BhiptTxQXDkj8Z-lXU7Xkmx2nSkH-dFi6BH06FFgtHs/http/ve7s.top/images/tema62/sq7rszz.png",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Jupiter:643298269757308959> **130**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:642 ...
+
+Count: 48
+Message ID: 1340171513546018816
+Title: Mensagem de Jogo (14 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /fim para finalizar a partida!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/xxt8kom.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/BGPgov18CPIT5UE6Fpqw5c9OTES7MvuCJbeAR6hanQA/http/ve7s.top/images/tema62/xxt8kom.png",
+        "width": 800,
+        "height": 446,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Saturno:655847378083119148> **140**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:64 ...
+
+Count: 49
+Message ID: 1340172020251627601
+Title: Mensagem de Jogo (13 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /dica para solicitar uma dica!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/85xs77w.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/DyIn7eEKRBELD7_GhT3u0CYwKFgtnkkppQSxlwXtdtg/http/ve7s.top/images/tema62/85xs77w.jpg",
+        "width": 800,
+        "height": 443,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Urano:655851208040513539> **151**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:Tempo:6429 ...
+
+Count: 50
+Message ID: 1340172393980891200
+Title: Mensagem de Perda de Vida
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 10 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "http://ve7s.top/images/mix/perdeu_vida.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/lwtGzNDvqfpJMjql4-0TQPx7ObkDXTEJ4ZzX4TbXqQI/http/ve7s.top/images/mix/perdeu_vida.png",
+        "width": 512,
+        "height": 512,
+        "flags": 0
+    },
+    "author": {
+        "name": "A resposta era: ameixinha",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    " ...
+
+Count: 51
+Message ID: 1340172437391806505
+Title: Mensagem de Jogo (3 vidas)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /nitro para reduzir o intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/4bwwpwj.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/4fuPtjGj_CqZyIbhkIWwMD3AWavxSI6ZtApeq1jhpe8/http/ve7s.top/images/tema62/4bwwpwj.png",
+        "width": 788,
+        "height": 516,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Urano:655851208040513539> **158**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "value": "<:T ...
+
+Count: 52
+Message ID: 1340172664982999071
+Title: Mensagem de Jogo (12 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /pausa para pausar o jogo no intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/pihkp8l.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/OFGWWy93DRNdqJPPaZr-3GhvR2YyXaHigHjZLvESCSg/http/ve7s.top/images/tema62/pihkp8l.png",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Netuno:655847661689372723> **161**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+           ...
+
+Count: 53
+Message ID: 1340172746499428384
+Title: Mensagem de Jogo (2 vidas)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /nitro para reduzir o intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/10zo7cw.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/0t_OG04z-bb6dvbt6jzwJX8CwyanRJZaSQf_betucLs/http/ve7s.top/images/tema62/10zo7cw.jpg",
+        "width": 800,
+        "height": 449,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Netuno:655847661689372723> **163**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            "valu ...
+
+Count: 54
+Message ID: 1340173056252973076
+Title: Mensagem de Jogo (10 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /escudo para proteger o seu combo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "https://cdn.discordapp.com/attachments/1300879276416958546/1340173056584450121/h.png?ex=67b164eb&is=67b0136b&hm=539f47a33bda17649f62f9aaf0f26abc63eed49b634a33e326f7cfe79e8a5d9b&",
+        "proxy_url": "https://media.discordapp.net/attachments/1300879276416958546/1340173056584450121/h.png?ex=67b164eb&is=67b0136b&hm=539f47a33bda17649f62f9aaf0f26abc63eed49b634a33e326f7cfe79e8a5d9b&",
+        "width": 754,
+        "height": 417
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "na ...
+
+Count: 55
+Message ID: 1340173498462503046
+Title: Mensagem de Jogo (9.9 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /pausa para pausar o jogo no intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/1i4v3xm.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/DcuYvr29q-fmSGlOGnWw7Tss2RDtxwQQUvIgtKd3O-0/http/ve7s.top/images/tema62/1i4v3xm.jpg",
+        "width": 800,
+        "height": 508,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Solar_System:643298965235826689> **180**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+     ...
+
+Count: 56
+Message ID: 1340173927309246474
+Title: Mensagem de Jogo (9 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /imagem para rever a imagem do nível atual!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/w2p8jtu.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/TDZ-_1cj7pkqyvfx2BbO-HKGKDD2XJA4hYs91HT6MLM/http/ve7s.top/images/tema62/w2p8jtu.png",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:New_Planet:643312498065539072> **190**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+   ...
+
+Count: 57
+Message ID: 1340174129927819284
+Title: Mensagem de JOgo (1 vida)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /dica para solicitar uma dica!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/o025ykt.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/2V7atRBYR9LMnWFBY99xu8vMvdkMlBBQ3BDgbfjNLS0/http/ve7s.top/images/tema62/o025ykt.png",
+        "width": 800,
+        "height": 453,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:New_Planet:643312498065539072> **193**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+         ...
+
+Count: 58
+Message ID: 1340174442210263095
+Title: Mensagem de Jogo (8.1 sgundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /pausa para pausar o jogo no intervalo!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/oo8sl5b.jpg",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/9QNvPma_zjbS5tsmEVHUKt9QkulFZBiNdGzrzZMgppU/http/ve7s.top/images/tema62/oo8sl5b.jpg",
+        "width": 800,
+        "height": 450,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Colision:643309506884927498> **200**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+  ...
+
+Count: 59
+Message ID: 1340174890677833826
+Title: Mensagem de Jogo (7.4 segundos)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Use /fim para finalizar a partida!",
+        "icon_url": "http://ve7s.top/images/mix/info.png",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/4bwwpwj.png",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/4fuPtjGj_CqZyIbhkIWwMD3AWavxSI6ZtApeq1jhpe8/http/ve7s.top/images/tema62/4bwwpwj.png",
+        "width": 788,
+        "height": 516,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Vidas",
+            "value": "<:Vida:644407668659978248><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354><:VidaPerdida:644410630253838354>",
+            "inline": true
+        },
+        {
+            "name": "Nível",
+            "value": "<:Planets:643307192619106315> **211**",
+            "inline": true
+        },
+        {
+            "name": "Tempo",
+            ...
+
+Count: 60
+Message ID: 1340175124669923338
+Title: Mensagem de Regenaração de Vida
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Vida:679109072376692772> **1** vida regenerada. Total: **1** vida."
+}
+
+Count: 61
+Message ID: 1340175173462130729
+Title: Mensagem de Tempo Aplicado (com nivel máximo)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Tempo:677014269803364382> Tempo de acerto dobrado até o nível **239**."
+}
+
+Count: 62
+Message ID: 1340175372842569782
+Title: Mensagem de Intervalo com Tempo Máximo
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: stiles stilinski",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFww ...
+
+Count: 63
+Message ID: 1340175715466874941
+Title: Intervalo com tempo em 80%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: freddie benson",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfi ...
+
+Count: 64
+Message ID: 1340176038537199678
+Title: Intervalo com Tempo em 50%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: luther hargreeves",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFw ...
+
+Count: 65
+Message ID: 1340176196649881684
+Title: Intervalo com tempo em 20%
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: margo",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIl ...
+
+Count: 66
+Message ID: 1340176391433617408
+Title: Intervalo com Tempo no fim (ultimo nível com tempo)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: neytiri",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGix ...
+
+Count: 67
+Message ID: 1340176587370532864
+Title: Mensagem com Tempo Bloqueado
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: jules",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIl ...
+
+Count: 68
+Message ID: 1340176587370532864
+Title: Intervalo com Tempo Bloqueado
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "Próxima imagem em 5 segundos!",
+        "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+    },
+    "thumbnail": {
+        "url": "https://cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png?size=1024",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/gw2pTI9Helbd13HQDIDYKUtni6cPAJq6psjecs3GpD4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1146463263668834304/3626d56280ec70ce3c8c81f555ca115a.png",
+        "width": 256,
+        "height": 256,
+        "flags": 0
+    },
+    "author": {
+        "name": "__priii__ acertou: jules",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIl ...
+
+Count: 69
+Message ID: 1340178775664623656
+Title: Mensagem de Fim de Jogo
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "2025 © Ve7s - Todos os direitos reservados",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    "image": {
+        "url": "http://ve7s.top/images/tema62/1pgk3ik.gif",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/OaKGB-jvPVtEhXn3nCwVQZ8hQrOgaKexh9HrhMEltxg/http/ve7s.top/images/tema62/1pgk3ik.gif",
+        "width": 500,
+        "height": 281,
+        "flags": 0
+    },
+    "fields": [
+        {
+            "name": "Tema",
+            "value": "<:Insig_Personagens:1011449713825951805> Personagens",
+            "inline": true
+        },
+        {
+            "name": "Nível obtido",
+            "value": "<:Black_Role:643291255794696203> **290**",
+          ...
+
+Count: 70
+Message ID: 1340178782077845505
+Title: Mensagem de Jogo Finalizado (canal sem partida, finalizar programa)
+Channel: 🎠│ve7s (1300879276416958546)
+Message Content: 
+Embed data: 
+{
+    "color": 3853362,
+    "type": "rich",
+    "description": "<:Play:655628331961679872> Use </jogar:1057503803546554403> para jogar novamente!"
+}
+

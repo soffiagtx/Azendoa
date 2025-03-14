@@ -1,0 +1,68 @@
+{
+    "servers": {
+        "1304213764668784650": {
+            "global_reactions": {},
+            "user_reactions": {
+                "400318261306195988": {
+                    "finn": {
+                        "emoji": "<:anato_nhami:842689547548229642>"
+                    }
+                }
+            },
+            "permissions": {
+                "allowed_roles": [],
+                "everyone": true
+            },
+            "global_names_chance": {}
+        },
+        "1313681515921801237": {
+            "global_reactions": {},
+            "user_reactions": {},
+            "permissions": {
+                "allowed_roles": [],
+                "everyone": true
+            },
+            "global_names_chance": {}
+        },
+        "310556853895561217": {
+            "global_reactions": {},
+            "user_reactions": {
+                "400318261306195988": {
+                    "finn": {
+                        "emoji": "<a:bey_tururu:1217510268737945650>"
+                    }
+                },
+                "283654977401126912": {
+                    "cu": {
+                        "emoji": "\ud83d\udc4c\ud83c\udffb"
+                    }
+                },
+                "423224905388130314": {
+                    "lipe": {
+                        "emoji": "\ud83d\udc19"
+                    }
+                }
+            },
+            "permissions": {
+                "allowed_roles": [],
+                "everyone": true
+            },
+            "global_names_chance": {}
+        },
+        "1325959999838617690": {
+            "global_reactions": {},
+            "user_reactions": {
+                "400318261306195988": {
+                    "finn": {
+                        "emoji": "<a:vetv_nhami:1059584000533995540>"
+                    }
+                }
+            },
+            "permissions": {
+                "allowed_roles": [],
+                "everyone": true
+            },
+            "global_names_chance": {}
+        }
+    }
+}
