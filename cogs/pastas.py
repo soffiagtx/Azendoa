@@ -28,42 +28,45 @@ class TemasInteract(commands.Cog):
         self.create_json_if_not_exists()
 
     def create_json_if_not_exists(self):
+        # Verifica se o diretório 'temas' existe, se não, cria o diretório
+        if not os.path.exists(self.temas_pasta):
+            print(f"Criando diretório 'temas' em: {self.temas_pasta}")
+            os.makedirs(self.temas_pasta)
+
+        # Verifica se o arquivo 'modified_names.json' existe, se não, cria o arquivo
         if not os.path.exists(self.modified_names_file):
             print(f"Criando arquivo JSON em: {self.modified_names_file}")
             self.save_modified_names()
+
+        # Verifica se o arquivo 'completed_themes.json' existe, se não, cria o arquivo
         if not os.path.exists(self.completed_themes_file):
             print(f"Criando arquivo JSON em: {self.completed_themes_file}")
             self.save_completed_themes()
 
     def load_modified_names(self):
+        # Carrega o conteúdo do arquivo 'modified_names.json'
         if os.path.exists(self.modified_names_file):
-            with open(self.modified_names_file, "r", encoding="utf-8") as f:
-                try:
-                    data = json.load(f)
-                    normalized_data = {self.normalize_text(key): self.normalize_text(value) for key, value in data.items()}
-                    return normalized_data
-                except json.JSONDecodeError:
-                    print("Erro ao decodificar o arquivo JSON, criando um novo dicionário.")
-                    return {}
-        return {}
-
-    def save_modified_names(self):
-        with open(self.modified_names_file, "w", encoding="utf-8") as f:
-            json.dump(self.modified_names, f, indent=4, ensure_ascii=False)
+            with open(self.modified_names_file, 'r') as file:
+                return json.load(file)
+        return {}  # Se o arquivo não existir, retorna um dicionário vazio
 
     def load_completed_themes(self):
+        # Carrega o conteúdo do arquivo 'completed_themes.json'
         if os.path.exists(self.completed_themes_file):
-            with open(self.completed_themes_file, "r", encoding="utf-8") as f:
-                try:
-                    return json.load(f)
-                except json.JSONDecodeError:
-                    print("Erro ao decodificar o arquivo JSON para temas completos, criando um novo dicionário.")
-                    return {}
-        return {}
+            with open(self.completed_themes_file, 'r') as file:
+                return json.load(file)
+        return {}  # Se o arquivo não existir, retorna um dicionário vazio
+
+    def save_modified_names(self):
+        # Salva os dados no arquivo 'modified_names.json'
+        with open(self.modified_names_file, 'w') as file:
+            json.dump(self.modified_names, file, indent=4)
 
     def save_completed_themes(self):
-        with open(self.completed_themes_file, "w", encoding="utf-8") as f:
-            json.dump(self.completed_themes, f, indent=4, ensure_ascii=False)
+        # Salva os dados no arquivo 'completed_themes.json'
+        with open(self.completed_themes_file, 'w') as file:
+            json.dump(self.completed_themes, file, indent=4)
+
 
 
     def normalize_text(self, text):
