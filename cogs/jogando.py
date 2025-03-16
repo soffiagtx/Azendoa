@@ -7,7 +7,7 @@ class Jogando(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         super().__init__()
-        self.temas_pasta = r"C:\Users\user\Desktop\Programação\Projetos Pessoais\Discord\bot az\temas"  # Certifique-se de que o caminho está correto
+        self.temas_pasta = os.path.join(os.path.dirname(__file__), "temas")
         self.jogos_ativos = {}  # Dicionário para rastrear jogos ativos por usuário e canal
 
     @commands.command()

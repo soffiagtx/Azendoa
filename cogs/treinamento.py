@@ -21,7 +21,7 @@ class Treinamento(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         super().__init__()
-        self.BASE_DIR = r"C:\Users\user\Desktop\Programação\Projetos Pessoais\Discord\bot az\temas"
+        self.BASE_DIR = os.path.join(os.path.dirname(__file__), "temas")
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),

@@ -156,7 +156,7 @@ class IdServidorModal(discord.ui.Modal):
             nome_servidor = nome_servidor[len("Emojis baixados do servidor "):]
 
         await interact.followup.send(f"Enviando emojis do servidor {nome_servidor} para {canal_destino_imagens.mention}", ephemeral=False)
-        diretório_emojis = "C:\\Users\\user\\Desktop\\Programação\\Projetos Pessoais\\Discord\\bot se\\emojis\\servidor_alvo"
+        diretório_emojis = os.path.join(os.path.dirname(__file__), "emojis", "servidor_alvo")
         arquivos_emojis = [arquivo for arquivo in os.listdir(diretório_emojis) if arquivo.endswith((".png", ".gif", ".jpg", ".jpeg"))]
 
         async def resposta_sim(interact: discord.Interaction):
@@ -196,7 +196,7 @@ class IdServidorModal(discord.ui.Modal):
             return
         
         await interact.response.send_message('Iniciando a criação de emojis, isso pode demorar um pouco...', ephemeral=True)
-        diretório_emojis = "C:\\Users\\user\\Desktop\\Programação\\Projetos Pessoais\\Discord\\bot se\\emojis\\servidor_alvo"
+        diretório_emojis = os.path.join(os.path.dirname(__file__), "emojis", "servidor_alvo")
         
         emojis_adicionados = 0
         falhas = []

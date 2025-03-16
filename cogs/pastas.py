@@ -17,7 +17,7 @@ class TemasInteract(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         super().__init__()
-        self.temas_pasta = r"C:\Users\user\Desktop\Programação\Projetos Pessoais\Discord\bot az\temas"
+        self.temas_pasta = os.path.join(os.path.dirname(__file__), "temas")
         self.modified_names_file = os.path.join(self.temas_pasta, "modified_names.json")
         self.completed_themes_file = os.path.join(self.temas_pasta, "completed_themes.json")
         self.modified_names = self.load_modified_names()
@@ -159,7 +159,7 @@ class TemasInteract(commands.Cog):
             
             tema = re.search(r"Lista de (.+?) em ordem alfabética!", embed.description or embed.title).group(1)
             tema_limpo = tema.strip('`').strip()
-            pasta_temas = r"C:\Users\user\Desktop\Programação\Projetos Pessoais\Discord\bot az\temas"
+            pasta_temas = os.path.join(os.path.dirname(__file__), "temas")
             caminho_tema = os.path.join(pasta_temas, tema_limpo)
             nome_arquivo = f"lista_{tema_limpo.lower().replace(' ', '_')}.txt"
             caminho_completo = os.path.join(caminho_tema, nome_arquivo)
