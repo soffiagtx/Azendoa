@@ -4,6 +4,8 @@ from sympy import *
 import locale
 from locale import format_string
 
+locale.setlocale(locale.LC_ALL, 'en_US')
+
 class Cálculos(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

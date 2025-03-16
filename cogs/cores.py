@@ -112,5 +112,7 @@ class CoresInteract(commands.Cog):
 
         await interaction.response.send_message(f"Cargo criado/modificado com sucesso! 🎉")
 
+    
+
 async def setup(bot):
     await bot.add_cog(CoresInteract(bot))
