@@ -6,7 +6,7 @@ class Jogando(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         super().__init__()
-        self.temas_pasta = os.path.join(os.path.dirname(__file__), "temas")
+        self.temas_pasta = os.environ.get("temas_path", os.path.join(os.path.dirname(__file__), "temas"))
         self.jogos_ativos = {}  # Dicionário para rastrear jogos ativos por usuário e canal
 
     @commands.command()
