@@ -13,179 +13,183 @@ prefixos = ["sailor ", "oi ", "Oi "]
 permissoes = discord.Intents.all()
 bot = commands.Bot(command_prefix=prefixos, intents=permissoes)
 
+# Lista para acompanhar quais cogs foram carregados
+cogs_carregados = []
 
 async def carregar_cogs():
-    for arquivo in os.listdir('cogs'):
-        if arquivo.endswith('.py'):
-            await bot.load_extension(f"cogs.{arquivo[:-3]}")
+    # Verificar se o diretório 'cogs' existe
+    if not os.path.exists('cogs'):
+        print("O diretório 'cogs' não existe. Verificando caminho absoluto...")
+        # Obter o diretório atual do script
+        dir_atual = os.path.dirname(os.path.abspath(__file__))
+        cogs_dir = os.path.join(dir_atual, 'cogs')
+        
+        if os.path.exists(cogs_dir):
+            print(f"Diretório 'cogs' encontrado em: {cogs_dir}")
+        else:
+            print(f"Diretório 'cogs' não encontrado em: {cogs_dir}")
+            return
+    
+    # Listar todos os arquivos no diretório cogs
+    try:
+        arquivos = os.listdir('cogs')
+        print(f"Arquivos encontrados no diretório 'cogs': {arquivos}")
+        
+        for arquivo in arquivos:
+            if arquivo.endswith('.py'):
+                try:
+                    nome_cog = f"cogs.{arquivo[:-3]}"
+                    await bot.load_extension(nome_cog)
+                    cogs_carregados.append(nome_cog)
+                    print(f"Cog carregado com sucesso: {nome_cog}")
+                except Exception as e:
+                    print(f"Erro ao carregar o cog {arquivo}: {str(e)}")
+    except Exception as e:
+        print(f"Erro ao listar arquivos no diretório 'cogs': {str(e)}")
 
 
 @bot.event
 async def on_ready():
-    canal = bot.get_channel(736438068206108742)
-    await canal.send('Estou online e pronta para a ação!')
+    print(f"Bot está online como {bot.user.name} ({bot.user.id})")
+    
+    # Tentar enviar mensagem para o canal
+    try:
+        canal = bot.get_channel(736438068206108742)
+        if canal:
+            await canal.send('Estou online e pronta para a ação!')
+        else:
+            print("Canal não encontrado. ID do canal: 736438068206108742")
+    except Exception as e:
+        print(f"Erro ao enviar mensagem: {str(e)}")
+    
+    # Carregar cogs
     await carregar_cogs()
-    await bot.tree.sync()
-    print("Estou pronta!")
+    
+    # Sincronizar comandos
+    try:
+        print("Tentando sincronizar comandos...")
+        comandos = await bot.tree.sync()
+        print(f"Comandos sincronizados: {len(comandos)}")
+    except Exception as e:
+        print(f"Erro ao sincronizar comandos: {str(e)}")
+    
+    print("Inicialização completa!")
 
 
 @bot.command()
 async def sincronizar(ctx: commands.Context):
     if ctx.author.id == 400318261306195988:
-        servidor = discord.Object(id=982290881317072906)
-        sincronizados = await bot.tree.sync(guild=servidor)
-        await ctx.reply(f"{len(sincronizados)} comandos sincronizados.")
+        try:
+            # Sincronização global
+            sincronizados_global = await bot.tree.sync()
+            
+            # Sincronização para servidor específico
+            servidor = discord.Object(id=982290881317072906)
+            sincronizados_servidor = await bot.tree.sync(guild=servidor)
+            
+            await ctx.reply(f"{len(sincronizados_global)} comandos sincronizados globalmente.\n{len(sincronizados_servidor)} comandos sincronizados para o servidor.")
+        except Exception as e:
+            await ctx.reply(f"Erro ao sincronizar comandos: {str(e)}")
     else:
         await ctx.reply('Apenas o desenvolvedor pode usar esse comando.')
 
 
-@bot.tree.command(description='Verifica o código hexadecimal de uma cor.')
-@app_commands.choices(cores=[
-    app_commands.Choice(name='Vermelho', value='BA2D08'),
-    app_commands.Choice(name='Azul', value='22577A'),
-    app_commands.Choice(name='Amarelo', value='FFC145')
-])
-async def cores(interact: discord.Interaction, cores: app_commands.Choice[str]):
-    await interact.response.send_message(f"O código hexadecimal da cor {cores.name} é {cores.value}")
-
-
 @bot.command()
-async def enviar_embed(ctx: commands.Context):
-    usuario = ctx.author
-    meu_embed = discord.Embed(title='Isto é um Título!', description='Nada a descrever...')
-    meu_embed.set_author(name=f'{usuario.name}', icon_url=f'{usuario.display_avatar}')
-    meu_embed.color = usuario.color
-    meu_embed.add_field(name='Moedas', value=10, inline=False)
-    meu_embed.add_field(name='Filme Favorito', value='Speed Racer', inline=True)
-    meu_embed.add_field(name='Rank', value='Prata', inline=True)
-    thumb_arquivo = discord.File('imagens/tumblr_760486386aebadbbb3ab9786c11b6127_db4d47e5_500.jpg', 'thumb.jpg')
-    meu_embed.set_thumbnail(url='attachment://thumb.jpg')
-    imagem_arquivo = discord.File('imagens/blushing-seven-from-scissor-seven-ir2acdjg3ykks8mc.jpg', 'imagem.jpg')
-    meu_embed.set_image(url='attachment://imagem.jpg')
-    meu_embed.set_footer(text='Beyond')
-    await ctx.reply(files=[imagem_arquivo, thumb_arquivo], embed=meu_embed)
+async def listar_cogs(ctx: commands.Context):
+    """Lista todos os cogs carregados."""
+    if ctx.author.id == 400318261306195988:  # Verificar se é o desenvolvedor
+        if cogs_carregados:
+            await ctx.reply(f"Cogs carregados: {', '.join(cogs_carregados)}")
+        else:
+            await ctx.reply("Nenhum cog foi carregado.")
+    else:
+        await ctx.reply('Apenas o desenvolvedor pode usar esse comando.')
 
 
-@bot.command()
-async def emoji(ctx: commands.Context):
-    servidores = bot.guilds
-    servidor_aleatorio = random.choice(servidores)
-    emojis_servidor = servidor_aleatorio.emojis
-    emoji_aleatorio = random.choice(emojis_servidor)
-
-    async def resposta_verde(interact: discord.Interaction):
-        servidor_aleatorio = random.choice(servidores)
-        emojis_servidor = servidor_aleatorio.emojis
-        emoji_aleatorio = random.choice(emojis_servidor)
-        await interact.response.send_message(str(emoji_aleatorio), ephemeral=False)
-
-    async def resposta_vermelho(interact: discord.Interaction):
-        usuario_que_clicou = await bot.fetch_user(interact.user.id)
-        copy_aleatorio = random.choice(poemas)
-        await interact.response.send_message(copy_aleatorio, ephemeral=True)
-        await interact.followup.send(
-            f'<:polissa:748541705850060870><:bey_sempapo:867486162906382357><:bey_sus:1019710785880076390><:bey_gasm:867486162602950676> __**ALERTA!!**__ {usuario_que_clicou.mention} **CLICOU NO BOTÃO VERMELHO!** __**ALERTA!!**__ <:bey_gasm:867486162602950676><:bey_sus:1019710785880076390><:bey_sempapo:867486162906382357><:polissa:748541705850060870>')
-
-    def carregar_copypasta(arquivo, encoding='utf-8'):
-        with open(arquivo, 'r', encoding=encoding) as f:
-            poemas = f.read().split('---')
-            return [poema.strip() for poema in poemas if poema.strip()]
-
-    poemas = carregar_copypasta('copy_pasta.txt')
-    aparência = discord.ui.View()
-    botao_verde = discord.ui.Button(emoji=emoji_aleatorio, label='Emoji Aleatório', style=discord.ButtonStyle.green)
-    botao_verde.callback = resposta_verde
-    botao_vermelho = discord.ui.Button(emoji='<:dafuq:1022911887509311519>', label='<botao configuração> NAO APERTAR',
-                                       style=discord.ButtonStyle.red)
-    botao_vermelho.callback = resposta_vermelho
-    aparência.add_item(botao_verde)
-    aparência.add_item(botao_vermelho)
-    mensagem = await ctx.reply(view=aparência)
-    contador = 0
-
-    async def verificar_novas_mensagens(mensagem, contador):
-        def check(message):
-            return message.channel == ctx.channel
-        while True:
-            msg = await bot.wait_for("message", check=check)
-            contador += 1
-            if contador >= 50:
-                contador = 0
-                nova_mensagem = await ctx.reply(view=aparência)
-                break
-        await verificar_novas_mensagens(nova_mensagem, contador)
-
-    await verificar_novas_mensagens(mensagem, contador)
-
-
-@bot.command()
-async def jogo(ctx: commands.Context):
-    async def selecionar_opções(interact: discord.Interaction):
-        escolha = interact.data['values'][0]
-        jogos = {'1': 'Minecraft', '2': 'DDtank', '3': 'Stardew Valley'}
-        jogo_escolhido = jogos[escolha]
-        await interact.response.send_message(f'Você escolheu **{jogo_escolhido}**.')
-
-    menuSeleção = discord.ui.Select(placeholder='Selecione uma opção')
-    opções = [
-        discord.SelectOption(label='Minecraft', value='1'),
-        discord.SelectOption(label='DDtank', value='2'),
-        discord.SelectOption(label='Stardew Valley', value='3')
-    ]
-    menuSeleção.options = opções
-    menuSeleção.callback = selecionar_opções
-    aparência = discord.ui.View()
-    aparência.add_item(menuSeleção)
-    await ctx.send(view=aparência)
+# Removi a duplicação da função on_message
 
 @bot.event
 async def on_message(msg: discord.Message):
+    # Primeiro, processar comandos
     await bot.process_commands(msg)
+    
+    # Depois, verificar outras condições
     autor = msg.author
     if autor.bot:
         return
-    # print(f'Mensagem {msg.content} enviada por: {autor}')
-
-
-@bot.event
-async def on_message(msg_online: discord.Message):
-    await bot.process_commands(msg_online)
-    autor = msg_online.author
-    canal = 736438068206108742
-    # print (f"Autor: {autor} | Canal: {canal} | Mensagem: {msg_online.content}")
+    
+    # Verificar mensagem "estou online"
+    canal_id = 736438068206108742
     try:
-        if msg_online.channel.id == canal and "estou online" in msg_online.content.lower() and autor.id == 1171547983842660420:
-            await msg_online.add_reaction('<:bey_vamotime:912464901384060958>')
+        if msg.channel.id == canal_id and "estou online" in msg.content.lower() and autor.id == 1171547983842660420:
+            await msg.add_reaction('<:bey_vamotime:912464901384060958>')
     except Exception as e:
-        print(f'Erro {e}.')
+        print(f'Erro ao processar mensagem: {e}')
 
+
+# Outras funções de evento permanecem as mesmas
 @bot.event
 async def on_guild_channel_create(canal: discord.abc.GuildChannel):
-    await canal.send(f"FIRST! <a:bey_tururu:1217510268737945650> {canal.id}")
+    try:
+        await canal.send(f"FIRST! <a:bey_tururu:1217510268737945650> {canal.id}")
+    except Exception as e:
+        print(f'Erro ao enviar mensagem em canal novo: {e}')
+
 
 @bot.event
 async def on_member_join(membro: discord.Member):
     canal = bot.get_channel(1227642510520619010)
-    meu_embed = discord.Embed()
-    meu_embed.title = f"Boas vindas {membro.name}!"
-    meu_embed.description = f"# Aproveite sua estadia. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
-    meu_embed.set_thumbnail(url=membro.avatar)
-    meu_embed.color = membro.colour
-    imagem_arquivo = discord.File('imagens/4903eee17b037ecd0224c550a73ebd1e.gif', 'boasvindas.gif')
-    meu_embed.set_image(url='attachment://boasvindas.gif')
-    await canal.send(file=imagem_arquivo, embed=meu_embed)
+    if not canal:
+        print(f"Canal de boas-vindas não encontrado (ID: 1227642510520619010)")
+        return
+    
+    try:
+        meu_embed = discord.Embed()
+        meu_embed.title = f"Boas vindas {membro.name}!"
+        meu_embed.description = f"# Aproveite sua estadia. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
+        if membro.avatar:
+            meu_embed.set_thumbnail(url=membro.avatar)
+        meu_embed.color = membro.colour
+        
+        # Verificar se o arquivo de imagem existe
+        imagem_path = 'imagens/4903eee17b037ecd0224c550a73ebd1e.gif'
+        if os.path.exists(imagem_path):
+            imagem_arquivo = discord.File(imagem_path, 'boasvindas.gif')
+            meu_embed.set_image(url='attachment://boasvindas.gif')
+            await canal.send(file=imagem_arquivo, embed=meu_embed)
+        else:
+            print(f"Arquivo de imagem não encontrado: {imagem_path}")
+            await canal.send(embed=meu_embed)
+    except Exception as e:
+        print(f'Erro ao enviar mensagem de boas-vindas: {e}')
+
 
 @bot.event
 async def on_member_remove(membro: discord.Member):
     canal = bot.get_channel(798321996396101692)
-    meu_embed = discord.Embed()
-    meu_embed.title = f"{membro.display_name} saiu do servidor!"
-    meu_embed.description = f"Que tristeza. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
-    meu_embed.set_thumbnail(url=membro.avatar)
-    meu_embed.color = membro.colour
+    if not canal:
+        print(f"Canal de saída não encontrado (ID: 798321996396101692)")
+        return
+    
+    try:
+        meu_embed = discord.Embed()
+        meu_embed.title = f"{membro.display_name} saiu do servidor!"
+        meu_embed.description = f"Que tristeza. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
+        if membro.avatar:
+            meu_embed.set_thumbnail(url=membro.avatar)
+        meu_embed.color = membro.colour
+        
+        # Verificar se o arquivo de imagem existe
+        imagem_path = 'imagens/4903eee17b037ecd0224c550a73ebd1e.gif'
+        if os.path.exists(imagem_path):
+            imagem_arquivo = discord.File(imagem_path, 'boasvindas.gif')
+            meu_embed.set_image(url='attachment://boasvindas.gif')
+            await canal.send(file=imagem_arquivo, embed=meu_embed)
+        else:
+            print(f"Arquivo de imagem não encontrado: {imagem_path}")
+            await canal.send(embed=meu_embed)
+    except Exception as e:
+        print(f'Erro ao enviar mensagem de saída: {e}')
 
-    imagem_arquivo = discord.File('imagens/4903eee17b037ecd0224c550a73ebd1e.gif', 'boasvindas.gif')
-    meu_embed.set_image(url='attachment://boasvindas.gif')
-    await canal.send(file=imagem_arquivo, embed=meu_embed)
 
 bot.run(TOKEN)

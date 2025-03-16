@@ -1,4 +1,5 @@
 discord.py
+python-dotenv
 sympy
 pillow
 requests
@@ -8,4 +9,3 @@ scipy
 pandas
 torch
 torchvision
-python-dotenv
