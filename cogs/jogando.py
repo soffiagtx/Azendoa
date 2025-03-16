@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import os
-import random
 
 class Jogando(commands.Cog):
     def __init__(self, bot):
@@ -12,13 +11,8 @@ class Jogando(commands.Cog):
 
     @commands.command()
     async def jogando(self, ctx, *args):
-        """Inicia ou finaliza o jogo de adivinhar palavras em um tema específico.
-
-        Uso:
-            .jogando <tema>  - Inicia o jogo com o tema especificado.
-            .jogando fim     - Finaliza o jogo no canal atual.
-        """
-
+        """Inicia ou finaliza o jogo de adivinhar palavras em um tema específico."""
+        # ... (mesmo código do seu comando jogando, sem alterações) ...
         jogador_atual = ctx.author.id
         canal_atual = ctx.channel.id
 
@@ -31,7 +25,7 @@ class Jogando(commands.Cog):
             return
 
         tema = " ".join(args)
-        tema = tema.strip() # Remove espaços extras no início e no final
+        tema = tema.strip()  # Remove espaços extras no início e no final
 
         tema_pasta = None
         tema_nome_exibicao = None
@@ -75,7 +69,6 @@ class Jogando(commands.Cog):
 
         await ctx.send(f"Você está jogando {tema_atual}.  Se precisar de uma imagem desse tema só falar.")
 
-
     @commands.Cog.listener()
     async def on_message(self, message):
         """
@@ -107,90 +100,88 @@ class Jogando(commands.Cog):
                 break  # Encontrou uma palavra, pode sair do loop.
 
         if palavra_encontrada:
-            embed = discord.Embed(
-                title="Palavra Encontrada!",
-                description=f"Palavra encontrada em {tema_atual}.",
-                color=discord.Color.green()  # Cor do embed (opcional)
-            )
-            embed.set_footer(text="Clique no botão abaixo para ver a imagem.")
+            # Obtém o nome base da imagem
+            nome_base_imagem = f"{tema_atual} {palavra_encontrada}"
+            caminho_imagem = None
+            nome_imagem_completo = None
 
-            # Criar um botão para mostrar a imagem
-            botao = discord.ui.Button(style=discord.ButtonStyle.primary, label="Mostrar Imagem")
+            # Procura a imagem com a extensão correta
+            for ext in ['.png', '.jpg', '.jpeg', '.gif']:
+                nome_imagem_teste = nome_base_imagem + ext
+                caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste)
+                if os.path.exists(caminho_teste):
+                    caminho_imagem = caminho_teste
+                    nome_imagem_completo = nome_imagem_teste
+                    break
 
-            async def botao_callback(interaction: discord.Interaction):
-                # Garante que apenas o usuário que clicou no botão possa ver a mensagem
-                if interaction.user.id != jogador_atual:
-                    await interaction.response.send_message("Você não pode usar este botão.", ephemeral=True)
-                    return
+            # Se a imagem foi encontrada, cria o embed e o botão
+            if caminho_imagem:
+                embed = discord.Embed(
+                    title="Palavra Encontrada!",
+                    description=f"Palavra encontrada em {tema_atual}.",
+                    color=discord.Color.green()
+                )
+                embed.set_footer(text="Clique no botão abaixo para ver a imagem.")
 
-                # Obtém o nome base da imagem
-                nome_base_imagem = f"{tema_atual} {palavra_encontrada}"
+                botao = discord.ui.Button(style=discord.ButtonStyle.primary, label="Mostrar Imagem")
 
-                # Procura a imagem com a extensão correta (png, jpg, jpeg, gif)
-                caminho_imagem = None
-                nome_imagem_completo = None
-                for ext in ['.png', '.jpg', '.jpeg', '.gif']:
-                    nome_imagem_teste = nome_base_imagem + ext
-                    caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste)
-                    if os.path.exists(caminho_teste):
-                        caminho_imagem = caminho_teste
-                        nome_imagem_completo = nome_imagem_teste
-                        break
+                async def botao_callback(interaction: discord.Interaction):
+                    # Garante que apenas o usuário que clicou no botão possa ver a mensagem
+                    if interaction.user.id != jogador_atual:
+                        await interaction.response.send_message("Você não pode usar este botão.", ephemeral=True)
+                        return
 
-                # Verifica se a imagem foi encontrada
-                if not caminho_imagem:
-                    await interaction.response.send_message(f"Imagem para '{nome_base_imagem}' não encontrada.",
-                                                              ephemeral=True)
-                    return
+                    try:
+                        file = discord.File(caminho_imagem, filename="image" + os.path.splitext(nome_imagem_completo)[1])
+                        embed_imagem = discord.Embed(title=f"Imagem: {tema_atual} - {palavra_encontrada}")
+                        embed_imagem.set_image(url=f"attachment://image{os.path.splitext(nome_imagem_completo)[1]}")
 
-                # Envia a imagem dentro do Embed
-                try:
-                    file = discord.File(caminho_imagem, filename="image" + os.path.splitext(nome_imagem_completo)[1])  # Mantém a extensão
-                    embed_imagem = discord.Embed(title=f"Imagem: {tema_atual} - {palavra_encontrada}")
-                    embed_imagem.set_image(url=f"attachment://image{os.path.splitext(nome_imagem_completo)[1]}")  # Mantém a extensão
+                        # Cria o botão "Mostrar"
+                        mostrar_button = discord.ui.Button(label="Mostrar", style=discord.ButtonStyle.success)
 
-                    # Cria o botão "Mostrar"
-                    mostrar_button = discord.ui.Button(label="Mostrar", style=discord.ButtonStyle.success)
+                        async def mostrar_callback(interaction2: discord.Interaction):
+                            if interaction2.user.id != jogador_atual:
+                                await interaction2.response.send_message("Você não pode usar este botão.", ephemeral=True)
+                                return
 
-                    async def mostrar_callback(interaction2: discord.Interaction):
-                        if interaction2.user.id != jogador_atual:
-                            await interaction2.response.send_message("Você não pode usar este botão.", ephemeral=True)
-                            return
+                            try:
+                                reenvia_file = discord.File(caminho_imagem, filename="image" + os.path.splitext(nome_imagem_completo)[1])
+                                embed_reenviar = discord.Embed(title=f"Imagem: {tema_atual} - {palavra_encontrada}")
+                                embed_reenviar.set_image(url=f"attachment://image{os.path.splitext(nome_imagem_completo)[1]}")
+                                await interaction2.response.send_message(embed=embed_reenviar, file=reenvia_file, ephemeral=False)
+                            except FileNotFoundError:
+                                await interaction2.response.send_message(f"Imagem '{nome_base_imagem}' não encontrada.", ephemeral=True)
+                            except Exception as e:
+                                await interaction2.response.send_message(f"Ocorreu um erro ao enviar a imagem: {e}", ephemeral=True)
 
-                        # Reenvia o Embed com a imagem (não ephemeral)
-                        try:
-                            reenviar_file = discord.File(caminho_imagem, filename="image" + os.path.splitext(nome_imagem_completo)[1]) # Mantém a extensão
-                            embed_reenviar = discord.Embed(title=f"Imagem: {tema_atual} - {palavra_encontrada}")
-                            embed_reenviar.set_image(url=f"attachment://image{os.path.splitext(nome_imagem_completo)[1]}") # Mantém a extensão
-                            await interaction2.response.send_message(embed=embed_reenviar, file=reenviar_file, ephemeral=False)
-                        except FileNotFoundError:
-                            await interaction2.response.send_message(f"Imagem '{nome_base_imagem}' não encontrada.", ephemeral=True)
-                        except Exception as e:
-                            await interaction2.response.send_message(f"Ocorreu um erro ao enviar a imagem: {e}", ephemeral=True)
+                        mostrar_button.callback = mostrar_callback
 
-                    mostrar_button.callback = mostrar_callback
+                        # Cria a View para o Embed ephemeral
+                        view_ephemeral = discord.ui.View()
+                        view_ephemeral.add_item(mostrar_button)
 
-                    # Cria a View para o Embed ephemeral
-                    view_ephemeral = discord.ui.View()
-                    view_ephemeral.add_item(mostrar_button)
+                        await interaction.response.send_message(embed=embed_imagem, file=file, view=view_ephemeral, ephemeral=True)
 
-                    # Envia o Embed com a imagem (ephemeral)
-                    await interaction.response.send_message(embed=embed_imagem, file=file, view=view_ephemeral,
-                                                              ephemeral=True)  # Envia o Embed com o arquivo
+                    except FileNotFoundError:
+                        await interaction.response.send_message(f"Erro ao enviar a imagem '{nome_base_imagem}'.", ephemeral=True)
+                    except Exception as e:
+                        await interaction.response.send_message(f"Ocorreu um erro ao enviar a imagem: {e}", ephemeral=True)
 
-                except FileNotFoundError:
-                    await interaction.response.send_message(f"Erro ao enviar a imagem '{nome_base_imagem}'.",
-                                                              ephemeral=True)
-                except Exception as e:
-                    await interaction.response.send_message(f"Ocorreu um erro ao enviar a imagem: {e}",
-                                                              ephemeral=True)
+                botao.callback = botao_callback
 
-            botao.callback = botao_callback
+                view = discord.ui.View()
+                view.add_item(botao)
+                await message.reply(embed=embed, view=view)
 
-            view = discord.ui.View()
-            view.add_item(botao)
-
-            await message.reply(embed=embed, view=view)
+            # Se a imagem NÃO foi encontrada, envia uma mensagem diferente
+            else:
+                embed = discord.Embed(
+                    title="Palavra Encontrada!",
+                    description=f"Palavra encontrada em {tema_atual}.",
+                    color=discord.Color.orange()  # Cor diferente para indicar falta de imagem
+                )
+                embed.add_field(name="Sem Imagem", value="Esta palavra não possui imagem para consulta.", inline=False)
+                await message.reply(embed=embed)
 
 
 async def setup(bot):

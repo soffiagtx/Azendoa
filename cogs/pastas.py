@@ -46,27 +46,37 @@ class TemasInteract(commands.Cog):
     def load_modified_names(self):
         # Carrega o conteúdo do arquivo 'modified_names.json'
         if os.path.exists(self.modified_names_file):
-            with open(self.modified_names_file, 'r') as file:
-                return json.load(file)
+            with open(self.modified_names_file, 'r', encoding='utf-8') as file:
+                try:
+                    data = json.load(file)
+                    # Normaliza os dados se necessário
+                    normalized_data = {self.normalize_text(key): self.normalize_text(value) for key, value in data.items()}
+                    return normalized_data
+                except json.JSONDecodeError:
+                    print("Erro ao decodificar o arquivo JSON, criando um novo dicionário.")
+                    return {}
         return {}  # Se o arquivo não existir, retorna um dicionário vazio
 
     def load_completed_themes(self):
         # Carrega o conteúdo do arquivo 'completed_themes.json'
         if os.path.exists(self.completed_themes_file):
-            with open(self.completed_themes_file, 'r') as file:
-                return json.load(file)
+            with open(self.completed_themes_file, 'r', encoding='utf-8') as file:
+                try:
+                    return json.load(file)
+                except json.JSONDecodeError:
+                    print("Erro ao decodificar o arquivo JSON para temas completos, criando um novo dicionário.")
+                    return {}
         return {}  # Se o arquivo não existir, retorna um dicionário vazio
 
     def save_modified_names(self):
-        # Salva os dados no arquivo 'modified_names.json'
-        with open(self.modified_names_file, 'w') as file:
-            json.dump(self.modified_names, file, indent=4)
+        # Salva os dados no arquivo 'modified_names.json' com encoding UTF-8
+        with open(self.modified_names_file, 'w', encoding='utf-8') as file:
+            json.dump(self.modified_names, file, indent=4, ensure_ascii=False)
 
     def save_completed_themes(self):
-        # Salva os dados no arquivo 'completed_themes.json'
-        with open(self.completed_themes_file, 'w') as file:
-            json.dump(self.completed_themes, file, indent=4)
-
+        # Salva os dados no arquivo 'completed_themes.json' com encoding UTF-8
+        with open(self.completed_themes_file, 'w', encoding='utf-8') as file:
+            json.dump(self.completed_themes, file, indent=4, ensure_ascii=False)
 
 
     def normalize_text(self, text):
