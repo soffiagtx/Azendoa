@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class Jogando(commands.Cog):
     def __init__(self, bot):
@@ -8,11 +11,24 @@ class Jogando(commands.Cog):
         super().__init__()
         self.temas_pasta = os.environ.get("temas_path", os.path.join(os.path.dirname(__file__), "temas"))
         self.jogos_ativos = {}  # Dicionário para rastrear jogos ativos por usuário e canal
+        self.tema_mapeamento = self.carregar_tema_mapeamento()  # Carregar o mapeamento
+
+    def carregar_tema_mapeamento(self):
+        """
+        Cria um dicionário que mapeia nomes de temas normalizados
+        para os nomes reais das pastas de temas.
+        """
+        mapeamento = {}
+        for pasta in os.listdir(self.temas_pasta):
+            nome_normalizado = pasta.lower().replace(" ", "")
+            mapeamento[nome_normalizado] = pasta  # Mapeia o nome normalizado para o nome real da pasta
+            logging.debug(f"Tema mapeado: {nome_normalizado} -> {pasta}")
+        return mapeamento
 
     @commands.command()
     async def jogando(self, ctx, *args):
         """Inicia ou finaliza o jogo de adivinhar palavras em um tema específico."""
-        # ... (mesmo código do seu comando jogando, sem alterações) ...
+
         jogador_atual = ctx.author.id
         canal_atual = ctx.channel.id
 
@@ -26,20 +42,17 @@ class Jogando(commands.Cog):
 
         tema = " ".join(args)
         tema = tema.strip()  # Remove espaços extras no início e no final
+        tema_normalizado = tema.lower().replace(" ", "") # Nome normalizado para busca
 
         tema_pasta = None
         tema_nome_exibicao = None
 
-        # Normalizar o tema fornecido para procurar a pasta
-        tema_normalizado = tema.lower().replace(" ", "")
-
-        for pasta in os.listdir(self.temas_pasta):
-            if pasta.lower().replace(" ", "") == tema_normalizado:
-                tema_pasta = os.path.join(self.temas_pasta, pasta)
-                tema_nome_exibicao = pasta  # Use o nome da pasta real para exibição
-                break
-
-        if not tema_pasta:
+        # Usar o mapeamento para encontrar o nome real da pasta
+        if tema_normalizado in self.tema_mapeamento:
+            tema_nome_exibicao = self.tema_mapeamento[tema_normalizado]  # Nome real da pasta
+            tema_pasta = os.path.join(self.temas_pasta, tema_nome_exibicao)
+            logging.debug(f"Tema encontrado no mapeamento: {tema_normalizado} -> {tema_nome_exibicao}")
+        else:
             await ctx.send(f"Tema '{tema}' não encontrado.")
             return
 
@@ -58,7 +71,7 @@ class Jogando(commands.Cog):
                 f"Erro ao ler o arquivo 'lista_{tema_normalizado}.txt' para o tema '{tema_nome_exibicao}': {e}")
             return
 
-        tema_atual = tema_nome_exibicao  # Usar uma variável local para evitar problemas
+        tema_atual = tema_nome_exibicao  # Usar o nome real da pasta
 
         # Armazenar as informações do jogo no dicionário
         self.jogos_ativos[(jogador_atual, canal_atual)] = {
@@ -87,7 +100,7 @@ class Jogando(commands.Cog):
             return
 
         jogo = self.jogos_ativos[(jogador_atual, canal_atual)]
-        tema_atual = jogo['tema']
+        tema_atual = jogo['tema']  # Nome real da pasta!
         palavras_tema = jogo['palavras_tema']
 
         # Verificar se a mensagem contém alguma das palavras da lista para o tema atual
@@ -101,18 +114,23 @@ class Jogando(commands.Cog):
 
         if palavra_encontrada:
             # Obtém o nome base da imagem
-            nome_base_imagem = f"{tema_atual} {palavra_encontrada}"
+            nome_base_imagem = f"{tema_atual} {palavra_encontrada}"  # tema_atual já é o nome correto da pasta
             caminho_imagem = None
             nome_imagem_completo = None
 
             # Procura a imagem com a extensão correta
             for ext in ['.png', '.jpg', '.jpeg', '.gif']:
                 nome_imagem_teste = nome_base_imagem + ext
-                caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste)
+                caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste) # Usando tema_atual aqui!
+                logging.debug(f"Testando caminho: {caminho_teste}")
+
                 if os.path.exists(caminho_teste):
                     caminho_imagem = caminho_teste
                     nome_imagem_completo = nome_imagem_teste
+                    logging.debug(f"Imagem encontrada em: {caminho_imagem}")
                     break
+                else:
+                    logging.debug(f"Imagem não encontrada em: {caminho_teste}")
 
             # Se a imagem foi encontrada, cria o embed e o botão
             if caminho_imagem:
