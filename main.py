@@ -7,7 +7,7 @@ import os
 
 load_dotenv()
 
-TOKEN = os.getenv("DISCORD_TOKEN")
+token = os.getenv("discord_token")
 
 prefixos = ["sailor ", "oi ", "Oi "]
 permissoes = discord.Intents.all()
@@ -192,4 +192,4 @@ async def on_member_remove(membro: discord.Member):
         print(f'Erro ao enviar mensagem de saída: {e}')
 
 
-bot.run(TOKEN)
+bot.run(token)
