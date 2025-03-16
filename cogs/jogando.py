@@ -114,14 +114,17 @@ class Jogando(commands.Cog):
 
         if palavra_encontrada:
             # Obtém o nome base da imagem
-            nome_base_imagem = f"{tema_atual} {palavra_encontrada}"  # tema_atual já é o nome correto da pasta
+            nome_base_imagem = f"{tema_atual.lower()} {palavra_encontrada}"  # Nome normalizado para busca
             caminho_imagem = None
             nome_imagem_completo = None
 
+            # Priorizar .png e .jpg
+            extensoes = ['.png', '.jpg', '.jpeg', '.gif']
+
             # Procura a imagem com a extensão correta
-            for ext in ['.png', '.jpg', '.jpeg', '.gif']:
+            for ext in extensoes:
                 nome_imagem_teste = nome_base_imagem + ext
-                caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste) # Usando tema_atual aqui!
+                caminho_teste = os.path.join(self.temas_pasta, tema_atual, nome_imagem_teste.lower())  # Converte para minúsculas
                 logging.debug(f"Testando caminho: {caminho_teste}")
 
                 if os.path.exists(caminho_teste):
