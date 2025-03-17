@@ -158,11 +158,20 @@ class GerenciamentoView(View):
         self.cog = cog
         self.usuario_id = None  # Armazenar o ID do usuário a ser adicionado
         self.canais_selecionados = []
+        self.guild = None # Armazena o servidor atual
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        # Define a guilda ao iniciar a interação
+        self.guild = interaction.guild
+        return True
 
     @discord.ui.button(label="Selecionar Canais", style=discord.ButtonStyle.primary)
     async def selecionar_canais(self, interaction: discord.Interaction, button: discord.ui.Button):
         """Abre um menu de seleção para o usuário escolher os canais."""
-        channel_select_view = CanalSelectView(self)
+        if not self.guild:
+            self.guild = interaction.guild # Garante que a guilda está definida
+
+        channel_select_view = CanalSelectView(self, self.guild)
         await interaction.response.send_message("Selecione os canais:", view=channel_select_view, ephemeral=True)
 
 
@@ -196,10 +205,11 @@ class CanalSelect(Select):
 
 
 class CanalSelectView(View):
-    def __init__(self, gerenciamento_view: GerenciamentoView):
+    def __init__(self, gerenciamento_view: GerenciamentoView, guild: discord.Guild):
         super().__init__()
         self.gerenciamento_view = gerenciamento_view
-        channels = [channel for channel in gerenciamento_view.cog.bot.get_all_channels() if isinstance(channel, discord.TextChannel)]
+        self.guild = guild # Recebe a guilda como parâmetro
+        channels = [channel for channel in self.guild.text_channels] # Usa guild.text_channels
         options = [discord.SelectOption(label=channel.name, value=str(channel.id), description=f"Canal: {channel.name}") for channel in channels]
 
         # Discord limita Select menus a 25 opções e 5 componentes por view.

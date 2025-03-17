@@ -21,7 +21,7 @@ class Treinamento(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         super().__init__()
-        self.BASE_DIR = os.path.join(os.path.dirname(__file__), "temas")
+        self.BASE_DIR = self.temas_pasta = os.environ.get("temas_path", os.path.join(os.path.dirname(__file__), "temas"))
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
