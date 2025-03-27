@@ -1632,3 +1632,82 @@ Embed data:
     "description": "<:Play:655628331961679872> Use </jogar:1057503803546554403> para jogar novamente!"
 }
 
+Count: 73
+Message ID: 1353369286147575820
+Title: Embed de Busca de Imagem
+Channel: 🧭│comandos (1311129886869557259)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "As imagens podem conter direitos autorais",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    "image": {
+        "url": "https://cdn.discordapp.com/attachments/1311129886869557259/1353369286747492522/h.jpg?ex=67e166de&is=67e0155e&hm=31b08fae906d130443956ab9cc2ad59b605ce3c49356d283b5b3726410cbc7fc&",
+        "proxy_url": "https://media.discordapp.net/attachments/1311129886869557259/1353369286747492522/h.jpg?ex=67e166de&is=67e0155e&hm=31b08fae906d130443956ab9cc2ad59b605ce3c49356d283b5b3726410cbc7fc&",
+        "width": 698,
+        "height": 600
+    },
+    "fields": [
+        {
+            "name": "Autor",
+            "value": "<:Autor:647767004585132084> [sxbrynz](https:// ...
+
+Count: 74
+Message ID: 1354859271598243880
+Title: comando .bicho
+Channel: 🧃│finn (1320916739546021969)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "2025 © Ve7s - Todos os direitos reservados",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    "fields": [
+        {
+            "name": "Suas apostas",
+            "value": "••• Nenhuma •••",
+            "inline": false
+        },
+        {
+            "name": "Status geral",
+            "value": "<:Galera:760580405849358427> **37** participantes\n<:Det:665693246776934430> **143**.**510** dets apostados\n<:Relogio:667808971930730509> Resultado <t:1743123600:R>",
+            "inline": false
+        },
+        {
+            "name": "Faça uma aposta:",
+            "value": "<:Slash:1043254652378021909> </bicho apostar:1057503803424919607>",
+            "inline": false
+     ...
+
+Count: 75
+Message ID: 1354859907572306041
+Title: comando bicho com bichos
+Channel: 🧃│finn (1320916739546021969)
+Message Content: 
+Embed data: 
+{
+    "footer": {
+        "text": "2025 © Ve7s - Todos os direitos reservados",
+        "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+    },
+    "fields": [
+        {
+            "name": "Suas apostas",
+            "value": "<:Morcego:695045422624014367> `Morcego` **20**\n<:TigreBranco:1013100364637151462> `Tigre-branco` **20**",
+            "inline": false
+        },
+        {
+            "name": "Status geral",
+            "value": "<:Galera:760580405849358427> **38** participantes\n<:Det:665693246776934430> **145**.**050** dets apostados\n<:Relogio:667808971930730509> Resultado <t:1743123600:R>",
+            "inline": false
+        },
+        {
+            "name": "Veja o resultado de ontem:",
+            "value": "< ...
+

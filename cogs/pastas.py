@@ -1,3 +1,4 @@
+
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -23,8 +24,9 @@ class TemasInteract(commands.Cog):
         self.modified_names = self.load_modified_names()
         self.completed_themes = self.load_completed_themes()
         self.processing_editor = set()
-        self.processing_aprender = set()
+        # self.processing_aprender = set() # Removido
         self.processing_listar = set()
+        self.aprendendo_tema_status = {}  # user_id: {'tema': ..., 'palavras_faltantes': ..., 'index_atual': ..., 'canal_id': ...}
         self.create_json_if_not_exists()
 
     def create_json_if_not_exists(self):
@@ -92,8 +94,8 @@ class TemasInteract(commands.Cog):
 
        def check_bot_message(m):
             return m.author.id == 628120853154103316 and len(m.embeds) > 0 and \
-                   "Lista de" in (m.embeds[0].description or "") and "em ordem alfabética!" in (
-                           m.embeds[0].description or "")
+                   "Lista de" in (m.embeds()[0].description or "") and "em ordem alfabética!" in (
+                           m.embeds()[0].description or "")
 
        try:
             async with ctx.typing():
@@ -113,7 +115,7 @@ class TemasInteract(commands.Cog):
             await ctx.send(f"Ocorreu um erro: {e}")
        finally:
            self.processing_listar.discard(ctx.author.id)
-    
+
     @commands.command(name="listarfim")
     async def listar_fim(self, ctx: commands.Context):
         if ctx.author.id in self.processing_listar:
@@ -126,13 +128,13 @@ class TemasInteract(commands.Cog):
        all_items = []
        current_page = 1
        total_pages = 0
-       
+
        try:
             while True:
                 if user_id not in self.processing_listar:
                     await message.edit(content="Processo de listagem interrompido")
                     return
-                embed = bot_message.embeds[0]
+                embed = bot_message.embeds()[0]
                 footer_text = embed.footer.text
 
                 match = re.search(r"Página (\d+) de (\d+)", footer_text)
@@ -142,8 +144,8 @@ class TemasInteract(commands.Cog):
 
                     for field in embed.fields:
                             value = field.value.strip()
-                            if value.startswith("```fix") and value.endswith("```"):
-                                value = value[6:-3].strip()
+                            if value.startswith("`fix") and value.endswith("`"):
+                                value = value()[6:-3].strip()
                             all_items.extend([item.strip() for item in value.split('\n') if item.strip()])
 
                     if current_page == total_pages:
@@ -151,14 +153,14 @@ class TemasInteract(commands.Cog):
 
                     next_page = current_page + 1
                     await message.edit(content=f"Verificando lista... Aguarde.\nMude para a página {next_page}")
-                    
+
                     while True:
                         if user_id not in self.processing_listar:
                            await message.edit(content="Processo de listagem interrompido")
                            return
                         try:
                             new_message = await ctx.channel.fetch_message(bot_message.id)
-                            if new_message.embeds[0].footer.text != footer_text:
+                            if new_message.embeds()[0].footer.text != footer_text:
                                 bot_message = new_message
                                 break
                             await asyncio.sleep(1)
@@ -169,7 +171,7 @@ class TemasInteract(commands.Cog):
                 else:
                     await ctx.send("Não consegui extrair informações de página do rodapé.")
                     break
-            
+
             tema = re.search(r"Lista de (.+?) em ordem alfabética!", embed.description or embed.title).group(1)
             tema_limpo = tema.strip('`').strip()
             pasta_temas = self.temas_pasta = os.environ.get("temas_path", os.path.join(os.path.dirname(__file__), "temas"))
@@ -183,17 +185,17 @@ class TemasInteract(commands.Cog):
                  f.write("\n".join(all_items))
 
             await message.edit(content=f"Lista salva com sucesso em {tema_limpo}")
-        
+
        except Exception as e:
           await ctx.send(f"Ocorreu um erro: {e}")
 
     @commands.command(name="aprender")
     async def aprender_tema(self, ctx: commands.Context, tema: str):
-        if ctx.author.id in self.processing_aprender:
-            await ctx.send("Você já está aprendendo um tema. Use `.aprenderfim` para finalizar o processo atual.")
+        if ctx.author.id in self.aprendendo_tema_status:
+            await ctx.send("Você já está aprendendo um tema. Use `.aprenderfim` para finalizar.")
             return
 
-        self.processing_aprender.add(ctx.author.id)
+        self.aprendendo_tema_status[(ctx.author.id)] = {} # Inicializa o status para este usuário
 
         try:
             caminho_tema = os.path.join(self.temas_pasta, tema)
@@ -202,151 +204,145 @@ class TemasInteract(commands.Cog):
 
             if not os.path.exists(caminho_completo):
                 await ctx.send(f"Não encontrei a lista para o tema '{tema}'.")
+                del self.aprendendo_tema_status[(ctx.author.id)]
                 return
 
             with open(caminho_completo, "r", encoding="utf-8") as f:
                 lista_itens = [self.normalize_text(item.strip().lower()) for item in f.readlines()]
 
             imagens_pasta = os.path.join(self.temas_pasta, tema)
-            if not os.path.exists(imagens_pasta) or not os.listdir(imagens_pasta):
-                await ctx.send(f"Não encontrei imagens para o tema '{tema}'.")
-                return
-            nomes_imagens = [f for f in os.listdir(imagens_pasta) if f.lower().endswith(('.jpg', '.png'))]
+            os.makedirs(imagens_pasta, exist_ok=True) # Cria a pasta se não existir
+            nomes_imagens = {self.normalize_text(os.path.splitext(f)[0].replace("mod ", "").replace(f"{tema.lower()} ", "").strip()): f for f in os.listdir(imagens_pasta) if f.lower().endswith(('.jpg', '.png'))}
 
-            nomes_imagens_tratados = []
-            for nome_imagem in nomes_imagens:
-                nome_sem_extensao = os.path.splitext(nome_imagem)[0]
-                nome_sem_mod = nome_sem_extensao.replace("mod ", "")
-
-                if nome_sem_mod in self.modified_names:
-                    nome_original = self.modified_names[nome_sem_mod]
-                    nome_final = nome_original.replace(f"{tema} ", "").lower()
-                    nomes_imagens_tratados.append(self.normalize_text(nome_final))
-                else:
-                    nome_final = nome_sem_mod.replace(f"{tema} ", "").lower()
-                    nomes_imagens_tratados.append(self.normalize_text(nome_final))
-
-            faltantes = [item for item in lista_itens if item not in nomes_imagens_tratados]
+            faltantes = sorted([item for item in lista_itens if item not in nomes_imagens])
 
             if not faltantes:
                 await ctx.send("Você já aprendeu todas as palavras deste tema!")
-                self.processing_aprender.discard(ctx.author.id)
+                del self.aprendendo_tema_status[(ctx.author.id)]
                 return
 
-            await self.processar_tema(ctx, tema, faltantes, ctx.author.id)
+            self.aprendendo_tema_status[(ctx.author.id)] = {
+                'tema': tema,
+                'palavras_faltantes': faltantes,
+                'index_atual': 0,
+                'canal_id': ctx.channel.id
+            }
+
+            await self.enviar_proxima_palavra(ctx)
 
         except Exception as e:
-            await ctx.send(f"Ocorreu um erro: {e}")
-        finally:
-            # Garante que o ID do usuário seja removido, mesmo em caso de erro
-            if ctx.author.id in self.processing_aprender:
-                self.processing_aprender.discard(ctx.author.id)
+            await ctx.send(f"Ocorreu um erro ao iniciar o aprendizado: {e}")
+            if ctx.author.id in self.aprendendo_tema_status:
+                del self.aprendendo_tema_status[(ctx.author.id)]
+
+    async def enviar_proxima_palavra(self, ctx: commands.Context):
+        user_id = ctx.author.id
+        status = self.aprendendo_tema_status.get(user_id)
+        if not status or status['index_atual'] >= len(status['palavras_faltantes']):
+            if user_id in self.aprendendo_tema_status:
+                del self.aprendendo_tema_status[(user_id)]
+            await ctx.send("Você terminou de aprender este tema!")
+            return
+
+        tema = status['tema']
+        palavra = status['palavras_faltantes'][status['index_atual']]
+        embed = discord.Embed(title=f"Aprendendo tema: {tema}", description=f"Palavra: **{palavra}**", color=discord.Color.blue())
+        embed.add_field(name="Utilize o comando abaixo:", value=f"`.ver {tema} {palavra}`", inline=False)
+        await ctx.send(embed=embed)
+
+    async def on_message(self, message: discord.Message):
+        if message.author.id == 628120853154103316 and len(message.embeds) > 0:
+            for user_id, status in self.aprendendo_tema_status.items():
+                if message.channel.id == status.get('canal_id'):
+                    tema = status['tema']
+                    palavras_faltantes = status['palavras_faltantes']
+                    index_atual = status['index_atual']
+                    if 0 <= index_atual < len(palavras_faltantes):
+                        palavra_esperada = palavras_faltantes[(index_atual)]
+                        embed = message.embeds()[0]
+
+                        cooldown_match = re.search(r":Relogio: Você poderá usar este comando novamente em <t:(\d+):R>", embed.description or "")
+                        if cooldown_match:
+                            timestamp = int(cooldown_match.group(1))
+                            dt_object = datetime.fromtimestamp(timestamp)
+                            user = self.bot.get_user(user_id)
+                            if user:
+                                await message.channel.send(f"{user.mention} A obtenção da imagem para '{palavra_esperada}' está em cooldown. Tente novamente após {dt_object.strftime('%H:%M:%S %d/%m/%Y')}.")
+                            return
+
+                        if embed.image and (embed.description or "").lower().startswith(palavra_esperada.lower()):
+                            image_url = embed.image.url
+                            try:
+                                await self.baixar_imagem_aprendizado(user_id, tema, palavra_esperada, image_url)
+                                self.aprendendo_tema_status[(user_id)]['index_atual'] += 1
+                                await self.enviar_proxima_palavra(await self.bot.get_channel(status['canal_id']).fetch_member(user_id))
+                            except Exception as e:
+                                user = self.bot.get_user(user_id)
+                                if user:
+                                    await message.channel.send(f"{user.mention} Erro ao baixar/salvar imagem para '{palavra_esperada}': {e}")
+                            return
+                        elif embed.image:
+                            descricao_lower = (embed.description or "").lower()
+                            for palavra_lista in palavras_faltantes:
+                                if descricao_lower.startswith(palavra_lista.lower()):
+                                    # Encontrou uma imagem para uma palavra na lista, mas não a esperada no momento
+                                    return
+
+    async def baixar_imagem_aprendizado(self, user_id, tema, palavra, image_url):
+        try:
+            response = requests.get(image_url, stream=True, timeout=10)
+            response.raise_for_status()
+            image = Image.open(BytesIO(response.content))
+
+            original_name = f"{tema} {palavra.replace(' ', ' ')}"
+            safe_name = self.safe_filename(original_name)
+
+            if safe_name != original_name:
+                nome_arquivo_imagem = f"mod {safe_name}"
+                self.modified_names[(nome_arquivo_imagem)] = original_name
+                self.save_modified_names()
+            else:
+                nome_arquivo_imagem = safe_name
+
+            caminho_imagem = os.path.join(self.temas_pasta, tema,
+                                           f"{nome_arquivo_imagem}.{'png' if image.mode == 'RGBA' else 'jpg'}")
+
+            if image.mode == 'P':
+                image = image.convert('RGB')
+            image.save(caminho_imagem)
+
+            usuario_inicial = self.bot.get_user(user_id)
+            if usuario_inicial:
+                embedo = discord.Embed(title='Download Concluído!', description='Imagem salva com sucesso!')
+                embedo.set_author(name=f'{usuario_inicial.name}', icon_url=f'{usuario_inicial.display_avatar}')
+                embedo.color = usuario_inicial.color if hasattr(usuario_inicial, 'color') else discord.Color.default()
+                embedo.add_field(name='Nome:', value=nome_arquivo_imagem)
+                embedo.set_image(url=image_url)
+                # await usuario_inicial.send(embed=embedo) # Não precisa enviar DM, já mandamos a próxima palavra no canal
+
+        except (ConnectTimeout, ReadTimeout, requests.exceptions.RequestException) as e:
+            raise Exception(f"Erro ao baixar imagem: {e}")
+        except Exception as e:
+            raise Exception(f"Erro ao salvar imagem: {e}")
 
     async def aprenderfim(self, ctx: commands.Context):
-        # Remove o ID do usuário se estiver no set, independentemente do estado do processo
-        if ctx.author.id in self.processing_aprender:
-            self.processing_aprender.discard(ctx.author.id)
+        if ctx.author.id in self.aprendendo_tema_status:
+            del self.aprendendo_tema_status[(ctx.author.id)]
             await ctx.send("Processo de aprendizado do tema finalizado.")
         else:
             await ctx.send("Você não está em nenhum processo de aprendizado de tema.")
-            
-    async def processar_tema(self, ctx, tema, lista_itens, user_id):
-        try:
-            for i, item in enumerate(lista_itens):
-                if user_id not in self.processing_aprender:
-                    await ctx.send("Processo de aprendizado interrompido.")
-                    return
-
-                embed = discord.Embed(title=f"Aprendendo tema: {tema} - Item: {item}", color=discord.Color.blue())
-                embed.add_field(name="Utilize o comando abaixo:", value=f"```.ver {tema} {item}```", inline=False)
-                await ctx.send(embed=embed)
-
-                try:
-                    await self.baixar_imagens_individual(ctx, tema, item, user_id)
-                except Exception as e:
-                    await ctx.send(f"Erro ao processar '{item}': {e}")
-
-        finally:
-            # Garante que o ID do usuário seja removido ao final do processo, mesmo que interrompido
-            if ctx.author.id in self.processing_aprender:
-                self.processing_aprender.discard(ctx.author.id)
-
-    async def baixar_imagens_individual(self, ctx, tema, item, user_id):
-        def check(msg):
-            return msg.author.id == 628120853154103316 and msg.channel.id == ctx.channel.id and len(msg.embeds) > 0
-
-        max_retries = 3
-        retry_delay = 5
-        try:
-            resposta_bot = await asyncio.wait_for(self.bot.wait_for('message', check=check), timeout=300)  # 5 minutos
-        except asyncio.TimeoutError:
-            await ctx.send("Tempo limite de 5 minutos excedido. Processo de aprendizado interrompido.")
-            if user_id in self.processing_aprender:
-                self.processing_aprender.discard(user_id)
-            return
-
-        for attempt in range(max_retries):
-            if user_id not in self.processing_aprender:
-                return
-            try:
-                embed = resposta_bot.embeds[0]
-                if embed and embed.image and item.lower() in (embed.description or "").lower():
-                    image_url = embed.image.url
-                    response = requests.get(image_url, stream=True, timeout=10)
-                    response.raise_for_status()
-                    image = Image.open(BytesIO(response.content))
-
-                    original_name = f"{tema} {item.replace(' ', ' ')}"
-                    safe_name = self.safe_filename(original_name)
-
-                    if safe_name != original_name:
-                        nome_arquivo_imagem = f"mod {safe_name}"
-                        self.modified_names[nome_arquivo_imagem] = original_name
-                        self.save_modified_names()
-                    else:
-                        nome_arquivo_imagem = safe_name
-
-                    caminho_imagem = os.path.join(self.temas_pasta, tema,
-                                                   f"{nome_arquivo_imagem}.{'png' if image.mode == 'RGBA' else 'jpg'}")
-
-                    if image.mode == 'P':
-                        image = image.convert('RGB')
-                    image.save(caminho_imagem)
-
-                    usuario_inicial = ctx.author
-                    embedo = discord.Embed(title='Download Concluído!', description='Imagem salva com sucesso!')
-                    embedo.set_author(name=f'{usuario_inicial.name}', icon_url=f'{usuario_inicial.display_avatar}')
-                    embedo.color = usuario_inicial.color
-                    embedo.add_field(name='Nome:', value=nome_arquivo_imagem)
-                    embedo.set_image(url=image_url)
-                    await ctx.send(embed=embedo)
-                    return
-                else:
-                    await ctx.send(f"Não foi encontrada imagem para o item '{item}'.")
-                    return
-
-            except (ConnectTimeout, ReadTimeout, requests.exceptions.RequestException) as e:
-                print(f"Erro ao baixar imagem para '{item}' (Tentativa {attempt + 1}/{max_retries}): {e}")
-                if attempt < max_retries - 1:
-                    await asyncio.sleep(retry_delay)
-                else:
-                    await ctx.send(f"Falha ao baixar imagem para '{item}' após várias tentativas.")
-                    return
-            except Exception as e:
-                await ctx.send(f"Ocorreu um erro: {e}")
-                return
 
     def safe_filename(self, filename):
         invalid_chars = r'[:/\\<>|"\'?*#]'
         return re.sub(invalid_chars, '_', filename)
-                
+
     @commands.command(name="editor")
     async def editor_tema(self, ctx: commands.Context, tema: str):
         if ctx.author.id in self.processing_editor:
             await ctx.send("Você já está usando o editor. Use `editorfim` para finalizar o processo atual.")
             return
         self.processing_editor.add(ctx.author.id)
-        
+
         caminho_tema = os.path.join(self.temas_pasta, tema)
         nome_arquivo = f"lista_{tema.lower().replace(' ', '_')}.txt"
         caminho_completo = os.path.join(caminho_tema, nome_arquivo)
@@ -359,7 +355,7 @@ class TemasInteract(commands.Cog):
         try:
             with open(caminho_completo, "r", encoding="utf-8") as f:
                 lista_itens = [item.strip().lower() for item in f.readlines()]
-            
+
             await self.processar_editor(ctx, tema, lista_itens, ctx.author.id)
         except Exception as e:
             await ctx.send(f"Ocorreu um erro: {e}")
@@ -374,13 +370,13 @@ class TemasInteract(commands.Cog):
             await ctx.send("Processo de edição do tema finalizado.")
         else:
             await ctx.send("Você não está em nenhum processo de edição de tema.")
-            
+
     async def processar_editor(self, ctx, tema:str, lista_itens, user_id):
         message = await ctx.send("Procurando mensagem do bot com editor... Aguarde.")
 
         def check_bot_message(m):
-            return m.author.id == 628120853154103316 and len(m.embeds) > 0 and \
-                   "Navegação de editor." in (m.embeds[0].footer.text or "")
+            return m.author.id == 628120853154103316 and len(m.embeds()) > 0 and \
+                   "Navegação de editor." in (m.embeds()[0].footer.text or "")
 
         try:
             async with ctx.typing():
@@ -406,14 +402,14 @@ class TemasInteract(commands.Cog):
             if user_id in self.processing_editor:
                 self.processing_editor.discard(user_id)
             return
-        
+
         try:
             while True:
                 if user_id not in self.processing_editor:
                     await message.edit(content="Processo de edição interrompido")
                     return
 
-                embed = bot_message.embeds[0]
+                embed = bot_message.embeds()[0]
                 footer_text = embed.footer.text
                 print(f"Footer text: {footer_text}")
                 print(f"Conteúdo do embed: {embed.to_dict()}") # Adicionado o print do embed
@@ -425,15 +421,15 @@ class TemasInteract(commands.Cog):
 
                     image_name = None
                     if embed.description:
-                        match_name = re.search(r"```markdown\s*#(.+?)```", embed.description, re.DOTALL)
+                        match_name = re.search(r"``markdown\s*#(.+?)``", embed.description, re.DOTALL)
                         if match_name:
                             image_name = match_name.group(1).strip()
 
                     if image_name:
-                        
+
                         if embed.image:
                             image_url = embed.image.url
-                            
+
                             max_retries = 3
                             retry_delay = 5
                             for attempt in range(max_retries):
@@ -444,20 +440,20 @@ class TemasInteract(commands.Cog):
                                     response = requests.get(image_url, stream=True, timeout=10)
                                     response.raise_for_status()
                                     image = Image.open(BytesIO(response.content))
-                                    
+
                                     original_name = f"{tema} {image_name.replace(' ', ' ')}"
                                     safe_name = self.safe_filename(original_name)
-                                    
+
                                     if safe_name != original_name:
                                         nome_arquivo_imagem = f"mod {safe_name}"
-                                        self.modified_names[nome_arquivo_imagem] = original_name
+                                        self.modified_names[(nome_arquivo_imagem)] = original_name
                                         self.save_modified_names()
                                     else:
                                         nome_arquivo_imagem = safe_name
-                                        
+
                                     caminho_imagem = os.path.join(self.temas_pasta, tema,
                                                     f"{nome_arquivo_imagem}.{'png' if image.mode == 'RGBA' else 'jpg'}")
-                                    
+
                                     if image.mode == 'P':
                                         image = image.convert('RGB')
                                     image.save(caminho_imagem)
@@ -478,7 +474,7 @@ class TemasInteract(commands.Cog):
                                         break
                         else:
                            await message.edit(content="Não foi encontrada imagem no embed.")
-                                
+
                         if current_page == total_pages:
                            await message.edit(content=f"Todas as imagens do tema: '{tema}' foram baixadas")
                            break
@@ -491,7 +487,7 @@ class TemasInteract(commands.Cog):
                                 return
                             try:
                                 new_message = await ctx.channel.fetch_message(bot_message.id)
-                                if new_message.embeds[0].footer.text != footer_text:
+                                if new_message.embeds()[0].footer.text != footer_text:
                                     bot_message = new_message
                                     break
                                 await asyncio.sleep(1)
@@ -506,13 +502,13 @@ class TemasInteract(commands.Cog):
                 else:
                     image_name = None
                     if embed.description:
-                        match_name = re.search(r"```markdown\s*#(.+?)```", embed.description, re.DOTALL)
+                        match_name = re.search(r"``markdown\s*#(.+?)``", embed.description, re.DOTALL)
                         if match_name:
                             image_name = match_name.group(1).strip()
                     if image_name:
                         if embed.image:
                             image_url = embed.image.url
-                            
+
                             max_retries = 3
                             retry_delay = 5
                             for attempt in range(max_retries):
@@ -523,20 +519,20 @@ class TemasInteract(commands.Cog):
                                     response = requests.get(image_url, stream=True, timeout=10)
                                     response.raise_for_status()
                                     image = Image.open(BytesIO(response.content))
-                                    
+
                                     original_name = f"{tema} {image_name.replace(' ', ' ')}"
                                     safe_name = self.safe_filename(original_name)
-                                    
+
                                     if safe_name != original_name:
                                         nome_arquivo_imagem = f"mod {safe_name}"
-                                        self.modified_names[nome_arquivo_imagem] = original_name
+                                        self.modified_names[(nome_arquivo_imagem)] = original_name
                                         self.save_modified_names()
                                     else:
                                         nome_arquivo_imagem = safe_name
-                                        
+
                                     caminho_imagem = os.path.join(self.temas_pasta, tema,
                                                     f"{nome_arquivo_imagem}.{'png' if image.mode == 'RGBA' else 'jpg'}")
-                                    
+
                                     if image.mode == 'P':
                                         image = image.convert('RGB')
                                     image.save(caminho_imagem)
@@ -641,31 +637,18 @@ class TemasInteract(commands.Cog):
             if not os.path.exists(imagens_pasta) or not os.listdir(imagens_pasta):
                 await ctx.send(f"Não encontrei imagens para o tema '{tema_dir}'.")
                 return
-            nomes_imagens = [f for f in os.listdir(imagens_pasta) if f.lower().endswith(('.jpg', '.png'))]
+            nomes_imagens = {self.normalize_text(os.path.splitext(f)[0].replace("mod ", "").replace(f"{tema_dir.lower()} ", "").strip()): f for f in os.listdir(imagens_pasta) if f.lower().endswith(('.jpg', '.png'))}
 
-            nomes_imagens_tratados = []
-            for nome_imagem in nomes_imagens:
-                nome_sem_extensao = os.path.splitext(nome_imagem)[0]
-                nome_sem_mod = nome_sem_extensao.replace("mod ", "")
+            faltantes = [item for item in lista_itens if item not in nomes_imagens]
 
-                if nome_sem_mod in self.modified_names:
-                    nome_original = self.modified_names[nome_sem_mod]
-                    nome_final = nome_original.replace(f"{tema_dir} ", "").lower()
-                    nomes_imagens_tratados.append(self.normalize_text(nome_final))
-                else:
-                    nome_final = nome_sem_mod.replace(f"{tema_dir} ", "").lower()
-                    nomes_imagens_tratados.append(self.normalize_text(nome_final))
-
-            faltantes = [item for item in lista_itens if item not in nomes_imagens_tratados]
-
-            adicionados = [item for item in lista_itens if item in nomes_imagens_tratados]
+            adicionados = [item for item in lista_itens if item in nomes_imagens]
 
             total_itens = len(lista_itens)
             total_adicionados = len(adicionados)
             progresso_percentual = (total_adicionados / total_itens) * 100 if total_itens > 0 else 0
 
             ultimo_adicionado = adicionados[-1] if adicionados else "Nenhuma adicionada"
-            proximo_item = faltantes[0] if faltantes else "Todas adicionadas"
+            proximo_item = faltantes[-1] if faltantes else "Todas adicionadas"
 
             embed = discord.Embed(
                 title=f"Progresso do tema: {tema_dir}",
@@ -680,14 +663,14 @@ class TemasInteract(commands.Cog):
             # Check if the theme is complete and update the completed themes list
             if not faltantes:
                 if tema_dir not in self.completed_themes:
-                    self.completed_themes[tema_dir] = True
+                    self.completed_themes[(tema_dir)] = True
                     self.save_completed_themes()
                     print(f"Tema '{tema_dir}' concluído e adicionado à lista de temas completos.")
                 await ctx.send(embed=embed)  # Send only the embed when the theme is complete
 
             else:
                 if tema_dir in self.completed_themes:
-                    del self.completed_themes[tema_dir]
+                    del self.completed_themes[(tema_dir)]
                     self.save_completed_themes()
                     print(f"Tema '{tema_dir}' não está completo e removido da lista de temas completos.")
 
@@ -703,7 +686,7 @@ class TemasInteract(commands.Cog):
 
         except Exception as e:
            await ctx.send(f"Ocorreu um erro: {e}")
-      
+
     @commands.command(name="temas")
     async def listar_temas(self, ctx: commands.Context):
         """Lista os temas, suas listas e o número de itens em cada lista."""
@@ -715,7 +698,7 @@ class TemasInteract(commands.Cog):
                 caminho_tema = os.path.join(self.temas_pasta, tema)
                 nome_arquivo = f"lista_{tema.lower().replace(' ', '_')}.txt"
                 caminho_completo = os.path.join(caminho_tema, nome_arquivo)
-                
+
                 if os.path.exists(caminho_completo):
                     with open(caminho_completo, "r", encoding="utf-8") as f:
                         lista_itens = f.readlines()
@@ -770,7 +753,7 @@ class PaginacaoTemasView(discord.ui.View):
 
         start_index = self.current_page * self.per_page
         end_index = min(start_index + self.per_page, len(self.lista))  # Evita IndexError
-        itens_pagina = self.lista[start_index:end_index]
+        itens_pagina = self.lista[(start_index):(end_index)]
 
         embed = discord.Embed(
             title=f"Temas {self.tipo.capitalize()} - Página {self.current_page + 1}/{self.total_pages}",
@@ -779,7 +762,7 @@ class PaginacaoTemasView(discord.ui.View):
 
         # Divide os itens em duas colunas
         coluna1 = itens_pagina[:len(itens_pagina) // 2]
-        coluna2 = itens_pagina[len(itens_pagina) // 2:]
+        coluna2 = itens_pagina[(len(itens_pagina) // 2):]
 
         embed.add_field(name="Coluna 1", value="\n".join(coluna1) or "Vazio", inline=True)
         embed.add_field(name="Coluna 2", value="\n".join(coluna2) or "Vazio", inline=True)
@@ -852,6 +835,6 @@ class ProgressoGeralView(discord.ui.View):
     async def temas_completos_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         # Get correctly capitalized complete themes
         view = PaginacaoTemasView("", self.temas_completos, interaction.user, "completos")
-        await interaction.response.send_message(embed=view.gerar_embed(), view=view)
+        await interaction.response.send_message(embed=view.gerar_embed(), view=view, ephemeral=True)
 async def setup(bot):
     await bot.add_cog(TemasInteract(bot))
