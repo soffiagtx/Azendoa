@@ -252,7 +252,7 @@ class BichoInteract(commands.Cog):
             self.monitored_users[user_id] = {"animals": []}
             self.save_data()
             embed = await self.create_monitored_user_embed(user_id)
-            await interaction.followup.send(embed=embed, content=f"Iniciando monitoramento de {user.name}.")
+            await interaction.followup.send(embed=embed, content=f"Iniciando monitoramento de {user.name}.", ephemeral=True)
 
 
     @commands.Cog.listener()
