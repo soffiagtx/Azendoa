@@ -223,7 +223,7 @@ class BichoInteract(commands.Cog):
             animal_text += f"{self.animal_emojis.get(animal, '')} {animal}\n"
         embed.add_field(name="Animais", value=animal_text)
         return embed
-    
+
     @app_commands.command(name="palpite", description="Mostra o palpite do usuário monitorado.")
     async def palpite(self, interaction: discord.Interaction, usuario: str):
         await interaction.response.defer()
@@ -318,94 +318,126 @@ class BichoInteract(commands.Cog):
             self.config_button_added = False
             self.result_button_added = False
             self.current_state = "inicial"  # Estado inicial
-            
 
-        
-        async def interaction_check(self, interaction: discord.Interaction) -> bool:
+            # Cria os botões UMA VEZ na inicialização
+            self.call_do_dia_button = discord.ui.Button(label="Call do Dia", style=discord.ButtonStyle.blurple, custom_id="call_do_dia", row=0)
+            self.para_mim_button = discord.ui.Button(label="Para Mim", style=discord.ButtonStyle.green, custom_id="para_mim", row=1)
+            self.completa_button = discord.ui.Button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa", row=0)
+            self.completa_para_mim_button = discord.ui.Button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa_para_mim", row=0)
+            self.resultado_button = discord.ui.Button(label="Resultado", style=discord.ButtonStyle.red, custom_id="resultado", row=2)
+            self.config_button = discord.ui.Button(label="Configurar", style=discord.ButtonStyle.grey, custom_id="configurar", row=2)
+
+            # Define as funções de callback dos botões
+            self.call_do_dia_button.callback = self.call_do_dia_callback
+            self.para_mim_button.callback = self.para_mim_callback
+            self.completa_button.callback = self.completa_callback
+            self.completa_para_mim_button.callback = self.completa_para_mim_callback
+            self.resultado_button.callback = self.resultado_callback
+            self.config_button.callback = self.config_callback
+            
+            self.add_initial_buttons()  # Adiciona os botões iniciais
+
+        def add_initial_buttons(self):
+            self.call_do_dia_button.row = 0  # Garante que o botão esteja na linha 0
+            self.add_item(self.call_do_dia_button)
+
+            self.para_mim_button.row = 0  # Move o botão "Para Mim" para a linha 1
+            self.add_item(self.para_mim_button)
+
+            if self.interaction.user.id in self.cog.config_ids:
+                self.config_button.row = 1  # Move o botão "Configurar" para a linha 2
+                self.add_item(self.config_button)
+
+        async def update_view(self, interaction: discord.Interaction):
+            self.clear_items()  # Limpa todos os botões
+
+            # Adiciona os botões corretos com base no estado atual
+            if self.current_state == "inicial":
+                self.add_initial_buttons()
+            elif self.current_state == "call_do_dia":
+                self.completa_button.row = 0
+                self.add_item(self.completa_button)
+
+                self.para_mim_button.row = 0
+                self.add_item(self.para_mim_button)
+
+                self.resultado_button.row = 1
+
+                self.add_item(self.resultado_button)
+            elif self.current_state == "para_mim":
+                self.completa_para_mim_button.row = 0
+                self.add_item(self.completa_para_mim_button)
+
+                self.resultado_button.row = 1
+                self.add_item(self.resultado_button)
+
+            await interaction.response.defer()  # Responde à interação
+            await interaction.message.edit(view=self)  # Edita a mensagem com os novos botões
+
+        async def on_interaction(self, interaction: discord.Interaction):
+            """Verifica se o usuário que interage é o mesmo que invocou o comando."""
             if interaction.user != self.interaction.user:
                 await interaction.response.send_message("Você não pode interagir com esse botão.", ephemeral=True)
                 return False
             return True
-        
-        async def update_view(self, interaction):
-           self.clear_items()
-           if self.current_state == "inicial":
-              self.add_item(self.call_do_dia_button)
-              self.add_item(self.para_mim_button)
-              if interaction.user.id in self.cog.config_ids:
-                  self.add_item(self.config_button)
-           elif self.current_state == "call_do_dia":
-              self.add_item(self.completa_button)
-              self.add_item(self.para_mim_button)
-              self.add_item(self.resultado_button)
-           elif self.current_state == "para_mim":
-              self.add_item(self.completa_para_mim_button)
-              self.add_item(self.resultado_button)
-           
-           await interaction.message.edit(view=self) # Use interaction.message.edit()
-        
-        @discord.ui.button(label="Call do Dia", style=discord.ButtonStyle.blurple, custom_id="call_do_dia", row=0)
-        async def call_do_dia_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-             # Mostra os 8 primeiros animais do dia
+
+        # Define as funções de callback dos botões
+        async def call_do_dia_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
+
             embed = await self.cog.send_daily_animals(interaction)
             self.current_state = "call_do_dia"
-            await interaction.response.defer() # Responda a interação com um defer
-            await self.update_view(interaction) # Atualize a view
-            await interaction.message.edit(embed=embed) # Edite a mensagem com o novo embed
+            await self.update_view(interaction)
+            await interaction.message.edit(embed=embed, view=self)
         
-
-
-        @discord.ui.button(label="Para Mim", style=discord.ButtonStyle.green, custom_id="para_mim", row=0)
-        async def para_mim_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra os 8 primeiros animais específicos do usuário
+        async def para_mim_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
+         
             user_id = interaction.user.id
             if not self.cog.check_user_animals_validity(user_id):
-                 user_animals = self.cog.generate_user_animals(user_id, 16)
+                user_animals = self.cog.generate_user_animals(user_id, 16)
             elif user_id in self.cog.user_animals:
                 user_animals = self.cog.user_animals[user_id]["animals"]
             else:
-                user_animals = self.cog.generate_user_animals(user_id,16)
+                user_animals = self.cog.generate_user_animals(user_id, 16)
 
             embed = self.cog.format_animals_to_embed(user_animals[:8], "Seus Animais (Principais)")
             self.current_state = "para_mim"
-            await interaction.response.defer()  # Responda a interação com um defer
             await self.update_view(interaction)
-            await interaction.message.edit(embed=embed) # Edite a mensagem com o novo embed
-
-
-
-        @discord.ui.button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa", row=0)
-        async def completa_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra todos os 16 animais do dia
-            embed = await self.cog.send_full_daily_animals(interaction)
-            await interaction.response.defer()
             await interaction.message.edit(embed=embed, view=self)
 
-
-        @discord.ui.button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa_para_mim", row=0)
-        async def completa_para_mim_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra todos os 16 animais específicos do usuário
-           
+        async def completa_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
+            embed = await self.cog.send_full_daily_animals(interaction)
+            await self.update_view(interaction)
+            await interaction.message.edit(embed=embed, view=self)
+    
+        async def completa_para_mim_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
             user_id = interaction.user.id
-            if  user_id in self.cog.user_animals:
-               user_animals = self.cog.user_animals[user_id]["animals"]
+            if user_id in self.cog.user_animals:
+                user_animals = self.cog.user_animals[user_id]["animals"]
             else:
                 user_animals = self.cog.generate_user_animals(user_id, 16)
 
             embed = self.cog.format_animals_to_embed(user_animals, "Seus Animais (Completa)")
-            await interaction.response.defer()
-            await interaction.message.edit(embed=embed, view=self)
-        
-        @discord.ui.button(label="Resultado", style=discord.ButtonStyle.red, custom_id="resultado", row=1)
-        async def resultado_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Volta para o embed principal
-            self.current_state = "inicial"
-            await interaction.response.defer()
             await self.update_view(interaction)
-            await interaction.message.edit(embed=self.original_embed)
+            await interaction.message.edit(embed=embed, view=self)
 
-        @discord.ui.button(label="Configurar", style=discord.ButtonStyle.grey, custom_id="configurar", row=0)
-        async def config_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        async def resultado_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
+            self.current_state = "inicial"
+            await self.update_view(interaction)
+            await interaction.message.edit(embed=self.original_embed, view=self)
+
+        async def config_callback(self, interaction: discord.Interaction):
+            if not await self.on_interaction(interaction):
+                return
             if interaction.user.id in self.cog.config_ids:
                 view = self.cog.ConfigView(self.cog, interaction)
                 animal_list_str = "\n".join([f"{self.cog.animal_emojis.get(animal, '')} {animal}" for animal in self.cog.all_animals])
@@ -417,233 +449,7 @@ class BichoInteract(commands.Cog):
                 await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
             else:
                 await interaction.response.send_message("Você não tem permissão para configurar os animais.", ephemeral=True)
-        
-    class ConfigView(discord.ui.View):
-      def __init__(self, cog, interaction, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cog = cog
-        self.interaction = interaction
 
-      async def interaction_check(self, interaction: discord.Interaction) -> bool:
-          if interaction.user != self.interaction.user:
-            await interaction.response.send_message("Você não pode interagir com esse botão.", ephemeral=True)
-            return False
-          return True
-          
-      @discord.ui.button(label="Limpar Animais", style=discord.ButtonStyle.red, custom_id="clear_animals", row=0)
-      async def clear_animals_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-          if interaction.user.id in self.cog.config_ids:
-              self.cog.animal_emojis = {}
-              self.cog.all_animals = []
-              self.cog.daily_animals = []
-              self.cog.save_data()
-              await self.cog.load_data()
-              await interaction.response.send_message("Todos os animais foram limpos.", ephemeral=True)
-          else:
-            await interaction.response.send_message("Você não tem permissão para limpar os animais.", ephemeral=True)
-
-      @discord.ui.button(label="Adicionar Animal", style=discord.ButtonStyle.green, custom_id="add_animal", row=0)
-      async def add_animal_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if interaction.user.id in self.cog.config_ids:
-            await interaction.response.send_message("Envie os animais no formato `<emoji> <Nome do animal>` (um por linha)", ephemeral=True)
-            self.cog.add_animal_mode = True
-        else:
-            await interaction.response.send_message("Você não tem permissão para adicionar animais.", ephemeral=True)
-    
-      @discord.ui.button(label="Definir Resultado", style=discord.ButtonStyle.blurple, custom_id="set_result", row=0)
-      async def set_result_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if interaction.user.id in self.cog.config_ids:
-             await interaction.response.send_message("Envie a data (YYYY-MM-DD), o animal e a posição (principal ou secundario), (ex: `2024-12-20 Lobo principal`)", ephemeral=True)
-             self.cog.add_historical_result_mode = True
-        else:
-          await interaction.response.send_message("Você não tem permissão para adicionar um resultado.", ephemeral=True)
-
-    @app_commands.command(name="call", description="Interage com os animais.")
-    async def call(self, interaction: discord.Interaction):
-        await interaction.response.defer()
-        self.update_daily_animals()
-        
-        embed = discord.Embed(title="Bicho do Dia", color=discord.Color.blue())
-
-        if self.daily_result:
-           result_message = self.check_result(self.daily_result)
-           embed.add_field(name="Resultado de Hoje", value=f"{self.animal_emojis.get(self.daily_result, '')} {self.daily_result}\n{result_message}", inline=False)
-        else:
-             embed.add_field(name="Resultado de Hoje", value="Nenhum resultado definido ainda.", inline=False)
-        stats = self.stats
-        embed.add_field(name="Estatísticas de Palpites", value=(
-            f"Total de Palpites: {stats['total_palpites']}\n"
-            f"Acertos (Principais): {stats['acertos_principais']}\n"
-            f"Acertos (Secundários): {stats['acertos_secundarios']}\n"
-            f"Erros: {stats['erros']}"
-        ), inline=False)
-            
-        view = self.CallView(self, interaction)
-        view.original_embed = embed
-        await interaction.followup.send(embed=embed, view=view)
-    
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author.bot:
-            return
-        
-        #Iterando sobre os usuários monitorados para verificar se a mensagem é referente a algum deles.
-        for user_id in self.monitored_users:
-            user = self.bot.get_user(int(user_id))
-
-            if message.author == user and message.content == ".bicho": #Verifica se o author da mensagem é o usuário monitorado
-                print(f"Mensagem '.bicho' detectada do usuário monitorado: {user.name} (ID: {user_id})")
-                try:
-                    def check(m):
-                        return m.author.id == 628120853154103316 and m.reference and m.reference.message_id == message.id and len(m.embeds) > 0
-
-                    reply = await self.bot.wait_for('message', check=check, timeout=60)
-                    embed = reply.embeds[0]
-                    animals = await self.extract_animals_from_embed(embed)
-
-                    self.monitored_users[user_id]["animals"] = animals
-                    self.save_data()
-                    print(f"Animais atualizados para o usuário monitorado {user.name}: {animals}")
-
-
-                except asyncio.TimeoutError:
-                    print(f"Nenhuma resposta encontrada para .bicho de {user.name}.")
-
-
-    async def extract_animals_from_embed(self, embed):
-        animals = []
-        for field in embed.fields:
-            if field.name == "Suas apostas":
-                lines = field.value.split("\n")
-                for line in lines:
-                    parts = line.split("`")
-                    if len(parts) >= 2:
-                        animal_name = parts[1].strip()
-                        animals.append(animal_name)
-        print(f"Animais extraídos do embed: {animals}") #ADICIONADO
-        return animals
-
-    async def create_monitored_user_embed(self, user_id):
-        if user_id not in self.monitored_users or not self.monitored_users[user_id]["animals"]:
-            print(f"Nenhuma aposta encontrada para o usuário: {user_id}")
-            return discord.Embed(title="Animais Apostados", description="Nenhuma aposta encontrada.", color=discord.Color.light_grey())
-
-        animals = self.monitored_users[user_id]["animals"]
-        embed = discord.Embed(title="Animais Apostados", color=discord.Color.green())
-        animal_text = ""
-        for animal in animals:
-            animal_text += f"{self.animal_emojis.get(animal, '')} {animal}\n"
-        embed.add_field(name="Animais", value=animal_text)
-        return embed
-
-    class CallView(discord.ui.View):
-        def __init__(self, cog, interaction, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.cog = cog
-            self.interaction = interaction
-            self.original_embed = None
-            self.config_button_added = False
-            self.result_button_added = False
-            self.current_state = "inicial"  # Estado inicial
-            
-
-        
-        async def interaction_check(self, interaction: discord.Interaction) -> bool:
-            if interaction.user != self.interaction.user:
-                await interaction.response.send_message("Você não pode interagir com esse botão.", ephemeral=True)
-                return False
-        
-        async def update_view(self, interaction):
-           self.clear_items()
-           if self.current_state == "inicial":
-              self.add_item(self.call_do_dia_button)
-              self.add_item(self.para_mim_button)
-              if interaction.user.id in self.cog.config_ids:
-                  self.add_item(self.config_button)
-           elif self.current_state == "call_do_dia":
-              self.add_item(self.completa_button)
-              self.add_item(self.para_mim_button)
-              self.add_item(self.resultado_button)
-           elif self.current_state == "para_mim":
-              self.add_item(self.completa_para_mim_button)
-              self.add_item(self.resultado_button)
-           
-           await interaction.message.edit(view=self) # Use interaction.message.edit()
-        
-        @discord.ui.button(label="Call do Dia", style=discord.ButtonStyle.blurple, custom_id="call_do_dia", row=0)
-        async def call_do_dia_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-             # Mostra os 8 primeiros animais do dia
-            embed = await self.cog.send_daily_animals(interaction)
-            self.current_state = "call_do_dia"
-            await interaction.response.defer() # Responda a interação com um defer
-            await self.update_view(interaction) # Atualize a view
-            await interaction.message.edit(embed=embed) # Edite a mensagem com o novo embed
-        
-
-
-        @discord.ui.button(label="Para Mim", style=discord.ButtonStyle.green, custom_id="para_mim", row=0)
-        async def para_mim_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra os 8 primeiros animais específicos do usuário
-            user_id = interaction.user.id
-            if not self.cog.check_user_animals_validity(user_id):
-                 user_animals = self.cog.generate_user_animals(user_id, 16)
-            elif user_id in self.cog.user_animals:
-                user_animals = self.cog.user_animals[user_id]["animals"]
-            else:
-                user_animals = self.cog.generate_user_animals(user_id,16)
-
-            embed = self.cog.format_animals_to_embed(user_animals[:8], "Seus Animais (Principais)")
-            self.current_state = "para_mim"
-            await interaction.response.defer()  # Responda a interação com um defer
-            await self.update_view(interaction)
-            await interaction.message.edit(embed=embed) # Edite a mensagem com o novo embed
-
-
-
-        @discord.ui.button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa", row=0)
-        async def completa_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra todos os 16 animais do dia
-            embed = await self.cog.send_full_daily_animals(interaction)
-            await interaction.response.defer()
-            await interaction.message.edit(embed=embed, view=self)
-
-
-        @discord.ui.button(label="Completa", style=discord.ButtonStyle.blurple, custom_id="completa_para_mim", row=0)
-        async def completa_para_mim_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Mostra todos os 16 animais específicos do usuário
-           
-            user_id = interaction.user.id
-            if  user_id in self.cog.user_animals:
-               user_animals = self.cog.user_animals[user_id]["animals"]
-            else:
-                user_animals = self.cog.generate_user_animals(user_id, 16)
-
-            embed = self.cog.format_animals_to_embed(user_animals, "Seus Animais (Completa)")
-            await interaction.response.defer()
-            await interaction.message.edit(embed=embed, view=self)
-        
-        @discord.ui.button(label="Resultado", style=discord.ButtonStyle.red, custom_id="resultado", row=1)
-        async def resultado_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            # Volta para o embed principal
-            self.current_state = "inicial"
-            await interaction.response.defer()
-            await self.update_view(interaction)
-            await interaction.message.edit(embed=self.original_embed)
-
-        @discord.ui.button(label="Configurar", style=discord.ButtonStyle.grey, custom_id="configurar", row=0)
-        async def config_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            if interaction.user.id in self.cog.config_ids:
-                view = self.cog.ConfigView(self.cog, interaction)
-                animal_list_str = "\n".join([f"{self.cog.animal_emojis.get(animal, '')} {animal}" for animal in self.cog.all_animals])
-                embed = discord.Embed(
-                    title="Configuração de Animais",
-                    description=f"Animais atuais:\n{animal_list_str}",
-                    color=discord.Color.green(),
-                )
-                await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
-            else:
-                await interaction.response.send_message("Você não tem permissão para configurar os animais.", ephemeral=True)
-        
     class ConfigView(discord.ui.View):
       def __init__(self, cog, interaction, *args, **kwargs):
         super().__init__(*args, **kwargs)
