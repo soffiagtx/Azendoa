@@ -1,11 +1,12 @@
 import discord
 from discord import app_commands
-from discord.ext import commands
+from discord.ext import commands, tasks
 import random
 import datetime
 import json
 import os
 import asyncio
+import pytz  # Importe a biblioteca pytz
 
 class BichoInteract(commands.Cog):
     def __init__(self, bot):
@@ -28,7 +29,21 @@ class BichoInteract(commands.Cog):
         self.historical_results = {}
         self.load_data()
         self.update_daily_animals()
-        self.monitored_users = {}  # Dicionário para armazenar os usuários monitorados
+        self.monitored_users = self.load_monitored_users()  # Carregar usuários monitorados do arquivo
+        self.reset_monitored_users_task.start() #inicia a task de zerar os usuários monitorados
+
+    def load_monitored_users(self):
+        if os.path.exists(self.data_file):
+            try:
+                with open(self.data_file, 'r') as f:
+                    data = json.load(f)
+                    # Certifique-se de que o formato de monitored_users está correto ao carregar
+                    return data.get('monitored_users', {})
+            except Exception as e:
+                print(f"Erro ao carregar dados do arquivo: {e}")
+                return {}
+        else:
+            return {}
 
     def load_data(self):
         if os.path.exists(self.data_file):
@@ -52,7 +67,7 @@ class BichoInteract(commands.Cog):
                     self.stats = data.get('stats', self.stats)
                     self.historical_results = data.get("historical_results",{})
                     self.all_animals = list(self.animal_emojis.keys())
-                    self.monitored_users = data.get("monitored_users", {}) #carrega usuários monitorados
+                    
 
                     #validando todos os usuários na inicialização
                     for user_id in self.user_animals.keys():
@@ -67,7 +82,6 @@ class BichoInteract(commands.Cog):
                 self.user_animals = {}
                 self.daily_result = None
                 self.historical_results = {}
-                self.monitored_users = {} #zera usuários monitorados
         else:
             self.animal_emojis = {}
             self.all_animals = []
@@ -76,8 +90,6 @@ class BichoInteract(commands.Cog):
             self.user_animals = {}
             self.daily_result = None
             self.historical_results = {}
-            self.monitored_users = {} #zera usuários monitorados
-
 
     def save_data(self):
         user_animals_data = {}
@@ -112,7 +124,6 @@ class BichoInteract(commands.Cog):
             if not self.daily_animals:
               self.daily_animals = random.sample(self.all_animals, 16)
               self.save_data()
-            
 
     def check_user_animals_validity(self, user_id):
       now = datetime.datetime.now()
@@ -254,6 +265,14 @@ class BichoInteract(commands.Cog):
             embed = await self.create_monitored_user_embed(user_id)
             await interaction.followup.send(embed=embed, content=f"Iniciando monitoramento de {user.name}.", ephemeral=True)
 
+    @tasks.loop(time=datetime.time(hour=22, minute=0, tzinfo=pytz.timezone('America/Sao_Paulo')))
+    async def reset_monitored_users_task(self):
+        """Reseta as apostas dos usuários monitorados às 22:00 (horário de Brasília)."""
+        print("Resentando as apostas dos usuários monitorados.")
+        for user_id in self.monitored_users:
+            self.monitored_users[user_id]["animals"] = []
+        self.save_data()
+        print("Apostas dos usuários monitorados resetadas com sucesso.")
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -264,7 +283,7 @@ class BichoInteract(commands.Cog):
         for user_id in self.monitored_users:
             user = self.bot.get_user(int(user_id))
 
-            if message.author == user and message.content == ".bicho": #Verifica se o author da mensagem é o usuário monitorado
+            if message.author == user and message.content in [".bicho", ". bicho"]: #Verifica se o author da mensagem é o usuário monitorado
                 print(f"Mensagem '.bicho' detectada do usuário monitorado: {user.name} (ID: {user_id})")
                 try:
                     def check(m):
@@ -513,60 +532,6 @@ class BichoInteract(commands.Cog):
         view = self.CallView(self, interaction)
         view.original_embed = embed
         await interaction.followup.send(embed=embed, view=view)
-    
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author.bot:
-            return
-        
-        #Iterando sobre os usuários monitorados para verificar se a mensagem é referente a algum deles.
-        for user_id in self.monitored_users:
-            user = self.bot.get_user(int(user_id))
-
-            if message.author == user and message.content == ".bicho": #Verifica se o author da mensagem é o usuário monitorado
-                print(f"Mensagem '.bicho' detectada do usuário monitorado: {user.name} (ID: {user_id})")
-                try:
-                    def check(m):
-                        return m.author.id == 628120853154103316 and m.reference and m.reference.message_id == message.id and len(m.embeds) > 0
-
-                    reply = await self.bot.wait_for('message', check=check, timeout=60)
-                    embed = reply.embeds[0]
-                    animals = await self.extract_animals_from_embed(embed)
-
-                    self.monitored_users[user_id]["animals"] = animals
-                    self.save_data()
-                    print(f"Animais atualizados para o usuário monitorado {user.name}: {animals}")
-
-
-                except asyncio.TimeoutError:
-                    print(f"Nenhuma resposta encontrada para .bicho de {user.name}.")
-
-
-    async def extract_animals_from_embed(self, embed):
-        animals = []
-        for field in embed.fields:
-            if field.name == "Suas apostas":
-                lines = field.value.split("\n")
-                for line in lines:
-                    parts = line.split("`")
-                    if len(parts) >= 2:
-                        animal_name = parts[1].strip()
-                        animals.append(animal_name)
-        print(f"Animais extraídos do embed: {animals}") #ADICIONADO
-        return animals
-
-    async def create_monitored_user_embed(self, user_id):
-        if user_id not in self.monitored_users or not self.monitored_users[user_id]["animals"]:
-            print(f"Nenhuma aposta encontrada para o usuário: {user_id}")
-            return discord.Embed(title="Animais Apostados", description="Nenhuma aposta encontrada.", color=discord.Color.light_grey())
-
-        animals = self.monitored_users[user_id]["animals"]
-        embed = discord.Embed(title="Animais Apostados", color=discord.Color.green())
-        animal_text = ""
-        for animal in animals:
-            animal_text += f"{self.animal_emojis.get(animal, '')} {animal}\n"
-        embed.add_field(name="Animais", value=animal_text)
-        return embed
 
 async def setup(bot):
     await bot.add_cog(BichoInteract(bot))
