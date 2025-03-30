@@ -20,47 +20,25 @@
         "Tigre-branco": "<:TigreBranco:1335430382799294484>"
     },
     "daily_animals": [
-        "Estegossauro",
-        "Aranha",
-        "Girafa",
-        "Cobra",
         "Pav\u00e3o",
-        "Grifo",
-        "Piranha",
-        "Escorpi\u00e3o",
-        "Caracol",
-        "Tigre-branco",
+        "Jacar\u00e9",
         "Raposa",
-        "Galinha",
+        "Escorpi\u00e3o",
+        "Morcego",
+        "Drag\u00e3o",
+        "Cobra",
         "Ieti",
+        "Grifo",
         "Coelho",
         "\u00c1gua-viva",
-        "Morcego"
+        "Estegossauro",
+        "Girafa",
+        "Caracol",
+        "Galinha",
+        "Tigre-branco"
     ],
-    "last_update": "2025-03-28T17:11:27.255391",
-    "user_animals": {
-        "400318261306195988": {
-            "animals": [
-                "Coelho",
-                "Galinha",
-                "Ieti",
-                "Girafa",
-                "Piranha",
-                "Drag\u00e3o",
-                "Pav\u00e3o",
-                "Estegossauro",
-                "\u00c1gua-viva",
-                "Jacar\u00e9",
-                "Grifo",
-                "Morcego",
-                "Tigre-branco",
-                "Cobra",
-                "Escorpi\u00e3o",
-                "Caracol"
-            ],
-            "time": "2025-03-28T18:08:12.668841"
-        }
-    },
+    "last_update": "2025-03-30T13:34:08.126012",
+    "user_animals": {},
     "daily_result": null,
     "stats": {
         "total_palpites": 0,
@@ -95,5 +73,9 @@
             "message": "Quase! O animal estava entre os secund\u00e1rios."
         }
     },
-    "monitored_users": {}
+    "monitored_users": {
+        "1146463263668834304": {
+            "animals": []
+        }
+    }
 }

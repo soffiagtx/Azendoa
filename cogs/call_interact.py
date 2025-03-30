@@ -27,27 +27,56 @@ class BichoInteract(commands.Cog):
             "erros": 0,
         }
         self.historical_results = {}
-        self.load_data()
-        self.update_daily_animals()
-        self.monitored_users = self.load_monitored_users()  # Carregar usuários monitorados do arquivo
+        try:
+            self.load_data() #carrega os dados
+        except Exception as e:
+            print(f"Erro ao carregar dados iniciais: {e}")
+            self.animal_emojis = {}
+            self.all_animals = []
+            self.daily_animals = []
+            self.last_update = None
+            self.user_animals = {}
+            self.daily_result = None
+            self.historical_results = {}
+
+        self.all_animals = list(self.animal_emojis.keys()) #garante que self.all_animals seja preenchido após o load_data
+        try:
+            self.update_daily_animals() #atualiza os animais diários
+        except Exception as e:
+            print(f"Erro ao atualizar animais diários: {e}")
+            self.daily_animals = []  # Garante que daily_animals seja inicializado
+
+        try:
+            self.monitored_users = self.load_monitored_users()  # Carregar usuários monitorados do arquivo
+        except Exception as e:
+            print(f"Erro ao carregar usuários monitorados: {e}")
+            self.monitored_users = {} #garante que self.monitored_users seja inicializado
+
         self.reset_monitored_users_task.start() #inicia a task de zerar os usuários monitorados
 
     def load_monitored_users(self):
-        if os.path.exists(self.data_file):
-            try:
+        try:
+            if os.path.exists(self.data_file):
                 with open(self.data_file, 'r') as f:
                     data = json.load(f)
                     # Certifique-se de que o formato de monitored_users está correto ao carregar
                     return data.get('monitored_users', {})
-            except Exception as e:
-                print(f"Erro ao carregar dados do arquivo: {e}")
+            else:
+                print(f"Arquivo {self.data_file} não encontrado.")
                 return {}
-        else:
+        except FileNotFoundError:
+            print(f"Arquivo {self.data_file} não encontrado.")
+            return {}
+        except json.JSONDecodeError as e:
+            print(f"Erro ao decodificar JSON no arquivo {self.data_file}: {e}")
+            return {}
+        except Exception as e:
+            print(f"Erro ao carregar usuários monitorados: {e}")
             return {}
 
     def load_data(self):
-        if os.path.exists(self.data_file):
-            try:
+        try:
+            if os.path.exists(self.data_file):
                 with open(self.data_file, 'r') as f:
                     data = json.load(f)
                     self.animal_emojis = data.get('animal_emojis', {})
@@ -66,15 +95,14 @@ class BichoInteract(commands.Cog):
                     self.daily_result = data.get('daily_result')
                     self.stats = data.get('stats', self.stats)
                     self.historical_results = data.get("historical_results",{})
-                    self.all_animals = list(self.animal_emojis.keys())
                     
 
                     #validando todos os usuários na inicialização
                     for user_id in self.user_animals.keys():
                         if not self.check_user_animals_validity(user_id):
                             self.generate_user_animals(user_id, 16)
-            except Exception as e:
-                print(f"Erro ao carregar dados do arquivo: {e}")
+            else:
+                print(f"Arquivo {self.data_file} não encontrado.")
                 self.animal_emojis = {}
                 self.all_animals = []
                 self.daily_animals = []
@@ -82,7 +110,27 @@ class BichoInteract(commands.Cog):
                 self.user_animals = {}
                 self.daily_result = None
                 self.historical_results = {}
-        else:
+
+        except FileNotFoundError:
+            print(f"Arquivo {self.data_file} não encontrado.")
+            self.animal_emojis = {}
+            self.all_animals = []
+            self.daily_animals = []
+            self.last_update = None
+            self.user_animals = {}
+            self.daily_result = None
+            self.historical_results = {}
+        except json.JSONDecodeError as e:
+            print(f"Erro ao decodificar JSON no arquivo {self.data_file}: {e}")
+            self.animal_emojis = {}
+            self.all_animals = []
+            self.daily_animals = []
+            self.last_update = None
+            self.user_animals = {}
+            self.daily_result = None
+            self.historical_results = {}
+        except Exception as e:
+            print(f"Erro ao carregar dados do arquivo: {e}")
             self.animal_emojis = {}
             self.all_animals = []
             self.daily_animals = []
@@ -108,13 +156,19 @@ class BichoInteract(commands.Cog):
             'historical_results': self.historical_results,
             'monitored_users': self.monitored_users
         }
-        with open(self.data_file, 'w') as f:
-            json.dump(data, f, indent=4)
+        try:
+            with open(self.data_file, 'w') as f:
+                json.dump(data, f, indent=4)
+        except Exception as e:
+            print(f"Erro ao salvar dados no arquivo: {e}")
 
     def update_daily_animals(self):
         now = datetime.datetime.now()
         if self.last_update is None or self.last_update.date() < now.date():
-            self.daily_animals = random.sample(self.all_animals, 16)
+            if not self.all_animals:
+                print("Erro: self.all_animals está vazio. Não é possível selecionar animais diários.")
+                return  # Ou lance uma exceção, dependendo da sua lógica
+            self.daily_animals = random.sample(self.all_animals, min(16, len(self.all_animals)))  # Garante que não seja maior que a população
             self.last_update = now
             self.daily_result = None
             print(f"Animais diários atualizados: {self.daily_animals}")
@@ -122,8 +176,11 @@ class BichoInteract(commands.Cog):
             self.save_data()
         elif self.last_update.date() == now.date() : # adicionado a verificação do dia
             if not self.daily_animals:
-              self.daily_animals = random.sample(self.all_animals, 16)
-              self.save_data()
+                if not self.all_animals:
+                    print("Erro: self.all_animals está vazio. Não é possível selecionar animais diários.")
+                    return  # Ou lance uma exceção, dependendo da sua lógica
+                self.daily_animals = random.sample(self.all_animals, min(16, len(self.all_animals)))  # Garante que não seja maior que a população
+                self.save_data()
 
     def check_user_animals_validity(self, user_id):
       now = datetime.datetime.now()
@@ -140,8 +197,11 @@ class BichoInteract(commands.Cog):
         if quantidade > 16:
             quantidade = 16
         now = datetime.datetime.now()
+        if not self.all_animals:
+            print("Erro: self.all_animals está vazio. Não é possível gerar animais para o usuário.")
+            return []  # Ou lance uma exceção
         self.user_animals[user_id] = {
-            "animals": random.sample(self.all_animals, 16),
+            "animals": random.sample(self.all_animals, min(quantidade, len(self.all_animals))),
             "time": now
         }
         self.save_data()

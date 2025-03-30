@@ -41,7 +41,7 @@ async def carregar_cogs():
                     nome_cog = f"cogs.{arquivo[:-3]}"
                     await bot.load_extension(nome_cog)
                     cogs_carregados.append(nome_cog)
-                    # print(f"Cog carregado com sucesso: {nome_cog}")
+                    print(f"Cog carregado com sucesso: {nome_cog}")
                 except Exception as e:
                     print(f"Erro ao carregar o cog {arquivo}: {str(e)}")
     except Exception as e:
