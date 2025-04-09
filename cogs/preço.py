@@ -93,6 +93,55 @@ class Preço(commands.Cog):
         embed.add_field(name="Preço", value=price_field or "Vazio", inline=True)
         return embed
 
+    class PriceModal(discord.ui.Modal):
+        def __init__(self, cog, interaction, paginator):  # Passa o paginator
+            super().__init__(title="Pesquisar Preço")
+            self.cog = cog
+            self.interaction = interaction
+            self.paginator = paginator  # Guarda o paginator
+
+            self.price_input = discord.ui.TextInput(
+                label="Digite o preço:",
+                placeholder="Ex: 200 ou 35k",
+                required=True,
+                style=discord.TextStyle.short,
+            )
+            self.add_item(self.price_input)
+
+        async def on_submit(self, interaction: discord.Interaction):
+            try:
+                valor = self.price_input.value.lower().replace("k", "000")
+                price = int(valor)
+            except ValueError:
+                await interaction.response.send_message("Valor inválido. Use um número inteiro ou um número seguido de 'k' (ex: 35k).", ephemeral=True)
+                return
+
+            closest_level = self.cog._get_closest_level(price)
+
+            # Calcula a página onde o nível mais próximo está
+            page_num = (closest_level - 1) // self.cog.items_per_page + 1 if closest_level else 1
+            total_pages = (len(self.cog.precos) + self.cog.items_per_page - 1) // self.cog.items_per_page
+
+            # Cria o conteúdo inicial com 5 itens antes e depois do nível mais próximo
+            start_level = max(1, closest_level - 5)
+            end_level = min(len(self.cog.precos), closest_level + 5)
+            initial_content = {level: self.cog.precos[level] for level in range(start_level, end_level + 1) if level in self.cog.precos}
+
+            # Cria o embed inicial
+            embed = await self.cog._create_embed(initial_content, page_num, total_pages, price, closest_level)
+
+            # Atualiza o paginator com os novos valores
+            self.paginator.price = price
+            self.paginator.closest_level = closest_level
+            self.paginator.total_pages = total_pages
+            self.paginator.current_page = (closest_level - 1) // self.cog.items_per_page + 1 if closest_level else 1
+            self.paginator.initial_content = initial_content
+
+            await self.paginator.update_message() # Chama update_message do Paginator para editar a mensagem
+            await interaction.response.defer() # Acknowledge the interaction
+
+
+
     class Paginator(discord.ui.View):
         def __init__(self, cog, interaction, price, closest_level, total_pages, initial_content):
             super().__init__()
@@ -106,6 +155,10 @@ class Preço(commands.Cog):
 
             # Desabilita os botões se estiver na primeira ou última página
             self.update_buttons()
+
+            # Adiciona o botão de pesquisa
+            self.add_item(Preço.SearchButton(cog, interaction, self))  # Passa self (Paginator)
+
 
         async def update_message(self):
             if self.current_page == ((self.closest_level - 1) // self.cog.items_per_page + 1 if self.closest_level else 1) and self.initial_content:
@@ -139,6 +192,17 @@ class Preço(commands.Cog):
             await interaction.response.defer()  # Acknowledge the interaction
             self.current_page += 1
             await self.update_message()
+
+    class SearchButton(discord.ui.Button):
+        def __init__(self, cog, interaction, paginator):  # Recebe paginator
+            super().__init__(label="Pesquisar Preço", style=discord.ButtonStyle.secondary)
+            self.cog = cog
+            self.interaction = interaction
+            self.paginator = paginator # Guarda o paginator
+
+        async def callback(self, interaction: discord.Interaction):
+            modal = Preço.PriceModal(self.cog, interaction, self.paginator)  # Passa o paginator
+            await interaction.response.send_modal(modal)
 
 
     @app_commands.command(name="precos", description="Mostra os preços próximos ao valor especificado.")
