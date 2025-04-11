@@ -205,7 +205,7 @@ class Preço(commands.Cog):
             await interaction.response.send_modal(modal)
 
 
-    @app_commands.command(name="precos", description="Mostra os preços próximos ao valor especificado.")
+    @app_commands.command(name="preços", description="Mostra os preços próximos ao valor especificado.")
     @app_commands.describe(valor="O valor para pesquisar (ex: 200 ou 35k).")
     async def precos(self, interaction: discord.Interaction, valor: str):
         try:
