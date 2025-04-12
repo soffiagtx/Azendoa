@@ -19,25 +19,8 @@
         "Raposa": "<:Raposa:1335430361248694344>",
         "Tigre-branco": "<:TigreBranco:1335430382799294484>"
     },
-    "daily_animals": [
-        "Pav\u00e3o",
-        "Jacar\u00e9",
-        "Raposa",
-        "Escorpi\u00e3o",
-        "Morcego",
-        "Drag\u00e3o",
-        "Cobra",
-        "Ieti",
-        "Grifo",
-        "Coelho",
-        "\u00c1gua-viva",
-        "Estegossauro",
-        "Girafa",
-        "Caracol",
-        "Galinha",
-        "Tigre-branco"
-    ],
-    "last_update": "2025-03-30T13:34:08.126012",
+    "daily_animals": [],
+    "last_update": "2025-04-11T21:24:33.768174",
     "user_animals": {},
     "daily_result": null,
     "stats": {

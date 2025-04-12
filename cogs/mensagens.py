@@ -172,6 +172,9 @@ class Mensagens(commands.Cog):
         self.content_count["count"] += 1
         self.save_content_count()
 
+        # Collect all embed data for the log file
+        all_embed_data = []
+
         embed = discord.Embed(title=f"Conteúdo da Mensagem (ID: {message_id})")
         embed.add_field(name="Conteúdo", value=message.content or "Nenhum", inline=False)
 
@@ -180,42 +183,37 @@ class Mensagens(commands.Cog):
             has_embed = "Contém Embed"
             for i, original_embed in enumerate(message.embeds):
                 embed_dict = original_embed.to_dict()
+                all_embed_data.append(embed_dict)
                 embed_str = json.dumps(embed_dict, indent=4, ensure_ascii=False)  # Use json.dumps to format
                 
                 # Construct a dynamic embed title
                 embed_title = title_suffix #Removed Embed #
 
                 # Limit the embed_str to a maximum of 1024 characters to prevent issues with Discord's embed field limits.
-                if len(embed_str) > 1024:
-                    embed_str = embed_str[:1020] + " ..."
+                embed_str_truncated = embed_str[:1020] + " ..." if len(embed_str) > 1024 else embed_str  # Truncate only for Discord display
+                
 
-                embed.add_field(name=embed_title, value=f"```json\n{embed_str}\n```", inline=False)
+                embed.add_field(name=embed_title, value=f"```json\n{embed_str_truncated}\n```", inline=False)
 
                 # Print the embed dictionary to the console
                 print(f"{embed_title} Dictionary:")
                 print(embed_dict)  # Print the dictionary to the console
                 
-                # Append data to the log file
-                with open(CONTENT_LOG_FILE, "a", encoding="utf-8") as log_file:
-                      log_file.write(f"Count: {self.content_count['count']}\n")
-                      log_file.write(f"Message ID: {message_id}\n")
-                      log_file.write(f"Title: {title_suffix}\n") #Just title suffix
-                      log_file.write(f"Channel: {channel.name} ({channel.id})\n")
-                      log_file.write(f"Message Content: {message.content}\n")
-                      log_file.write(f"Embed data: \n{embed_str}\n\n")
 
         else:
             embed.add_field(name="Embeds", value="Nenhum", inline=False)
-            
-            # Append data to the log file even if there are no embeds
-            with open(CONTENT_LOG_FILE, "a", encoding="utf-8") as log_file:
-                log_file.write(f"Count: {self.content_count['count']}\n")
-                log_file.write(f"Message ID: {message_id}\n")
-                log_file.write(f"Title: {title_suffix}\n")#Just title suffix
-                log_file.write(f"Channel: {channel.name} ({channel.id})\n")
-                log_file.write(f"Message Content: {message.content}\n")
-                log_file.write(f"Embed data: Nenhum embed encontrado.\n\n")
+            all_embed_data = "Nenhum embed encontrado."  # Changed this line to assign a string when there are no embeds
         
+        # Append data to the log file
+        with open(CONTENT_LOG_FILE, "a", encoding="utf-8") as log_file:
+            log_file.write(f"Count: {self.content_count['count']}\n")
+            log_file.write(f"Message ID: {message_id}\n")
+            log_file.write(f"Title: {title_suffix}\n")  # Just title suffix
+            log_file.write(f"Channel: {channel.name} ({channel.id})\n")
+            log_file.write(f"Message Content: {message.content}\n")
+            log_file.write(f"Embed data: \n{json.dumps(all_embed_data, indent=4, ensure_ascii=False)}\n\n")  # Save full data
+
+
         if interaction:
             await interaction.edit_original_response(embed=embed)
         else:

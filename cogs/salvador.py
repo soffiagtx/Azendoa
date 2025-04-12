@@ -25,6 +25,7 @@ class Salvador(commands.Cog):
         self.load_tema_canais()
         self.load_imagens_salvas()
         self.esperando_resposta = False
+        self.aguardando_desde = None
         self.atual_tema = None
         self.atual_palavra = None
         self.comando_atual_numero = 1
@@ -155,6 +156,7 @@ class Salvador(commands.Cog):
                     self.atual_tema = tema
                     self.atual_palavra = proxima_palavra
                     self.esperando_resposta = True
+                    self.aguardando_desde = datetime.now()
                     print(f"Comando inicial enviado: {comando}")
                     return
                 else:
@@ -165,6 +167,15 @@ class Salvador(commands.Cog):
     @tasks.loop(seconds=5)  # Verifica a cada 5 segundos se é hora de enviar o próximo comando
     async def enviar_proxima_palavra(self):
         try:
+            # Se estiver esperando resposta por muito tempo, tenta novamente
+            if self.esperando_resposta and self.aguardando_desde is not None:
+                tempo_espera = datetime.now() - self.aguardando_desde
+                if tempo_espera.total_seconds() > 30:  # Ajuste o tempo limite conforme necessário
+                    print("Tempo limite de espera excedido. Tentando novamente.")
+                    self.esperando_resposta = False
+                    self.aguardando_desde = None
+                    # Não precisa incrementar self.comando_atual_numero aqui, pois não sabemos se o comando foi executado
+
             # Se estiver esperando resposta, não faz nada
             if self.esperando_resposta:
                 print("Aguardando resposta do último comando.")
@@ -227,13 +238,14 @@ class Salvador(commands.Cog):
 
             self.atual_palavra = proxima_palavra
             self.esperando_resposta = True
+            self.aguardando_desde = datetime.now()
 
         except Exception as e:
             print(f"Erro em enviar_proxima_palavra: {e}")
 
     def proximo_comando(self):
         self.comando_atual_numero += 1
-        if self.comando_atual_numero > 3:
+        if self.comando_atual_numero > 5:
             self.comando_atual_numero = 1
 
     # Define quando o próximo comando deve ser enviado
@@ -245,86 +257,108 @@ class Salvador(commands.Cog):
     async def on_message(self, message):
         if message.author.id == self.bot_alvo_id and message.channel.id == self.canal_comandos_id and message.guild.id == self.guild_alvo_id:
             if self.esperando_resposta:
+                print(f"Mensagem recebida de {message.author.id}: {message.content}")  # Log básico
+
                 if message.embeds:
                     embed = message.embeds[0]
-                    cooldown_aleatorio = random.randint(21, 31)  # Define o cooldown aleatório entre 20 e 30 segundos
+                    print(f"Embed recebida: {embed.title}, {embed.description}, {embed.color.value}")  # Log da embed
 
-                    if embed.color.value == 16627968 and ":Relogio:" in embed.description:  # Verifica cooldown
-                        tempo_restante = self.extrair_tempo_restante(embed.description)
-                        self.definir_cooldown(message.author.id, self.atual_palavra, tempo_restante)
-                        print(f"Cooldown detectado para '{self.atual_palavra}'. Tentando novamente em {tempo_restante} segundos.")
-                        self.esperando_resposta = False
-                        self.proximo_comando()
-                        print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
-                        self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
+                    try:
+                        if embed.color.value == 16627968 and ":Relogio:" in embed.description:  # Verifica cooldown
+                            tempo_restante = self.extrair_tempo_restante(embed.description)
+                            self.definir_cooldown(message.author.id, self.atual_palavra, tempo_restante)
+                            print(f"Cooldown detectado para '{self.atual_palavra}'. Tentando novamente em {tempo_restante} segundos.")
+                            self.esperando_resposta = False
+                            self.aguardando_desde = None
+                            self.proximo_comando()
+                            cooldown_aleatorio = random.randint(7, 7)
+                            print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
+                            self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
 
-                    elif embed.color.value == 16627968 and "<:Erro:" in embed.description:  # Palavra não encontrada
-                        print(f"Palavra '{self.atual_palavra}' não encontrada no tema '{self.atual_tema}'.")
-                        self.salvar_palavra_nao_encontrada(self.atual_tema, self.atual_palavra)
-                        self.esperando_resposta = False
-                        self.proximo_comando()
-                        print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
-                        self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
+                        elif embed.color.value == 16627968 and "<:Erro:" in embed.description:  # Palavra não encontrada
+                            print(f"Palavra '{self.atual_palavra}' não encontrada no tema '{self.atual_tema}'.")
+                            self.salvar_palavra_nao_encontrada(self.atual_tema, self.atual_palavra)
+                            self.esperando_resposta = False
+                            self.aguardando_desde = None
+                            self.proximo_comando()
+                            cooldown_aleatorio = random.randint(7, 7)
+                            print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
+                            self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
 
-                    else:  # Imagem encontrada
-                        if embed.image:
-                            imagem_url = embed.image.url
-                            tema_sem_espaco = self.atual_tema.replace(" ", "")
-                            canal_tema_id = self.tema_canais.get(tema_sem_espaco.lower())
+                        else:  # Imagem encontrada
+                            if embed.image:
+                                imagem_url = embed.image.url
+                                tema_sem_espaco = self.atual_tema.replace(" ", "")
+                                canal_tema_id = self.tema_canais.get(tema_sem_espaco.lower())
 
-                            if canal_tema_id:
-                                canal_tema = self.bot.get_channel(canal_tema_id)
-                                if canal_tema:
-                                    try:
-                                        async with self.bot.session.get(imagem_url) as resp:
-                                            if resp.status == 200:
-                                                image_data = await resp.read()
-                                                mensagem_enviada = await canal_tema.send(f"{self.atual_palavra.lower()}", file=discord.File(fp=io.BytesIO(image_data), filename=f"{self.atual_palavra.lower()}.png"))
-                                                print(f"Imagem para '{self.atual_palavra}' enviada para o canal '{canal_tema.name}'.")
+                                if canal_tema_id:
+                                    canal_tema = self.bot.get_channel(canal_tema_id)
+                                    if canal_tema:
+                                        try:
+                                            async with self.bot.session.get(imagem_url) as resp:
+                                                if resp.status == 200:
+                                                    image_data = await resp.read()
+                                                    mensagem_enviada = await canal_tema.send(f"{self.atual_palavra.lower()}", file=discord.File(fp=io.BytesIO(image_data), filename=f"{self.atual_palavra.lower()}.png"))
+                                                    print(f"Imagem para '{self.atual_palavra}' enviada para o canal '{canal_tema.name}'.")
 
-                                                # Salva a URL da imagem
-                                                if mensagem_enviada.attachments:
-                                                    url_imagem_enviada = mensagem_enviada.attachments[0].url
+                                                    # Salva a URL da imagem
+                                                    if mensagem_enviada.attachments:
+                                                        url_imagem_enviada = mensagem_enviada.attachments[0].url
+                                                    else:
+                                                        url_imagem_enviada = None
+
+                                                    # Marca a palavra como salva
+                                                    if self.atual_tema not in self.imagens_salvas:
+                                                        self.imagens_salvas[self.atual_tema] = {}
+
+                                                    self.imagens_salvas[self.atual_tema][self.atual_palavra] = url_imagem_enviada
+                                                    self.save_imagens_salvas()
+                                                    self.esperando_resposta = False
+                                                    self.aguardando_desde = None
+                                                    self.proximo_comando()
+                                                    cooldown_aleatorio = random.randint(7, 7)
+                                                    print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
+                                                    self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
+
                                                 else:
-                                                    url_imagem_enviada = None
+                                                    print(f"Erro ao baixar a imagem de {imagem_url}. Status: {resp.status}")
+                                                    self.esperando_resposta = False
+                                                    self.aguardando_desde = None
+                                                    self.proximo_comando()
+                                                    cooldown_aleatorio = random.randint(7, 7)
+                                                    print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
+                                                    self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
 
-                                                # Marca a palavra como salva
-                                                if self.atual_tema not in self.imagens_salvas:
-                                                    self.imagens_salvas[self.atual_tema] = {}
+                                        except Exception as e:
+                                            print(f"Erro ao processar a imagem: {e}")
+                                            self.esperando_resposta = False
+                                            self.aguardando_desde = None
+                                            self.proximo_comando()
+                                            cooldown_aleatorio = random.randint(7, 7)
+                                            print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
+                                            self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
 
-                                                self.imagens_salvas[self.atual_tema][self.atual_palavra] = url_imagem_enviada
-                                                self.save_imagens_salvas()
-                                                self.esperando_resposta = False
-                                                self.proximo_comando()
-                                                print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
-                                                self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
-
-                                            else:
-                                                print(f"Erro ao baixar a imagem de {imagem_url}. Status: {resp.status}")
-                                                self.esperando_resposta = False
-                                                self.proximo_comando()
-                                                print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
-                                                self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
-
-                                    except Exception as e:
-                                        print(f"Erro ao processar a imagem: {e}")
+                                    else:
+                                        print(f"Canal com ID {canal_tema_id} não encontrado.")
                                         self.esperando_resposta = False
+                                        self.aguardando_desde = None
                                         self.proximo_comando()
+                                        cooldown_aleatorio = random.randint(7, 7)
                                         print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
                                         self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
-
                                 else:
-                                    print(f"Canal com ID {canal_tema_id} não encontrado.")
+                                    print(f"Canal para o tema '{self.atual_tema}' não encontrado.")
                                     self.esperando_resposta = False
+                                    self.aguardando_desde = None
                                     self.proximo_comando()
+                                    cooldown_aleatorio = random.randint(7, 7)
                                     print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
                                     self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
-                            else:
-                                print(f"Canal para o tema '{self.atual_tema}' não encontrado.")
-                                self.esperando_resposta = False
-                                self.proximo_comando()
-                                print(f"Aguardando {cooldown_aleatorio} segundos antes de enviar o próximo comando...")
-                                self.agendar_proximo_comando(cooldown_aleatorio)  # Agenda o próximo comando
+                    except Exception as e:
+                        print(f"Erro ao processar a mensagem: {e}")
+                        self.esperando_resposta = False
+                        self.aguardando_desde = None
+                        self.proximo_comando()
 
     def em_cooldown(self, bot_id, palavra):
         if bot_id in self.cooldowns and palavra in self.cooldowns[bot_id]:
@@ -361,7 +395,6 @@ class Salvador(commands.Cog):
     @enviar_proxima_palavra.before_loop
     async def before_enviar_proxima_palavra(self):
         await self.bot.wait_until_ready()
-
 
 async def setup(bot):
     await bot.add_cog(Salvador(bot))

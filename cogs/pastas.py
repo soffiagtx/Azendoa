@@ -1,4 +1,3 @@
-
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -94,8 +93,8 @@ class TemasInteract(commands.Cog):
 
        def check_bot_message(m):
             return m.author.id == 628120853154103316 and len(m.embeds) > 0 and \
-                   "Lista de" in (m.embeds()[0].description or "") and "em ordem alfabética!" in (
-                           m.embeds()[0].description or "")
+                   "Lista de" in (m.embeds[0].description or "") and "em ordem alfabética!" in (
+                           m.embeds[0].description or "")
 
        try:
             async with ctx.typing():
@@ -134,7 +133,7 @@ class TemasInteract(commands.Cog):
                 if user_id not in self.processing_listar:
                     await message.edit(content="Processo de listagem interrompido")
                     return
-                embed = bot_message.embeds()[0]
+                embed = bot_message.embeds[0]
                 footer_text = embed.footer.text
 
                 match = re.search(r"Página (\d+) de (\d+)", footer_text)
@@ -145,7 +144,7 @@ class TemasInteract(commands.Cog):
                     for field in embed.fields:
                             value = field.value.strip()
                             if value.startswith("`fix") and value.endswith("`"):
-                                value = value()[6:-3].strip()
+                                value = value[6:-1].strip()
                             all_items.extend([item.strip() for item in value.split('\n') if item.strip()])
 
                     if current_page == total_pages:
@@ -160,7 +159,7 @@ class TemasInteract(commands.Cog):
                            return
                         try:
                             new_message = await ctx.channel.fetch_message(bot_message.id)
-                            if new_message.embeds()[0].footer.text != footer_text:
+                            if new_message.embeds[0].footer.text != footer_text:
                                 bot_message = new_message
                                 break
                             await asyncio.sleep(1)
@@ -258,8 +257,8 @@ class TemasInteract(commands.Cog):
                     palavras_faltantes = status['palavras_faltantes']
                     index_atual = status['index_atual']
                     if 0 <= index_atual < len(palavras_faltantes):
-                        palavra_esperada = palavras_faltantes[(index_atual)]
-                        embed = message.embeds()[0]
+                        palavra_esperada = palavras_faltantes[index_atual]
+                        embed = message.embeds[0]
 
                         cooldown_match = re.search(r":Relogio: Você poderá usar este comando novamente em <t:(\d+):R>", embed.description or "")
                         if cooldown_match:
@@ -275,7 +274,21 @@ class TemasInteract(commands.Cog):
                             try:
                                 await self.baixar_imagem_aprendizado(user_id, tema, palavra_esperada, image_url)
                                 self.aprendendo_tema_status[(user_id)]['index_atual'] += 1
-                                await self.enviar_proxima_palavra(await self.bot.get_channel(status['canal_id']).fetch_member(user_id))
+
+                                # Modificação aqui:
+                                canal = self.bot.get_channel(status['canal_id'])
+                                if canal:
+                                    try:
+                                        member = await canal.fetch_member(user_id)
+                                        await self.enviar_proxima_palavra(member)
+                                    except discord.NotFound:
+                                        print(f"Membro com ID {user_id} não encontrado no canal {canal.id}")
+                                    except Exception as e:
+                                        print(f"Erro ao buscar membro: {e}")
+                                else:
+                                    print(f"Canal com ID {status['canal_id']} não encontrado.")
+                                # Fim da modificação
+
                             except Exception as e:
                                 user = self.bot.get_user(user_id)
                                 if user:
@@ -375,8 +388,8 @@ class TemasInteract(commands.Cog):
         message = await ctx.send("Procurando mensagem do bot com editor... Aguarde.")
 
         def check_bot_message(m):
-            return m.author.id == 628120853154103316 and len(m.embeds()) > 0 and \
-                   "Navegação de editor." in (m.embeds()[0].footer.text or "")
+            return m.author.id == 628120853154103316 and len(m.embeds) > 0 and \
+                   "Navegação de editor." in (m.embeds[0].footer.text or "")
 
         try:
             async with ctx.typing():
@@ -409,7 +422,7 @@ class TemasInteract(commands.Cog):
                     await message.edit(content="Processo de edição interrompido")
                     return
 
-                embed = bot_message.embeds()[0]
+                embed = bot_message.embeds[0]
                 footer_text = embed.footer.text
                 print(f"Footer text: {footer_text}")
                 print(f"Conteúdo do embed: {embed.to_dict()}") # Adicionado o print do embed
@@ -487,7 +500,7 @@ class TemasInteract(commands.Cog):
                                 return
                             try:
                                 new_message = await ctx.channel.fetch_message(bot_message.id)
-                                if new_message.embeds()[0].footer.text != footer_text:
+                                if new_message.embeds[0].footer.text != footer_text:
                                     bot_message = new_message
                                     break
                                 await asyncio.sleep(1)
