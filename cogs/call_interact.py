@@ -27,6 +27,8 @@ class BichoInteract(commands.Cog):
             "erros": 0,
         }
         self.historical_results = {}
+        self.monitored_users = {}  # Inicializar monitored_users aqui
+
         try:
             self.load_data() #carrega os dados
         except Exception as e:
@@ -38,6 +40,7 @@ class BichoInteract(commands.Cog):
             self.user_animals = {}
             self.daily_result = None
             self.historical_results = {}
+            self.monitored_users = {} # Garante que monitored_users seja inicializado
 
         self.all_animals = list(self.animal_emojis.keys()) #garante que self.all_animals seja preenchido após o load_data
         try:
@@ -95,7 +98,7 @@ class BichoInteract(commands.Cog):
                     self.daily_result = data.get('daily_result')
                     self.stats = data.get('stats', self.stats)
                     self.historical_results = data.get("historical_results",{})
-                    
+                    self.monitored_users = data.get('monitored_users', {}) # Carrega monitored_users do arquivo
 
                     #validando todos os usuários na inicialização
                     for user_id in self.user_animals.keys():
@@ -110,6 +113,7 @@ class BichoInteract(commands.Cog):
                 self.user_animals = {}
                 self.daily_result = None
                 self.historical_results = {}
+                self.monitored_users = {} # Garante que monitored_users seja inicializado
 
         except FileNotFoundError:
             print(f"Arquivo {self.data_file} não encontrado.")
@@ -120,6 +124,7 @@ class BichoInteract(commands.Cog):
             self.user_animals = {}
             self.daily_result = None
             self.historical_results = {}
+            self.monitored_users = {} # Garante que monitored_users seja inicializado
         except json.JSONDecodeError as e:
             print(f"Erro ao decodificar JSON no arquivo {self.data_file}: {e}")
             self.animal_emojis = {}
@@ -129,6 +134,7 @@ class BichoInteract(commands.Cog):
             self.user_animals = {}
             self.daily_result = None
             self.historical_results = {}
+            self.monitored_users = {} # Garante que monitored_users seja inicializado
         except Exception as e:
             print(f"Erro ao carregar dados do arquivo: {e}")
             self.animal_emojis = {}
@@ -138,6 +144,7 @@ class BichoInteract(commands.Cog):
             self.user_animals = {}
             self.daily_result = None
             self.historical_results = {}
+            self.monitored_users = {} # Garante que monitored_users seja inicializado
 
     def save_data(self):
         user_animals_data = {}
