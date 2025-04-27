@@ -1,0 +1,77 @@
+[33mcommit 5f3eafbcd454a4511e26c04bb3d600c706089430[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 22:13:18 2025 -0300
+
+    adicionado arquivos desnecessário ao gitignore
+
+[33mcommit 44cc98072d39b438b5a8bccdf1d7e70c968ed124[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 11:15:20 2025 -0300
+
+    main.py
+
+[33mcommit 105d0aba5a71d7b648036162735808c6f09cb25b[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 15:05:06 2025 -0300
+
+    main.py corrigido
+
+[33mcommit b1305ea1517b6863914760edc45d8a05eda34b08[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 14:21:30 2025 -0300
+
+    mudanças nos cogs
+
+[33mcommit 0da11e594b0271504d674c10ba49273e49bcd9d4[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 14:00:17 2025 -0300
+
+    dotenv adicionada ao requirements.txt
+
+[33mcommit 11c75fc13b8d0704049057d0d0ec600387e9e0f3[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 13:57:42 2025 -0300
+
+    bibliotecas novas requirements.txt
+
+[33mcommit 44a7ff98a885cdb1385f312b8b03b95c6e50e0f1[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 11:15:20 2025 -0300
+
+    main.py
+
+[33mcommit f569a9874780475a9b8d58f62593653102bf4eb8[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 11:09:23 2025 -0300
+
+    requirements, .end e runtime.txt adicionados
+
+[33mcommit 3c5f3f7e17de0d36f43fd2abef12fcff903216ed[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 10:52:12 2025 -0300
+
+    requirements.txt corrigido
+
+[33mcommit 65f87bef91c4bf02edbd352fbc69087b69800b38[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 10:42:28 2025 -0300
+
+    requirements.txt corrigido
+
+[33mcommit e779bc633558f54cb0ef91689fc6a4bc435a48ee[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 10:35:51 2025 -0300
+
+    requirements.txt
+
+[33mcommit c15ae598ba03e1367b1291d8392ae53b01b61fd4[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 10:21:08 2025 -0300
+
+    Arquivos faltantes
+
+[33mcommit edddd415c5cb2c6ea14633155480fb571965142b[m
+Author: Phillip Lima <dinossaurao2@gmail.com>
+Date:   Fri Mar 14 10:05:52 2025 -0300
+
+    Subindo todos os arquivos

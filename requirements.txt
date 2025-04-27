@@ -1,0 +1,11 @@
+discord.py
+python-dotenv
+sympy
+pillow
+requests
+numpy
+matplotlib
+scipy
+pandas
+torch
+torchvision
