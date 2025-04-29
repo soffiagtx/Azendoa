@@ -122,8 +122,8 @@ keep_alive()
 
 # Iniciar o bot
 if __name__ == "__main__":
-    token = os.environ.get('DISCORD_TOKEN')
+    token = os.environ.get('discord_token')
     if not token:
-        print("ERRO: Variável de ambiente DISCORD_TOKEN não configurada!")
+        print("ERRO: Variável de ambiente discord_token não configurada!")
     else:
         bot.run(token)
