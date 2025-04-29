@@ -1,0 +1,602 @@
+{
+    "Adjetivos": {
+        "palavra": "VOLUNTÁRIO",
+        "data": "14/04/2025 15:42:16",
+        "progresso": "458/458",
+        "status": "atualizado"
+    },
+    "Alimentos": {
+        "palavra": "YAKISOBA",
+        "data": "14/04/2025 15:42:45",
+        "progresso": "675/675",
+        "status": "atualizado"
+    },
+    "Anatomia": {
+        "palavra": "ÚVULA",
+        "data": "14/04/2025 15:43:01",
+        "progresso": "954/954",
+        "status": "atualizado"
+    },
+    "Animais": {
+        "palavra": "ZORRILHO",
+        "data": "14/04/2025 15:43:15",
+        "progresso": "600/600",
+        "status": "atualizado"
+    },
+    "Animes": {
+        "palavra": "ZOMBIELAND SAGA",
+        "data": "14/04/2025 15:43:30",
+        "progresso": "468/468",
+        "status": "atualizado"
+    },
+    "Anos2000": {
+        "palavra": "ZORRA TOTAL",
+        "data": "14/04/2025 16:59:50",
+        "progresso": "488/488",
+        "status": "atualizado"
+    },
+    "Antônimos": {
+        "palavra": "ZARPAR",
+        "data": "15/04/2025 16:04:47",
+        "progresso": "301/301",
+        "status": "atualizado"
+    },
+    "Aplicativos": {
+        "palavra": "ZOOM",
+        "data": "15/04/2025 17:05:47",
+        "progresso": "360/360",
+        "status": "atualizado"
+    },
+    "Artes": {
+        "palavra": "ZEBRA",
+        "data": "15/04/2025 18:04:27",
+        "progresso": "330/330",
+        "status": "atualizado"
+    },
+    "Astronomia": {
+        "palavra": "YURI GAGARIN",
+        "data": "16/04/2025 13:28:57",
+        "progresso": "367/367",
+        "status": "atualizado"
+    },
+    "AttackOnTitan": {
+        "palavra": "ZOFIA",
+        "data": "16/04/2025 14:15:08",
+        "progresso": "305/305",
+        "status": "atualizado"
+    },
+    "Automóveis": {
+        "palavra": "ZR1",
+        "data": "16/04/2025 15:49:42",
+        "progresso": "582/582",
+        "status": "atualizado"
+    },
+    "Avatar": {
+        "palavra": "ZUKO",
+        "data": "16/04/2025 16:36:53",
+        "progresso": "306/306",
+        "status": "atualizado"
+    },
+    "Bandeiras": {
+        "palavra": "ZIMBÁBUE",
+        "data": "16/04/2025 17:45:09",
+        "progresso": "500/500",
+        "status": "atualizado"
+    },
+    "Barbie": {
+        "palavra": "ZUMA",
+        "data": "17/04/2025 17:08:10",
+        "progresso": "325/325",
+        "status": "atualizado"
+    },
+    "BBB": {
+        "palavra": "ZULU",
+        "data": "17/04/2025 17:40:05",
+        "progresso": "379/379",
+        "status": "atualizado"
+    },
+    "Ben10": {
+        "palavra": "ZS'SKAYR",
+        "data": "17/04/2025 18:05:32",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Biologia": {
+        "palavra": "ZIGOMICETOS",
+        "data": "18/04/2025 11:41:38",
+        "progresso": "375/375",
+        "status": "atualizado"
+    },
+    "Bleach": {
+        "palavra": "ZOMMARI RUREAUX",
+        "data": "18/04/2025 12:37:05",
+        "progresso": "387/387",
+        "status": "atualizado"
+    },
+    "BobEsponja": {
+        "palavra": "ZÉ DO PICADINHO",
+        "data": "18/04/2025 13:02:19",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Capitais": {
+        "palavra": "ZAGREB",
+        "data": "18/04/2025 17:12:37",
+        "progresso": "314/314",
+        "status": "atualizado"
+    },
+    "CartoonNetwork": {
+        "palavra": "ZANE",
+        "data": "18/04/2025 17:38:56",
+        "progresso": "301/301",
+        "status": "atualizado"
+    },
+    "CSGO": {
+        "palavra": "ZYWOO",
+        "data": "18/04/2025 18:30:37",
+        "progresso": "569/569",
+        "status": "atualizado"
+    },
+    "Desenhos": {
+        "palavra": "ZUZUBALÂNDIA",
+        "data": "18/04/2025 19:13:22",
+        "progresso": "473/473",
+        "status": "atualizado"
+    },
+    "Digimon": {
+        "palavra": "ZUDOMON",
+        "data": "18/04/2025 19:48:41",
+        "progresso": "400/400",
+        "status": "atualizado"
+    },
+    "Disney": {
+        "palavra": "ZIRA",
+        "data": "18/04/2025 20:30:27",
+        "progresso": "486/486",
+        "status": "atualizado"
+    },
+    "Doenças": {
+        "palavra": "ZIKA VÍRUS",
+        "data": "19/04/2025 00:11:12",
+        "progresso": "310/310",
+        "status": "atualizado"
+    },
+    "Doramas": {
+        "palavra": "YOUTH",
+        "data": "18/04/2025 20:59:46",
+        "progresso": "340/340",
+        "status": "atualizado"
+    },
+    "DragonBall": {
+        "palavra": "ZUNO",
+        "data": "19/04/2025 16:23:21",
+        "progresso": "427/427",
+        "status": "atualizado"
+    },
+    "DreamWorks": {
+        "palavra": "ZUBA",
+        "data": "18/04/2025 21:26:31",
+        "progresso": "318/318",
+        "status": "atualizado"
+    },
+    "Espanhol": {
+        "palavra": "ZORRO",
+        "data": "18/04/2025 22:04:20",
+        "progresso": "347/347",
+        "status": "atualizado"
+    },
+    "Esportes": {
+        "palavra": "ZLATAN IBRAHIMOVIC",
+        "data": "18/04/2025 22:33:57",
+        "progresso": "318/318",
+        "status": "atualizado"
+    },
+    "Famosos": {
+        "palavra": "ZOE KRAVITZ",
+        "data": "19/04/2025 00:13:06",
+        "progresso": "485/485",
+        "status": "atualizado"
+    },
+    "FF": {
+        "palavra": "ZONA VERMELHA",
+        "data": "19/04/2025 00:43:11",
+        "progresso": "360/360",
+        "status": "atualizado"
+    },
+    "Filmes": {
+        "palavra": "ZUMBILÂNDIA",
+        "data": "19/04/2025 01:46:54",
+        "progresso": "720/720",
+        "status": "atualizado"
+    },
+    "Fobias": {
+        "palavra": "ZOOFOBIA",
+        "data": "19/04/2025 02:20:13",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Francês": {
+        "palavra": "ZOO",
+        "data": "19/04/2025 16:41:37",
+        "progresso": "304/304",
+        "status": "atualizado"
+    },
+    "Futebol": {
+        "palavra": "ZIYECH",
+        "data": "19/04/2025 18:20:26",
+        "progresso": "1130/1130",
+        "status": "atualizado"
+    },
+    "Física": {
+        "palavra": "ZERO ABSOLUTO",
+        "data": "19/04/2025 02:57:51",
+        "progresso": "340/340",
+        "status": "atualizado"
+    },
+    "Games": {
+        "palavra": "ZOMBIE TSUNAMI",
+        "data": "19/04/2025 19:07:45",
+        "progresso": "567/567",
+        "status": "atualizado"
+    },
+    "Geografia": {
+        "palavra": "ZONAS CLIMÁTICAS",
+        "data": "19/04/2025 03:34:47",
+        "progresso": "388/388",
+        "status": "atualizado"
+    },
+    "Geral": {
+        "palavra": "ZUMBI",
+        "data": "19/04/2025 07:58:16",
+        "progresso": "2841/2841",
+        "status": "atualizado"
+    },
+    "GoT": {
+        "palavra": "YUNKAI",
+        "data": "19/04/2025 08:24:57",
+        "progresso": "312/312",
+        "status": "atualizado"
+    },
+    "Gênios": {
+        "palavra": "YI-FU TUAN",
+        "data": "19/04/2025 08:50:42",
+        "progresso": "307/307",
+        "status": "atualizado"
+    },
+    "HarryPotter": {
+        "palavra": "ZOUWU",
+        "data": "19/04/2025 19:17:52",
+        "progresso": "566/566",
+        "status": "atualizado"
+    },
+    "História": {
+        "palavra": "ZUMBI DOS PALMARES",
+        "data": "20/04/2025 10:52:54",
+        "progresso": "340/340",
+        "status": "atualizado"
+    },
+    "HoraDeAventura": {
+        "palavra": "ZUMBIS DOCES",
+        "data": "19/04/2025 19:55:22",
+        "progresso": "373/373",
+        "status": "atualizado"
+    },
+    "HunterXHunter": {
+        "palavra": "ZUSHI",
+        "data": "19/04/2025 20:21:20",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Husbandos": {
+        "palavra": "ZEREF DRAGNEEL",
+        "data": "20/04/2025 11:27:33",
+        "progresso": "465/465",
+        "status": "atualizado"
+    },
+    "Informática": {
+        "palavra": "ZORIN OS",
+        "data": "19/04/2025 20:52:51",
+        "progresso": "310/310",
+        "status": "atualizado"
+    },
+    "Inglês": {
+        "palavra": "ZOO",
+        "data": "19/04/2025 21:19:51",
+        "progresso": "311/311",
+        "status": "atualizado"
+    },
+    "Italiano": {
+        "palavra": "ZUPPA",
+        "data": "19/04/2025 21:57:56",
+        "progresso": "436/436",
+        "status": "atualizado"
+    },
+    "Kpop": {
+        "palavra": "ZOA",
+        "data": "20/04/2025 11:39:31",
+        "progresso": "465/465",
+        "status": "atualizado"
+    },
+    "Literatura": {
+        "palavra": "XISTO NO ESPAÇO",
+        "data": "19/04/2025 23:14:05",
+        "progresso": "563/563",
+        "status": "atualizado"
+    },
+    "Logos": {
+        "palavra": "ZYNGA",
+        "data": "19/04/2025 23:52:10",
+        "progresso": "435/435",
+        "status": "atualizado"
+    },
+    "LoL": {
+        "palavra": "ZYRA DRACOMANTE",
+        "data": "20/04/2025 00:58:27",
+        "progresso": "783/783",
+        "status": "atualizado"
+    },
+    "MarvelDC": {
+        "palavra": "ZEUS",
+        "data": "20/04/2025 01:35:32",
+        "progresso": "433/433",
+        "status": "atualizado"
+    },
+    "Matemática": {
+        "palavra": "XADREZ",
+        "data": "20/04/2025 02:04:26",
+        "progresso": "325/325",
+        "status": "atualizado"
+    },
+    "Memes": {
+        "palavra": "ZÉ GOTINHA",
+        "data": "20/04/2025 02:31:51",
+        "progresso": "317/317",
+        "status": "atualizado"
+    },
+    "Minecraft": {
+        "palavra": "ZUMBI-MÚMIA",
+        "data": "20/04/2025 12:27:01",
+        "progresso": "626/626",
+        "status": "atualizado"
+    },
+    "Mitologia": {
+        "palavra": "ZUMBI",
+        "data": "20/04/2025 13:02:18",
+        "progresso": "373/373",
+        "status": "atualizado"
+    },
+    "MortalKombat": {
+        "palavra": "ZEFFEERO",
+        "data": "20/04/2025 13:28:33",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Música": {
+        "palavra": "ZOMBIE",
+        "data": "20/04/2025 14:22:54",
+        "progresso": "579/579",
+        "status": "atualizado"
+    },
+    "Naruto": {
+        "palavra": "ZETSU PRETO",
+        "data": "20/04/2025 15:00:54",
+        "progresso": "435/435",
+        "status": "atualizado"
+    },
+    "NBA": {
+        "palavra": "ZION WILLIAMSON",
+        "data": "20/04/2025 15:37:54",
+        "progresso": "400/400",
+        "status": "atualizado"
+    },
+    "Novelas": {
+        "palavra": "ZAZÁ",
+        "data": "20/04/2025 16:06:19",
+        "progresso": "316/316",
+        "status": "atualizado"
+    },
+    "Objetos": {
+        "palavra": "ZÍPER",
+        "data": "20/04/2025 17:34:58",
+        "progresso": "941/941",
+        "status": "atualizado"
+    },
+    "OnePiece": {
+        "palavra": "ZUNISHA",
+        "data": "20/04/2025 18:57:54",
+        "progresso": "780/780",
+        "status": "atualizado"
+    },
+    "Paleontologia": {
+        "palavra": "WANN LANGSTON",
+        "data": "20/04/2025 19:25:49",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "Personagens": {
+        "palavra": "WOODY",
+        "data": "20/04/2025 19:57:10",
+        "progresso": "365/365",
+        "status": "atualizado"
+    },
+    "Pokémon": {
+        "palavra": "ZUBAT",
+        "data": "21/04/2025 11:24:00",
+        "progresso": "355/355",
+        "status": "atualizado"
+    },
+    "Profissões": {
+        "palavra": "ZOÓLOGO",
+        "data": "20/04/2025 20:32:30",
+        "progresso": "392/392",
+        "status": "atualizado"
+    },
+    "Química": {
+        "palavra": "ZIRCÔNIO",
+        "data": "20/04/2025 21:02:49",
+        "progresso": "340/340",
+        "status": "atualizado"
+    },
+    "ResidentEvil": {
+        "palavra": "ZUMBIS",
+        "data": "20/04/2025 21:37:15",
+        "progresso": "394/394",
+        "status": "atualizado"
+    },
+    "Simpsons": {
+        "palavra": "ZIA SIMPSON",
+        "data": "20/04/2025 22:05:59",
+        "progresso": "330/330",
+        "status": "atualizado"
+    },
+    "StarWars": {
+        "palavra": "ZYGERRIA",
+        "data": "20/04/2025 22:37:46",
+        "progresso": "330/330",
+        "status": "atualizado"
+    },
+    "StrangerThings": {
+        "palavra": "YURTLE",
+        "data": "21/04/2025 11:47:10",
+        "progresso": "311/311",
+        "status": "atualizado"
+    },
+    "Supercell": {
+        "palavra": "ZUMBIBI",
+        "data": "21/04/2025 12:17:39",
+        "progresso": "301/301",
+        "status": "atualizado"
+    },
+    "SuperMario": {
+        "palavra": "YOSHI VERMELHO",
+        "data": "20/04/2025 23:09:14",
+        "progresso": "304/304",
+        "status": "atualizado"
+    },
+    "Supernatural": {
+        "palavra": "ZEUS",
+        "data": "20/04/2025 23:42:19",
+        "progresso": "352/352",
+        "status": "atualizado"
+    },
+    "Séries": {
+        "palavra": "ZOO",
+        "data": "21/04/2025 00:20:45",
+        "progresso": "400/400",
+        "status": "atualizado"
+    },
+    "Terror": {
+        "palavra": "ZUMBI",
+        "data": "21/04/2025 00:54:24",
+        "progresso": "343/343",
+        "status": "atualizado"
+    },
+    "Times": {
+        "palavra": "ZENIT",
+        "data": "21/04/2025 01:25:54",
+        "progresso": "365/365",
+        "status": "atualizado"
+    },
+    "Turismo": {
+        "palavra": "ZÓCALO",
+        "data": "21/04/2025 01:55:34",
+        "progresso": "344/344",
+        "status": "atualizado"
+    },
+    "TurmaDaMônica": {
+        "palavra": "ZUM E BUM",
+        "data": "21/04/2025 02:24:09",
+        "progresso": "330/330",
+        "status": "atualizado"
+    },
+    "Verbos": {
+        "palavra": "ZIGUEZAGUEAR",
+        "data": "21/04/2025 03:07:06",
+        "progresso": "499/499",
+        "status": "atualizado"
+    },
+    "VetAdjetivos": {
+        "palavra": "VILÃO",
+        "data": "21/04/2025 03:35:54",
+        "progresso": "335/335",
+        "status": "atualizado"
+    },
+    "VetAlimentos": {
+        "palavra": "YAKISOBA",
+        "data": "21/04/2025 04:28:09",
+        "progresso": "593/593",
+        "status": "atualizado"
+    },
+    "VetAnimais": {
+        "palavra": "ZORRILHO",
+        "data": "21/04/2025 05:07:54",
+        "progresso": "476/476",
+        "status": "atualizado"
+    },
+    "VetDesenhos": {
+        "palavra": "ZURG",
+        "data": "21/04/2025 06:04:54",
+        "progresso": "640/640",
+        "status": "atualizado"
+    },
+    "VetGeral": {
+        "palavra": "ZUMBI",
+        "data": "21/04/2025 12:32:44",
+        "progresso": "3092/3092",
+        "status": "atualizado"
+    },
+    "VetMinecraft": {
+        "palavra": "ZUMBI",
+        "data": "21/04/2025 12:53:24",
+        "progresso": "246/246",
+        "status": "atualizado"
+    },
+    "VetNaruto": {
+        "palavra": "ZETSU",
+        "data": "21/04/2025 13:20:29",
+        "progresso": "278/278",
+        "status": "atualizado"
+    },
+    "VetObjetos": {
+        "palavra": "ZÍPER",
+        "data": "21/04/2025 16:22:32",
+        "progresso": "957/957",
+        "status": "atualizado"
+    },
+    "VetProfissões": {
+        "palavra": "ZELADOR",
+        "data": "21/04/2025 16:58:13",
+        "progresso": "282/282",
+        "status": "atualizado"
+    },
+    "VetVerbos": {
+        "palavra": "ZIGUEZAGUEAR",
+        "data": "21/04/2025 17:56:02",
+        "progresso": "580/580",
+        "status": "atualizado"
+    },
+    "Vôlei": {
+        "palavra": "ZORAN TERZIC",
+        "data": "21/04/2025 18:37:33",
+        "progresso": "400/400",
+        "status": "atualizado"
+    },
+    "Waifus": {
+        "palavra": "ZERO TWO",
+        "data": "21/04/2025 19:02:32",
+        "progresso": "300/300",
+        "status": "atualizado"
+    },
+    "WWE": {
+        "palavra": "ZOEY STARK",
+        "data": "22/04/2025 17:25:31",
+        "progresso": "313/313",
+        "status": "atualizado"
+    },
+    "YouTube": {
+        "palavra": "ZIGUEIRA",
+        "data": "22/04/2025 18:33:10",
+        "progresso": "299/299",
+        "status": "atualizado"
+    }
+}

@@ -19,9 +19,69 @@
         "Raposa": "<:Raposa:1335430361248694344>",
         "Tigre-branco": "<:TigreBranco:1335430382799294484>"
     },
-    "daily_animals": [],
-    "last_update": "2025-04-11T21:24:33.768174",
-    "user_animals": {},
+    "daily_animals": [
+        "Pav\u00e3o",
+        "Galinha",
+        "Morcego",
+        "Raposa",
+        "Tigre-branco",
+        "Jacar\u00e9",
+        "Caracol",
+        "Coelho",
+        "Cobra",
+        "\u00c1gua-viva",
+        "Drag\u00e3o",
+        "Escorpi\u00e3o",
+        "Girafa",
+        "Ieti",
+        "Aranha",
+        "Estegossauro"
+    ],
+    "last_update": "2025-04-27T10:06:18.313488",
+    "user_animals": {
+        "1128084261971447891": {
+            "animals": [
+                "Jacar\u00e9",
+                "\u00c1gua-viva",
+                "Caracol",
+                "Drag\u00e3o",
+                "Girafa",
+                "Galinha",
+                "Pav\u00e3o",
+                "Cobra",
+                "Escorpi\u00e3o",
+                "Tigre-branco",
+                "Aranha",
+                "Raposa",
+                "Ieti",
+                "Grifo",
+                "Morcego",
+                "Estegossauro"
+            ],
+            "time": "2025-04-27T14:45:08.180447"
+        },
+        "1146463263668834304": {
+            "animals": [
+                "Girafa",
+                "Cobra",
+                "Piranha",
+                "Morcego",
+                "Aranha",
+                "Ieti",
+                "Grifo",
+                "Estegossauro",
+                "Caracol",
+                "Pav\u00e3o",
+                "Raposa",
+                "Tigre-branco",
+                "Jacar\u00e9",
+                "Escorpi\u00e3o",
+                "\u00c1gua-viva",
+                "Coelho"
+            ],
+            "time": "2025-04-27T14:45:16.372668"
+        }
+    },
     "daily_result": null,
     "stats": {
         "total_palpites": 0,
@@ -58,7 +118,16 @@
     },
     "monitored_users": {
         "1146463263668834304": {
-            "animals": []
+            "animals": [
+                "Pav\u00e3o",
+                "Aranha",
+                "Coelho",
+                "Drag\u00e3o",
+                "Estegossauro",
+                "Girafa",
+                "Raposa",
+                "Tigre-branco"
+            ]
         }
     }
 }

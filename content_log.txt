@@ -1711,3 +1711,302 @@ Embed data:
             "name": "Veja o resultado de ontem:",
             "value": "< ...
 
+Count: 76
+Message ID: 1357098228847214832
+Title: Mensagem de Busca de Imagem Embed com a Imagem
+Channel: 🎺│buscar (1357094802956750978)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "Imagem 171 de 373. Navegação de editor.",
+            "icon_url": "http://ve7s.top/images/mix/menu.png",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/HpQysT2mlq8NuSAN1UfuGgN6GfZzaccujOTdKDsGyfM/http/ve7s.top/images/mix/menu.png"
+        },
+        "image": {
+            "url": "http://ve7s.top/images/tema48/m8bkd8n.png",
+            "proxy_url": "https://images-ext-1.discordapp.net/external/OMZqYxEPOyoWp3kD-3E90m1PoA55ACy7obOeV2IBdH4/http/ve7s.top/images/tema48/m8bkd8n.png",
+            "width": 800,
+            "height": 482,
+            "flags": 0
+        },
+        "fields": [
+            {
+                "name": "Autor",
+                "value": "<:Autor:647767004585132084> [finnbxy](https://discord.com/channels/1313681515921801237)",
+                "inline": true
+            },
+            {
+                "name": "Alterado",
+                "value": "<:Alterado:691161319025672233> <t:1672704854:R>",
+                "inline": true
+            },
+            {
+                "name": "Buscado",
+                "value": "<:Estatistica:647734571672272896> **85** vezes",
+                "inline": true
+            }
+        ],
+        "color": 16777215,
+        "type": "rich",
+        "description": "## <:Insig_HoraDeAventura:703799372185600072> TEMA HORADEAVENTURA\n```markdown\n#jake```"
+    }
+]
+
+Count: 77
+Message ID: 1357098208429342850
+Title: Mensagem de palavra não encontrada na busca
+Channel: 🎺│buscar (1357094802956750978)
+Message Content: 
+Embed data: 
+[
+    {
+        "color": 16627968,
+        "type": "rich",
+        "description": "<:Erro:638748223137251328> `fonna` não existe em `HoraDeAventura`."
+    }
+]
+
+Count: 78
+Message ID: 1362797702798119153
+Title: mensagem de info de tema
+Channel: 🎺│buscar (1357094802956750978)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "2025 © Ve7s - Todos os direitos reservados",
+            "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+        },
+        "image": {
+            "url": "http://ve7s.top/images/banners/y98sqxh.jpg",
+            "proxy_url": "https://images-ext-1.discordapp.net/external/OF85rpUCdrk4qFcgwV_QK-rtkPqFMkoz3vzNPjmebMk/http/ve7s.top/images/banners/y98sqxh.jpg",
+            "width": 860,
+            "height": 300,
+            "placeholder": "picGEoZAlXVseHiWj5nxlik=",
+            "placeholder_version": 1,
+            "flags": 0
+        },
+        "fields": [
+            {
+                "name": "<:Insignia:655575769887670272> Insígnia",
+                "value": "▪ <:Insig_Biologia:1332522251349917758>",
+                "inline": true
+            },
+            {
+                "name": "<:Lideres:653625168601677864> Líder",
+                "value": "▪ <@629780254134894622>",
+                "inline": true
+            },
+            {
+                "name": "<:Data:1008223198808133652> Adição",
+                "value": "▪ <t:1635897600:d>",
+                "inline": true
+            },
+            {
+                "name": "Palavras",
+                "value": "<:Palavras:655589545047359538> 375",
+                "inline": true
+            },
+            {
+                "name": "Recente",
+                "value": "<:Recente:655559683716677653> Eletroforese",
+                "inline": true
+            },
+            {
+                "name": "Popular",
+                "value": "<:Popular:655578410055368724> Prófase",
+                "inline": true
+            },
+            {
+                "name": "Veteranos",
+                "value": "<:ComPista:729836378111606804> 92",
+                "inline": true
+            },
+            {
+                "name": "Partidas",
+                "value": "<:Play:655628331961679872> 9.596",
+                "inline": true
+            },
+            {
+                "name": "Servidor",
+                "value": "<:Convite:644395785223536641> [Biologia](https://discord.gg/TK3yS6Jm6H)",
+                "inline": true
+            },
+            {
+                "name": "<:Maior:655555463689273374> Palavrona",
+                "value": "```fix\nTecido muscular estriado esquelético```",
+                "inline": false
+            },
+            {
+                "name": "Editores",
+                "value": "<:Editores:653634578157928448> [tchuningseason](https://discord.com/channels/1313681515921801237) | [saturnys](https://discord.com/channels/1313681515921801237) | [c.a.r.o.l](https://discord.com/channels/1313681515921801237) | [blackbeachs](https://discord.com/channels/1313681515921801237)",
+                "inline": false
+            }
+        ],
+        "color": 16027569,
+        "type": "rich",
+        "description": "▪ O amor por todas as criaturas viventes é o mais nobre atributo do homem. (Charles Darwin)",
+        "title": "<:desklamp:654521147232223232> TEMA BIOLOGIA <:desklamp2:654572749066469396>"
+    }
+]
+
+Count: 79
+Message ID: 1362797977936330852
+Title: consulta de imagem mais recente do tema
+Channel: 🎺│buscar (1357094802956750978)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "As imagens podem conter direitos autorais",
+            "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+        },
+        "image": {
+            "url": "https://cdn.discordapp.com/attachments/1357094802956750978/1362797978376474820/h.png?ex=6803b405&is=68026285&hm=cdc28d3ea902d59b8dae0827bf3bb4344ac1eff93c425f0eb1efe800fb451769&",
+            "proxy_url": "https://media.discordapp.net/attachments/1357094802956750978/1362797978376474820/h.png?ex=6803b405&is=68026285&hm=cdc28d3ea902d59b8dae0827bf3bb4344ac1eff93c425f0eb1efe800fb451769&",
+            "width": 800,
+            "height": 531,
+            "placeholder": "mFMFJYZJh3dIeIhwh2l4dvfYfFn4",
+            "placeholder_version": 1
+        },
+        "fields": [
+            {
+                "name": "Autor",
+                "value": "<:Autor:647767004585132084> [tchuningseason](https://discord.com/channels/1313681515921801237)",
+                "inline": true
+            },
+            {
+                "name": "Alterado",
+                "value": "<:Alterado:691161319025672233> <t:1737766731:R>",
+                "inline": true
+            },
+            {
+                "name": "Buscado",
+                "value": "<:Estatistica:647734571672272896> **11** vezes",
+                "inline": true
+            }
+        ],
+        "color": 16027569,
+        "type": "rich",
+        "description": "## <:Insig_Biologia:1332522251349917758> TEMA BIOLOGIA\n```markdown\n#eletroforese```"
+    }
+]
+
+Count: 80
+Message ID: 1363916827633385712
+Title: mensagem de jogo com 4 vidas
+Channel: 🧃│finn (1320916739546021969)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "Use /combo para upar o seu combo!",
+            "icon_url": "http://ve7s.top/images/mix/info.png",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/qcfCVDkHev7RAFvT43QX5fm31mZknlht5auA_npFERs/http/ve7s.top/images/mix/info.png"
+        },
+        "image": {
+            "url": "http://ve7s.top/images/tema48/5o3r268.jpg",
+            "proxy_url": "https://images-ext-1.discordapp.net/external/vWdHGs0gIp0FL-HjhOYLEy99g76SR4Pf3Lwoc7d2whY/http/ve7s.top/images/tema48/5o3r268.jpg",
+            "width": 800,
+            "height": 533,
+            "placeholder": "lBoGDYK7lSl2SJljpgmqlv50gaYG",
+            "placeholder_version": 1,
+            "flags": 0
+        },
+        "fields": [
+            {
+                "name": "Vidas",
+                "value": "<:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248><:Vida:644407668659978248>",
+                "inline": true
+            },
+            {
+                "name": "Nível",
+                "value": "<:Telescope:643286750441242624> **1**",
+                "inline": true
+            },
+            {
+                "name": "Tempo",
+                "value": "<:Tempo:642937823103680517> **60**s",
+                "inline": true
+            }
+        ],
+        "color": 16777215,
+        "type": "rich"
+    }
+]
+
+Count: 81
+Message ID: 1363916872751517748
+Title: mensagem de resposta certa com ranking
+Channel: 🧃│finn (1320916739546021969)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "Próxima imagem em 10 segundos!",
+            "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+        },
+        "thumbnail": {
+            "url": "https://cdn.discordapp.com/guilds/832034482684559430/users/400318261306195988/avatars/a540a4ba08a4eeb39e9f5190914e5eb8.png?size=1024",
+            "proxy_url": "https://images-ext-1.discordapp.net/external/zGxJhiq_P13FAla3JD7a9JmkZMzhNA2X4-nmM7k0vww/%3Fsize%3D1024/https/cdn.discordapp.com/guilds/832034482684559430/users/400318261306195988/avatars/a540a4ba08a4eeb39e9f5190914e5eb8.png",
+            "width": 338,
+            "height": 338,
+            "placeholder": "5GgOHwz1mbdeyohjd7eJiHiGewVoWHAJ",
+            "placeholder_version": 1,
+            "flags": 0
+        },
+        "author": {
+            "name": "finnbxy acertou: coruja cósmica",
+            "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+        },
+        "color": 16777215,
+        "type": "rich",
+        "description": "<:First:653407162390937601> **1**. <@400318261306195988>: **1** ponto (+1)",
+        "title": "<:Rank:653446802766299156> RANKING"
+    }
+]
+
+Count: 82
+Message ID: 1363917378026606792
+Title: mensagem de resposta errada com ranking
+Channel: 🧃│finn (1320916739546021969)
+Message Content: 
+Embed data: 
+[
+    {
+        "footer": {
+            "text": "Próxima imagem em 10 segundos!",
+            "icon_url": "http://ve7s.top/images/mix/carregando.gif",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/vMr-H38a4EHF8sFpWA2SZ6g4XPV1BObVsN-ttC_ddvc/http/ve7s.top/images/mix/carregando.gif"
+        },
+        "thumbnail": {
+            "url": "http://ve7s.top/images/mix/perdeu_vida.png",
+            "proxy_url": "https://images-ext-1.discordapp.net/external/lwtGzNDvqfpJMjql4-0TQPx7ObkDXTEJ4ZzX4TbXqQI/http/ve7s.top/images/mix/perdeu_vida.png",
+            "width": 512,
+            "height": 512,
+            "placeholder": "DPqGFQYof4Knd1iIhn+n+HeKNzeNe4BXWA==",
+            "placeholder_version": 1,
+            "flags": 0
+        },
+        "author": {
+            "name": "A resposta era: fazenda",
+            "icon_url": "https://cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png?size=1024",
+            "proxy_icon_url": "https://images-ext-1.discordapp.net/external/a-4Ycos7PyPfqFbV3zij7rAtkBFwwfiGBrGGixIlrV8/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/628120853154103316/dc22d8481c2aad23549d223adf64f08d.png"
+        },
+        "color": 16777215,
+        "type": "rich",
+        "description": "<:First:653407162390937601> **1**. <@400318261306195988>: **1** ponto",
+        "title": "<:Rank:653446802766299156> RANKING"
+    }
+]
+

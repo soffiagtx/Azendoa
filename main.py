@@ -1,195 +1,129 @@
-import random
+import os
 import discord
 from discord.ext import commands
-from discord import app_commands
-from dotenv import load_dotenv
+from PIL import Image, ImageOps
+import io
+from flask import Flask
+from threading import Thread
 import os
 
-load_dotenv()
+# Configuração do servidor web para manter o bot online
+app = Flask('')
 
-token = os.getenv("discord_token")
+@app.route('/')
+def home():
+    return "Bot está online!"
 
-prefixos = ["sailor ", "oi ", "Oi "]
-permissoes = discord.Intents.all()
-bot = commands.Bot(command_prefix=prefixos, intents=permissoes)
+def run():
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
-# Lista para acompanhar quais cogs foram carregados
-cogs_carregados = []
+def keep_alive():
+    t = Thread(target=run)
+    t.daemon = True  # Para que a thread se encerre quando o programa principal encerrar
+    t.start()
 
-async def carregar_cogs():
-    # Verificar se o diretório 'cogs' existe
-    if not os.path.exists('cogs'):
-        print("O diretório 'cogs' não existe. Verificando caminho absoluto...")
-        # Obter o diretório atual do script
-        dir_atual = os.path.dirname(os.path.abspath(__file__))
-        cogs_dir = os.path.join(dir_atual, 'cogs')
-        
-        if os.path.exists(cogs_dir):
-            print(f"Diretório 'cogs' encontrado em: {cogs_dir}")
-        else:
-            print(f"Diretório 'cogs' não encontrado em: {cogs_dir}")
-            return
-    
-    # Listar todos os arquivos no diretório cogs
+# Configuração do bot do Discord
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+# Função original de transformação de imagens, adaptada para trabalhar com arquivos em memória
+def transformar_imagem(img, tema):
     try:
-        arquivos = os.listdir('cogs')
-        print(f"Arquivos encontrados no diretório 'cogs': {arquivos}")
+        # Converter para RGBA
+        img = img.convert("RGBA")
         
-        for arquivo in arquivos:
-            if arquivo.endswith('.py'):
-                try:
-                    nome_cog = f"cogs.{arquivo[:-3]}"
-                    await bot.load_extension(nome_cog)
-                    cogs_carregados.append(nome_cog)
-                    print(f"Cog carregado com sucesso: {nome_cog}")
-                except Exception as e:
-                    print(f"Erro ao carregar o cog {arquivo}: {str(e)}")
+        # Determinar tipo de borda baseado no tema
+        if tema.startswith("Vet"):
+            tipo_borda = "branco"
+        else:
+            tipo_borda = "transparente"
+        
+        largura, altura = img.size
+        
+        # Transformar em quadrado se necessário
+        if largura != altura:
+            tamanho_maximo = max(largura, altura)
+            
+            delta_largura = tamanho_maximo - largura
+            delta_altura = tamanho_maximo - altura
+            
+            borda_esquerda = delta_largura // 2
+            borda_direita = delta_largura - borda_esquerda
+            borda_topo = delta_altura // 2
+            borda_baixo = delta_altura - borda_topo
+            
+            if tipo_borda == "branco":
+                cor_borda = (255, 255, 255, 255)  # Branco com alfa
+            else:
+                cor_borda = (0, 0, 0, 0)  # Transparente
+            
+            img = ImageOps.expand(img, border=(borda_esquerda, borda_topo, borda_direita, borda_baixo), fill=cor_borda)
+        
+        # Retorna a imagem processada
+        return img
+    
     except Exception as e:
-        print(f"Erro ao listar arquivos no diretório 'cogs': {str(e)}")
-
+        print(f"Erro ao processar imagem: {e}")
+        return None
 
 @bot.event
 async def on_ready():
-    print(f"Bot está online como {bot.user.name} ({bot.user.id})")
-    
-    # Tentar enviar mensagem para o canal
-    try:
-        canal = bot.get_channel(736438068206108742)
-        if canal:
-            await canal.send('Estou online e pronta para a ação!')
-        else:
-            print("Canal não encontrado. ID do canal: 736438068206108742")
-    except Exception as e:
-        print(f"Erro ao enviar mensagem: {str(e)}")
-    
-    # Carregar cogs
-    await carregar_cogs()
-    
-    # Sincronizar comandos
-    try:
-        print("Tentando sincronizar comandos...")
-        comandos = await bot.tree.sync()
-        print(f"Comandos sincronizados: {len(comandos)}")
-    except Exception as e:
-        print(f"Erro ao sincronizar comandos: {str(e)}")
-    
-    print("Inicialização completa!")
-
+    print(f'Bot está online como {bot.user.name}')
+    print('------')
 
 @bot.command()
-async def sincronizar(ctx: commands.Context):
-    if ctx.author.id == 400318261306195988:
-        try:
-            # Sincronização global
-            sincronizados_global = await bot.tree.sync()
-            
-            # Sincronização para servidor específico
-            servidor = discord.Object(id=982290881317072906)
-            sincronizados_servidor = await bot.tree.sync(guild=servidor)
-            
-            await ctx.reply(f"{len(sincronizados_global)} comandos sincronizados globalmente.\n{len(sincronizados_servidor)} comandos sincronizados para o servidor.")
-        except Exception as e:
-            await ctx.reply(f"Erro ao sincronizar comandos: {str(e)}")
-    else:
-        await ctx.reply('Apenas o desenvolvedor pode usar esse comando.')
-
+async def ajuda(ctx):
+    """Exibe os comandos disponíveis"""
+    await ctx.send("""
+**Comandos disponíveis:**
+`!ajuda` - Exibe esta mensagem de ajuda
+`!quadrificar [tema]` - Transforma uma imagem anexada em uma imagem quadrada (anexe uma imagem junto com o comando)
+    Temas disponíveis: Veterinária (bordas brancas), Outros (bordas transparentes)
+    """)
 
 @bot.command()
-async def listar_cogs(ctx: commands.Context):
-    """Lista todos os cogs carregados."""
-    if ctx.author.id == 400318261306195988:  # Verificar se é o desenvolvedor
-        if cogs_carregados:
-            await ctx.reply(f"Cogs carregados: {', '.join(cogs_carregados)}")
-        else:
-            await ctx.reply("Nenhum cog foi carregado.")
+async def quadrificar(ctx, tema="Outros"):
+    """Transforma uma imagem anexada em uma imagem quadrada"""
+    # Verificar se uma imagem foi anexada
+    if len(ctx.message.attachments) == 0:
+        await ctx.send("Por favor, anexe uma imagem junto com o comando.")
+        return
+    
+    # Obter a primeira imagem anexada
+    imagem_anexada = ctx.message.attachments[0]
+    
+    # Verificar se é realmente uma imagem
+    if not imagem_anexada.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        await ctx.send("O arquivo anexado não é uma imagem válida.")
+        return
+    
+    # Baixar a imagem
+    imagem_bytes = await imagem_anexada.read()
+    imagem_original = Image.open(io.BytesIO(imagem_bytes))
+    
+    # Transformar a imagem
+    await ctx.send(f"Processando imagem com tema '{tema}'...")
+    imagem_processada = transformar_imagem(imagem_original, tema)
+    
+    if imagem_processada:
+        # Salvar a imagem processada em um buffer
+        buffer = io.BytesIO()
+        imagem_processada.save(buffer, format='PNG')
+        buffer.seek(0)
+        
+        # Enviar a imagem processada
+        await ctx.send(f"Aqui está sua imagem quadrificada:", file=discord.File(buffer, filename=f"quadrificado_{imagem_anexada.filename.split('.')[0]}.png"))
     else:
-        await ctx.reply('Apenas o desenvolvedor pode usar esse comando.')
+        await ctx.send("Houve um erro ao processar a imagem.")
 
+# Iniciar o servidor web para manter o bot online
+keep_alive()
 
-# Removi a duplicação da função on_message
-
-@bot.event
-async def on_message(msg: discord.Message):
-    # Primeiro, processar comandos
-    await bot.process_commands(msg)
-    
-    # Depois, verificar outras condições
-    autor = msg.author
-    if autor.bot:
-        return
-    
-    # Verificar mensagem "estou online"
-    canal_id = 736438068206108742
-    try:
-        if msg.channel.id == canal_id and "estou online" in msg.content.lower() and autor.id == 1171547983842660420:
-            await msg.add_reaction('<:bey_vamotime:912464901384060958>')
-    except Exception as e:
-        print(f'Erro ao processar mensagem: {e}')
-
-
-# Outras funções de evento permanecem as mesmas
-@bot.event
-async def on_guild_channel_create(canal: discord.abc.GuildChannel):
-    try:
-        await canal.send(f"FIRST! <a:bey_tururu:1217510268737945650> {canal.id}")
-    except Exception as e:
-        print(f'Erro ao enviar mensagem em canal novo: {e}')
-
-
-@bot.event
-async def on_member_join(membro: discord.Member):
-    canal = bot.get_channel(1227642510520619010)
-    if not canal:
-        print(f"Canal de boas-vindas não encontrado (ID: 1227642510520619010)")
-        return
-    
-    try:
-        meu_embed = discord.Embed()
-        meu_embed.title = f"Boas vindas {membro.name}!"
-        meu_embed.description = f"# Aproveite sua estadia. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
-        if membro.avatar:
-            meu_embed.set_thumbnail(url=membro.avatar)
-        meu_embed.color = membro.colour
-        
-        # Verificar se o arquivo de imagem existe
-        imagem_path = 'imagens/4903eee17b037ecd0224c550a73ebd1e.gif'
-        if os.path.exists(imagem_path):
-            imagem_arquivo = discord.File(imagem_path, 'boasvindas.gif')
-            meu_embed.set_image(url='attachment://boasvindas.gif')
-            await canal.send(file=imagem_arquivo, embed=meu_embed)
-        else:
-            print(f"Arquivo de imagem não encontrado: {imagem_path}")
-            await canal.send(embed=meu_embed)
-    except Exception as e:
-        print(f'Erro ao enviar mensagem de boas-vindas: {e}')
-
-
-@bot.event
-async def on_member_remove(membro: discord.Member):
-    canal = bot.get_channel(798321996396101692)
-    if not canal:
-        print(f"Canal de saída não encontrado (ID: 798321996396101692)")
-        return
-    
-    try:
-        meu_embed = discord.Embed()
-        meu_embed.title = f"{membro.display_name} saiu do servidor!"
-        meu_embed.description = f"Que tristeza. (Servidor: {membro.guild.name} - ID: {membro.guild.id})"
-        if membro.avatar:
-            meu_embed.set_thumbnail(url=membro.avatar)
-        meu_embed.color = membro.colour
-        
-        # Verificar se o arquivo de imagem existe
-        imagem_path = 'imagens/4903eee17b037ecd0224c550a73ebd1e.gif'
-        if os.path.exists(imagem_path):
-            imagem_arquivo = discord.File(imagem_path, 'boasvindas.gif')
-            meu_embed.set_image(url='attachment://boasvindas.gif')
-            await canal.send(file=imagem_arquivo, embed=meu_embed)
-        else:
-            print(f"Arquivo de imagem não encontrado: {imagem_path}")
-            await canal.send(embed=meu_embed)
-    except Exception as e:
-        print(f'Erro ao enviar mensagem de saída: {e}')
-
-
-bot.run(token)
+# Iniciar o bot
+if __name__ == "__main__":
+    token = os.environ.get('discord_token')
+    if not token:
+        print("ERRO: Variável de ambiente discord_token não configurada!")
+    else:
+        bot.run(token)
