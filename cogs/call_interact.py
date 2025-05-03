@@ -27,7 +27,10 @@ class BichoInteract(commands.Cog):
             "erros": 0,
         }
         self.historical_results = {}
-        self.monitored_users = {}  # Inicializar monitored_users aqui
+        self.monitored_users = {}
+        self.add_animal_mode = False  # Adicionado para controlar o modo de adição de animais
+        self.add_historical_result_mode = False #Adicionado para controlar o modo de adicionar resultado
+        self.last_config_interaction = None  # Rastrear a interação da configuração
 
         try:
             self.load_data() #carrega os dados
@@ -93,7 +96,8 @@ class BichoInteract(commands.Cog):
                         user_id = int(user_id_str)
                         self.user_animals[user_id] = {
                             "animals": user_data.get('animals', []),
-                            "time": datetime.datetime.fromisoformat(user_data.get('time')) if user_data.get('time') else None
+                            "time": datetime.datetime.fromisoformat(user_data.get('time')) if user_data.get('time') else None,
+                            "last_message_time": user_data.get('last_message_time') # Carregar last_message_time
                         }
                     self.daily_result = data.get('daily_result')
                     self.stats = data.get('stats', self.stats)
@@ -151,7 +155,8 @@ class BichoInteract(commands.Cog):
         for user_id, user_data in self.user_animals.items():
           user_animals_data[user_id] = {
               "animals": user_data['animals'],
-              "time": user_data['time'].isoformat() if user_data['time'] else None
+              "time": user_data['time'].isoformat() if user_data['time'] else None,
+              "last_message_time": user_data.get('last_message_time') # Salvar last_message_time
           }
         data = {
             'animal_emojis': self.animal_emojis,
@@ -209,7 +214,8 @@ class BichoInteract(commands.Cog):
             return []  # Ou lance uma exceção
         self.user_animals[user_id] = {
             "animals": random.sample(self.all_animals, min(quantidade, len(self.all_animals))),
-            "time": now
+            "time": now,
+            "last_message_time": None # Inicializar last_message_time ao gerar novos animais
         }
         self.save_data()
         return self.user_animals[user_id]["animals"]
@@ -275,7 +281,7 @@ class BichoInteract(commands.Cog):
         else:
             self.stats['erros'] += 1
             return "Errou! O animal não estava entre os palpites do dia."
-    
+
     async def extract_animals_from_embed(self, embed):
         """Extrai os animais apostados do embed do bot."""
         animals = []
@@ -300,25 +306,73 @@ class BichoInteract(commands.Cog):
         for animal in animals:
             animal_text += f"{self.animal_emojis.get(animal, '')} {animal}\n"
         embed.add_field(name="Animais", value=animal_text)
+
+        # Adicionar o horário da última mensagem no rodapé, se disponível
+        user_data = self.user_animals.get(int(user_id))
+        if user_data and user_data.get("last_message_time"):
+            # Converte para datetime object se for string
+            last_message_time = user_data["last_message_time"]
+            if isinstance(last_message_time, str):
+                last_message_time = datetime.datetime.fromisoformat(last_message_time)
+
+            # Converte para o timezone de Brasília
+            brasilia_tz = pytz.timezone('America/Sao_Paulo')
+            last_message_time_brasilia = last_message_time.astimezone(brasilia_tz)
+
+            # Formata a data e hora
+            formatted_time = last_message_time_brasilia.strftime("%d/%m/%Y %H:%M:%S")  # Formato desejado
+            embed.set_footer(text=f"Última atualização: {formatted_time} (GMT-3)")
+        else:
+            embed.set_footer(text="Última atualização: Não encontrada")
+
         return embed
 
-    @app_commands.command(name="palpite", description="Mostra o palpite do usuário monitorado.")
+    @app_commands.command(name="palpites", description="Mostra o palpite do usuário monitorado.")
     async def palpite(self, interaction: discord.Interaction, usuario: str):
         await interaction.response.defer()
 
-        try:
-            user_id = int(usuario)
-            user = self.bot.get_user(user_id)
-            if user is None:
-                user = discord.utils.find(lambda m: m.name.lower() == usuario.lower(), self.bot.users)
-        except ValueError:
-            user = discord.utils.find(lambda m: m.name.lower() == usuario.lower(), self.bot.users)
+        usuario = usuario.strip().lower() #Normaliza a entrada
 
+        guild = interaction.guild  # Obtém o servidor da interação
+
+        user = None #Inicializa a variável user
+
+        if guild: #Verifica se a interação ocorreu em um servidor
+            try:
+                user_id = int(usuario)
+                try:
+                    member = await guild.fetch_member(user_id) #Tenta obter o membro pelo ID
+                    user = member
+                except discord.NotFound: #Se o membro não foi encontrado pelo ID, tenta buscar pelo nome
+                    try:
+                      members = [member async for member in guild.fetch_members(limit=None)] #Obtém todos os membros do servidor (para versões antigas do discord.py)
+                      user = discord.utils.find(lambda m: m.name.lower() == usuario, members) #Procura pelo nome
+                    except discord.HTTPException as e:
+                      print(f"Erro ao buscar membros: {e}")
+                      user = None
+                except discord.HTTPException as e:
+                    print(f"Erro ao buscar membro: {e}")
+                    user = None
+            except ValueError: #Se o input não for um ID, tenta procurar pelo nome
+                try:
+                    members = [member async for member in guild.fetch_members(limit=None)] #Obtém todos os membros do servidor (para versões antigas do discord.py)
+                    user = discord.utils.find(lambda m: m.name.lower() == usuario, members)
+                except discord.HTTPException as e:
+                    print(f"Erro ao buscar membros: {e}")
+                    user = None
+            else:
+                user = discord.utils.find(lambda m: m.name.lower() == usuario, self.bot.users) #Se não estiver em um servidor, usa o self.bot.users
+        
         if user is None:
+           await interaction.followup.send("Usuário não encontrado.", ephemeral=True)
+           return
+
+        if isinstance(user, (discord.Member, discord.User)):
+            user_id = str(user.id)
+        else:
             await interaction.followup.send("Usuário não encontrado.", ephemeral=True)
             return
-        
-        user_id = str(user.id) # Garante que user_id é uma string
+
         print(f"Comando /palpite executado para o usuário: {user.name} (ID: {user_id})")
 
         if user_id in self.monitored_users:
@@ -345,8 +399,87 @@ class BichoInteract(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        
-        #Iterando sobre os usuários monitorados para verificar se a mensagem é referente a algum deles.
+
+        # Adicionar animais
+        if self.add_animal_mode and message.author.id in self.config_ids:
+            try:
+                lines = message.content.splitlines()
+                for line in lines:
+                    parts = line.split(" ", 1)  # Dividir em apenas duas partes
+                    if len(parts) == 2:
+                        emoji, animal_name = parts[0].strip(), parts[1].strip()
+                        self.animal_emojis[animal_name] = emoji
+                        if animal_name not in self.all_animals:
+                            self.all_animals.append(animal_name)
+                self.add_animal_mode = False
+                self.daily_animals = random.sample(self.all_animals, min(16, len(self.all_animals)))
+                self.save_data()
+
+                # Atualizar a mensagem original do painel de configuração
+                if self.last_config_interaction:
+                    animal_list_str = "\n".join([f"{self.animal_emojis.get(animal, '')} {animal}" for animal in self.all_animals])
+                    embed = discord.Embed(
+                        title="Configuração de Animais",
+                        description=f"Animais atuais:\n{animal_list_str}",
+                        color=discord.Color.green(),
+                    )
+                    await self.last_config_interaction.edit_original_response(embed=embed)
+
+                await message.channel.send("Animais adicionados com sucesso!", delete_after=5)
+            except Exception as e:
+                await message.channel.send(f"Erro ao adicionar animais: {e}", delete_after=5)
+            finally:
+                try:
+                    await message.delete()
+                except discord.NotFound:
+                    pass  # A mensagem já foi apagada
+                except discord.Forbidden:
+                    await message.channel.send("Não tenho permissão para apagar mensagens.", delete_after=5)
+                self.add_animal_mode = False
+                return
+
+        if self.add_historical_result_mode and message.author.id in self.config_ids:
+            try:
+                parts = message.content.split(" ")
+                if len(parts) == 3:
+                    date_str, animal, position = parts[0], parts[1], parts[2].lower()
+                    try:
+                        datetime.datetime.strptime(date_str, '%Y-%m-%d')
+                    except ValueError:
+                        await message.channel.send("Formato de data inválido. Use YYYY-MM-DD.", delete_after=5)
+                        return
+
+                    if animal not in self.all_animals:
+                        await message.channel.send("Animal não encontrado na lista de animais.", delete_after=5)
+                        return
+
+                    if position not in ["principal", "secundario"]:
+                        await message.channel.send("A posição deve ser 'principal' ou 'secundario'.", delete_after=5)
+                        return
+
+                    result_message = self.check_result(animal)
+                    self.historical_results[date_str] = {
+                        "result": animal,
+                        "position": position,
+                        "message": result_message
+                    }
+                    self.save_data()
+                    await message.channel.send(f"Resultado histórico para {date_str} definido como {animal} ({position}).", delete_after=5)
+                else:
+                    await message.channel.send("Formato inválido. Use `YYYY-MM-DD Animal principal/secundario`.", delete_after=5)
+            except Exception as e:
+                await message.channel.send(f"Erro ao adicionar resultado histórico: {e}", delete_after=5)
+            finally:
+                try:
+                    await message.delete()
+                except discord.NotFound:
+                    pass  # A mensagem já foi apagada
+                except discord.Forbidden:
+                    await message.channel.send("Não tenho permissão para apagar mensagens.", delete_after=5)
+                self.add_historical_result_mode = False
+                return
+
+        # Lógica para usuários monitorados
         for user_id in self.monitored_users:
             user = self.bot.get_user(int(user_id))
 
@@ -360,7 +493,9 @@ class BichoInteract(commands.Cog):
                     embed = reply.embeds[0]
                     animals = await self.extract_animals_from_embed(embed)
 
+                    # Atualizar as informações do usuário
                     self.monitored_users[user_id]["animals"] = animals
+                    self.user_animals.setdefault(int(user_id), {})["last_message_time"] = message.created_at.isoformat()  # Salvar o horário da mensagem
                     self.save_data()
                     print(f"Animais atualizados para o usuário monitorado {user.name}: {animals}")
 
@@ -393,6 +528,25 @@ class BichoInteract(commands.Cog):
         for animal in animals:
             animal_text += f"{self.animal_emojis.get(animal, '')} {animal}\n"
         embed.add_field(name="Animais", value=animal_text)
+
+        # Adicionar o horário da última mensagem no rodapé, se disponível
+        user_data = self.user_animals.get(int(user_id))
+        if user_data and user_data.get("last_message_time"):
+            # Converte para datetime object se for string
+            last_message_time = user_data["last_message_time"]
+            if isinstance(last_message_time, str):
+                last_message_time = datetime.datetime.fromisoformat(last_message_time)
+
+            # Converte para o timezone de Brasília
+            brasilia_tz = pytz.timezone('America/Sao_Paulo')
+            last_message_time_brasilia = last_message_time.astimezone(brasilia_tz)
+
+            # Formata a data e hora
+            formatted_time = last_message_time_brasilia.strftime("%d/%m/%Y %H:%M:%S")  # Formato desejado
+            embed.set_footer(text=f"Última atualização: {formatted_time} (GMT-3)")
+        else:
+            embed.set_footer(text="Última atualização: Não encontrada")
+
         return embed
 
     class CallView(discord.ui.View):
@@ -532,6 +686,7 @@ class BichoInteract(commands.Cog):
                     description=f"Animais atuais:\n{animal_list_str}",
                     color=discord.Color.green(),
                 )
+                self.cog.last_config_interaction = interaction  # Salvar a interação
                 await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
             else:
                 await interaction.response.send_message("Você não tem permissão para configurar os animais.", ephemeral=True)
@@ -556,6 +711,16 @@ class BichoInteract(commands.Cog):
               self.cog.daily_animals = []
               self.cog.save_data()
               await self.cog.load_data()
+
+              # Atualizar a mensagem original do painel de configuração
+              animal_list_str = "\n".join([f"{self.cog.animal_emojis.get(animal, '')} {animal}" for animal in self.cog.all_animals])
+              embed = discord.Embed(
+                  title="Configuração de Animais",
+                  description=f"Animais atuais:\n{animal_list_str}",
+                  color=discord.Color.green(),
+              )
+              await interaction.response.edit_message(embed=embed, view=self)
+
               await interaction.response.send_message("Todos os animais foram limpos.", ephemeral=True)
           else:
             await interaction.response.send_message("Você não tem permissão para limpar os animais.", ephemeral=True)
@@ -565,16 +730,17 @@ class BichoInteract(commands.Cog):
         if interaction.user.id in self.cog.config_ids:
             await interaction.response.send_message("Envie os animais no formato `<emoji> <Nome do animal>` (um por linha)", ephemeral=True)
             self.cog.add_animal_mode = True
+            self.cog.last_config_interaction = interaction  # Salvar a interação
         else:
             await interaction.response.send_message("Você não tem permissão para adicionar animais.", ephemeral=True)
     
       @discord.ui.button(label="Definir Resultado", style=discord.ButtonStyle.blurple, custom_id="set_result", row=0)
       async def set_result_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if interaction.user.id in self.cog.config_ids:
-             await interaction.response.send_message("Envie a data (YYYY-MM-DD), o animal e a posição (principal ou secundario), (ex: `2024-12-20 Lobo principal`)", ephemeral=True)
-             self.cog.add_historical_result_mode = True
-        else:
-          await interaction.response.send_message("Você não tem permissão para adicionar um resultado.", ephemeral=True)
+          if interaction.user.id in self.cog.config_ids:
+            await interaction.response.send_message("Envie a data (YYYY-MM-DD), o animal e a posição (principal ou secundario), (ex: `2024-12-20 Lobo principal`)", ephemeral=True)
+            self.cog.add_historical_result_mode = True
+          else:
+              await interaction.response.send_message("Você não tem permissão para adicionar um resultado.", ephemeral=True)
 
     @app_commands.command(name="call", description="Interage com os animais.")
     async def call(self, interaction: discord.Interaction):
