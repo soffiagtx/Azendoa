@@ -321,13 +321,13 @@ class BichoInteract(commands.Cog):
 
             # Formata a data e hora
             formatted_time = last_message_time_brasilia.strftime("%d/%m/%Y %H:%M:%S")  # Formato desejado
-            embed.set_footer(text=f"Última atualização: {formatted_time} (GMT-3)")
+            embed.set_footer(text=f"Atualizado em: {formatted_time} (GMT-3)")
         else:
-            embed.set_footer(text="Última atualização: Não encontrada")
+            embed.set_footer(text="Não foi encontrada atualização")
 
         return embed
 
-    @app_commands.command(name="palpites", description="Mostra o palpite do usuário monitorado.")
+    @app_commands.command(name="palpite", description="Mostra o palpite do usuário monitorado.")
     async def palpite(self, interaction: discord.Interaction, usuario: str):
         await interaction.response.defer()
 
