@@ -3,6 +3,10 @@ from discord.ext import commands
 import random
 import os
 import time
+import re
+import asyncio
+import aiohttp
+# Removed incomplete import statement
 
 class Emoji(commands.Cog):
     def __init__(self, bot):
@@ -11,7 +15,7 @@ class Emoji(commands.Cog):
         super().__init__()
 
     @commands.command()
-    async def emojis(self, ctx: commands.Context):
+    async def emo(self, ctx: commands.Context):
         usuario_inicial = ctx.author
         embedo = discord.Embed(title='<a:star:1054840680402403458> Emojis',
                               description='Navegue por emojis entre vários servidores.')
@@ -128,6 +132,72 @@ class Emoji(commands.Cog):
 
         await ctx.send(embed=embedo, view=aparência)
 
+    @commands.command()
+    @commands.has_permissions(manage_emojis=True)
+    async def addemoji(self, ctx: commands.Context):
+        """Adiciona emojis ao servidor a partir de uma mensagem formatada."""
+
+        await ctx.send("Por favor, envie uma mensagem no seguinte formato:\n`<emoji> <nome do emoji>`\nVocê pode adicionar vários emojis em linhas diferentes.")
+
+        def check(m):
+            return m.author == ctx.author and m.channel == ctx.channel
+
+        try:
+            msg = await self.bot.wait_for('message', check=check, timeout=60.0)
+        except asyncio.TimeoutError:
+            return await ctx.send("Tempo limite excedido.")
+
+        lines = msg.content.splitlines()
+        results = []
+        failed = []
+        final_message = ""
+
+        for line in lines:
+            try:
+                emoji_str, emoji_name = line.split(maxsplit=1)
+                emoji_name = self.format_emoji_name(emoji_name)
+
+                try:
+                    emoji_id = int(re.search(r':(\d+)>', emoji_str).group(1))
+                    emoji_url = f"https://cdn.discordapp.com/emojis/{emoji_id}.{'gif' if emoji_str.startswith('<a:') else 'png'}"
+                except AttributeError:  # Not a custom emoji
+                    failed.append(f"Não foi possível identificar o emoji: {emoji_str}")
+                    continue
+
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(emoji_url) as resp:
+                        if resp.status != 200:
+                            failed.append(f"Não foi possível baixar a imagem do emoji: {emoji_str}")
+                            continue
+                        image = await resp.read()
+
+                try:
+                    emoji = await ctx.guild.create_custom_emoji(name=emoji_name, image=image)
+                    results.append(f"{emoji} {emoji_name}")
+                except discord.errors.HTTPException as e:
+                    failed.append(f"Falha ao adicionar o emoji {emoji_str} como {emoji_name}: {e}")
+
+            except ValueError:
+                failed.append(f"Formato incorreto na linha: {line}")
+            except Exception as e:
+                failed.append(f"Ocorreu um erro ao processar a linha: {line} - {e}")
+
+        if results:
+            final_message += "Emojis adicionados:\n" + "\n".join(results) + "\n"
+
+        if failed:
+            final_message += "\nFalhas:\n" + "\n".join(failed)
+
+        if final_message:
+            await ctx.send(final_message)
+        else:
+            await ctx.send("Nenhum emoji foi adicionado ou encontrado problemas.")
+
+    def format_emoji_name(self, name):
+        """Formata o nome do emoji removendo caracteres inválidos."""
+        name = re.sub(r'[^a-zA-Z0-9]', '', name)
+        return name[:32]  # Discord limita o nome a 32 caracteres
+
 class IdServidorModal(discord.ui.Modal):
     def __init__(self):
         super().__init__(title='Servidor de Emojis')
@@ -226,4 +296,5 @@ class IdServidorModal(discord.ui.Modal):
 
 
 async def setup(bot):
+    import asyncio
     await bot.add_cog(Emoji(bot))
