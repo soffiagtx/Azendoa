@@ -21,10 +21,11 @@ def keep_alive():
     t.daemon = True  # Para que a thread se encerre quando o programa principal encerrar
     t.start()
 
-# Configuração do bot do Discord
 intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+intents.members = True  # Permite acessar informações sobre membros do servidor
+intents.message_content = True # Se precisar do conteúdo das mensagens
+prefixos = [".", ". ", "oi ", "Oi "]
+bot = commands.Bot(command_prefix=prefixos, intents=intents)
 
 # Função original de transformação de imagens, adaptada para trabalhar com arquivos em memória
 def transformar_imagem(img, tema):
