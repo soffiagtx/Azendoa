@@ -5,7 +5,6 @@ from PIL import Image, ImageOps
 import io
 from flask import Flask
 from threading import Thread
-import os
 
 # Configuração do servidor web para manter o bot online
 app = Flask('')
@@ -67,10 +66,26 @@ def transformar_imagem(img, tema):
         print(f"Erro ao processar imagem: {e}")
         return None
 
+async def load_extensions():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            try:
+                await bot.load_extension(f'cogs.{filename[:-3]}')
+                print(f'Cog {filename} carregado com sucesso!')
+            except Exception as e:
+                print(f'Erro ao carregar o cog {filename}: {e}')
+
 @bot.event
 async def on_ready():
     print(f'Bot está online como {bot.user.name}')
     print('------')
+
+    await load_extensions() #carrega as extensões
+    try:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} command(s)")
+    except Exception as e:
+        print(e)
 
 @bot.command()
 async def ajuda(ctx):
