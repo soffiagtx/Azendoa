@@ -1,7 +1,7 @@
 import os
 import discord
 from discord.ext import commands
-import asyncio  # Importe asyncio
+import asyncio
 from PIL import Image, ImageOps
 import io
 from flask import Flask
@@ -19,7 +19,7 @@ def run():
 
 def keep_alive():
     t = Thread(target=run)
-    t.daemon = True  # Para que a thread se encerre quando o programa principal encerrar
+    t.daemon = True
     t.start()
 
 intents = discord.Intents.default()
@@ -28,46 +28,34 @@ intents.message_content = True
 prefixos = [".", ". ", "oi ", "Oi "]
 bot = commands.Bot(command_prefix=prefixos, intents=intents)
 
-# ID do servidor e canal onde a mensagem será enviada (substitua pelos IDs reais)
-SERVIDOR_ID = 541806279232978978  # Substitua pelo ID do seu servidor
-CANAL_ID = 736438068206108742  # Substitua pelo ID do canal
+SERVIDOR_ID = 541806279232978978
+CANAL_ID = 736438068206108742
 
-# Função original de transformação de imagens, adaptada para trabalhar com arquivos em memória
 def transformar_imagem(img, tema):
     try:
-        # Converter para RGBA
         img = img.convert("RGBA")
-        
-        # Determinar tipo de borda baseado no tema
         if tema.startswith("Vet"):
             tipo_borda = "branco"
         else:
             tipo_borda = "transparente"
-        
+
         largura, altura = img.size
-        
-        # Transformar em quadrado se necessário
         if largura != altura:
             tamanho_maximo = max(largura, altura)
-            
             delta_largura = tamanho_maximo - largura
             delta_altura = tamanho_maximo - altura
-            
             borda_esquerda = delta_largura // 2
             borda_direita = delta_largura - borda_esquerda
             borda_topo = delta_altura // 2
             borda_baixo = delta_altura - borda_topo
-            
+
             if tipo_borda == "branco":
-                cor_borda = (255, 255, 255, 255)  # Branco com alfa
+                cor_borda = (255, 255, 255, 255)
             else:
-                cor_borda = (0, 0, 0, 0)  # Transparente
-            
+                cor_borda = (0, 0, 0, 0)
+
             img = ImageOps.expand(img, border=(borda_esquerda, borda_topo, borda_direita, borda_baixo), fill=cor_borda)
-        
-        # Retorna a imagem processada
         return img
-    
     except Exception as e:
         print(f"Erro ao processar imagem: {e}")
         return None
@@ -82,40 +70,62 @@ async def load_extensions():
                 print(f'Erro ao carregar o cog {filename}: {e}')
 
 async def enviar_mensagem_periodica():
-    """Envia uma mensagem periodicamente para manter o bot ativo."""
-    guild = bot.get_guild(SERVIDOR_ID)  # Obtém o servidor pelo ID
-    if guild:
-        canal = guild.get_channel(CANAL_ID)  # Obtém o canal pelo ID
-        if canal:
-            while True:
-                try:
-                    await canal.send("Estou online!")  # Envia a mensagem
-                    await asyncio.sleep(30)  # Espera 30 segundos
-                except Exception as e:
-                    print(f"Erro ao enviar mensagem periódica: {e}")
-                    await asyncio.sleep(60)  # Espera 1 minuto para tentar novamente
-        else:
-            print(f"Canal com ID {CANAL_ID} não encontrado no servidor.")
-    else:
+    """Envia uma mensagem periodicamente com retry."""
+    guild = bot.get_guild(SERVIDOR_ID)
+    if not guild:
         print(f"Servidor com ID {SERVIDOR_ID} não encontrado.")
+        return
+
+    channel = guild.get_channel(CANAL_ID)
+    if not channel:
+        print(f"Canal com ID {CANAL_ID} não encontrado no servidor.")
+        return
+
+    max_retries = 5  # Número máximo de tentativas
+    retry_delay = 1  # Tempo inicial de espera (segundos)
+
+    while True:
+        for attempt in range(max_retries):
+            try:
+                await channel.send("Estou online!")
+                print("Mensagem 'Estou online!' enviada com sucesso.")
+                break  # Sai do loop de tentativas se a mensagem for enviada
+            except discord.errors.HTTPException as e:
+                print(f"Erro ao enviar mensagem (HTTPException - tentativa {attempt + 1}/{max_retries}): {e}")
+            except discord.errors.ConnectionClosed as e:
+                print(f"Conexão fechada (tentativa {attempt + 1}/{max_retries}): {e}")
+                # Possível lógica para reconectar o bot aqui, se necessário
+            except asyncio.TimeoutError as e:
+                print(f"Timeout ao enviar mensagem (tentativa {attempt + 1}/{max_retries}): {e}")
+            except Exception as e:
+                print(f"Erro inesperado ao enviar mensagem (tentativa {attempt + 1}/{max_retries}): {e}")
+
+            if attempt < max_retries - 1:
+                await asyncio.sleep(retry_delay)
+                retry_delay *= 2  # Backoff exponencial
+            else:
+                print("Número máximo de tentativas atingido. Falha ao enviar a mensagem.")
+                # Opcional: Enviar uma mensagem de alerta para você mesmo ou registrar o erro
+                # await bot.get_user(SEU_ID).send("Alerta: Falha ao enviar mensagem periódica.")
+
+        await asyncio.sleep(30)  # Intervalo entre envios (30 segundos)
 
 @bot.event
 async def on_ready():
     print(f'Bot está online como {bot.user.name}')
     print('------')
 
-    await load_extensions()  # carrega as extensões
+    await load_extensions()
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} command(s)")
     except Exception as e:
         print(e)
-    
-    bot.loop.create_task(enviar_mensagem_periodica())  # Inicia a tarefa
+
+    bot.loop.create_task(enviar_mensagem_periodica())
 
 @bot.command()
 async def ajuda(ctx):
-    """Exibe os comandos disponíveis"""
     await ctx.send("""
 **Comandos disponíveis:**
 `!ajuda` - Exibe esta mensagem de ajuda
@@ -125,43 +135,32 @@ async def ajuda(ctx):
 
 @bot.command()
 async def quadrificar(ctx, tema="Outros"):
-    """Transforma uma imagem anexada em uma imagem quadrada"""
-    # Verificar se uma imagem foi anexada
     if len(ctx.message.attachments) == 0:
         await ctx.send("Por favor, anexe uma imagem junto com o comando.")
         return
-    
-    # Obter a primeira imagem anexada
+
     imagem_anexada = ctx.message.attachments[0]
-    
-    # Verificar se é realmente uma imagem
     if not imagem_anexada.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
         await ctx.send("O arquivo anexado não é uma imagem válida.")
         return
-    
-    # Baixar a imagem
+
     imagem_bytes = await imagem_anexada.read()
     imagem_original = Image.open(io.BytesIO(imagem_bytes))
-    
-    # Transformar a imagem
+
     await ctx.send(f"Processando imagem com tema '{tema}'...")
     imagem_processada = transformar_imagem(imagem_original, tema)
-    
+
     if imagem_processada:
-        # Salvar a imagem processada em um buffer
         buffer = io.BytesIO()
         imagem_processada.save(buffer, format='PNG')
         buffer.seek(0)
-        
-        # Enviar a imagem processada
+
         await ctx.send(f"Aqui está sua imagem quadrificada:", file=discord.File(buffer, filename=f"quadrificado_{imagem_anexada.filename.split('.')[0]}.png"))
     else:
         await ctx.send("Houve um erro ao processar a imagem.")
 
-# Iniciar o servidor web para manter o bot online
 keep_alive()
 
-# Iniciar o bot
 if __name__ == "__main__":
     token = os.environ.get('discord_token')
     if not token:
