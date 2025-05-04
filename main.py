@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+import asyncio  # Importe asyncio
 from PIL import Image, ImageOps
 import io
 from flask import Flask
@@ -22,10 +23,14 @@ def keep_alive():
     t.start()
 
 intents = discord.Intents.default()
-intents.members = True  # Permite acessar informações sobre membros do servidor
-intents.message_content = True # Se precisar do conteúdo das mensagens
+intents.members = True
+intents.message_content = True
 prefixos = [".", ". ", "oi ", "Oi "]
 bot = commands.Bot(command_prefix=prefixos, intents=intents)
+
+# ID do servidor e canal onde a mensagem será enviada (substitua pelos IDs reais)
+SERVIDOR_ID = 541806279232978978  # Substitua pelo ID do seu servidor
+CANAL_ID = 736438068206108742  # Substitua pelo ID do canal
 
 # Função original de transformação de imagens, adaptada para trabalhar com arquivos em memória
 def transformar_imagem(img, tema):
@@ -76,17 +81,37 @@ async def load_extensions():
             except Exception as e:
                 print(f'Erro ao carregar o cog {filename}: {e}')
 
+async def enviar_mensagem_periodica():
+    """Envia uma mensagem periodicamente para manter o bot ativo."""
+    guild = bot.get_guild(SERVIDOR_ID)  # Obtém o servidor pelo ID
+    if guild:
+        canal = guild.get_channel(CANAL_ID)  # Obtém o canal pelo ID
+        if canal:
+            while True:
+                try:
+                    await canal.send("Estou online!")  # Envia a mensagem
+                    await asyncio.sleep(30)  # Espera 30 segundos
+                except Exception as e:
+                    print(f"Erro ao enviar mensagem periódica: {e}")
+                    await asyncio.sleep(60)  # Espera 1 minuto para tentar novamente
+        else:
+            print(f"Canal com ID {CANAL_ID} não encontrado no servidor.")
+    else:
+        print(f"Servidor com ID {SERVIDOR_ID} não encontrado.")
+
 @bot.event
 async def on_ready():
     print(f'Bot está online como {bot.user.name}')
     print('------')
 
-    await load_extensions() #carrega as extensões
+    await load_extensions()  # carrega as extensões
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} command(s)")
     except Exception as e:
         print(e)
+    
+    bot.loop.create_task(enviar_mensagem_periodica())  # Inicia a tarefa
 
 @bot.command()
 async def ajuda(ctx):
